@@ -1,18 +1,12 @@
 import mongoose from "mongoose"
 
 export interface Responses extends mongoose.Document {
-    index: number;
     password: string;
     order: object[];
     response: object[];
 }
 
 const ResponseSchema = new mongoose.Schema<Responses> ({
-    index: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     password: {
         type: String
     },

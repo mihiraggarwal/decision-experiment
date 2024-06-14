@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 
 export interface Questions extends mongoose.Document {
-    index: number;
     cp: number;
     part: number;
     subpart: number;
@@ -10,11 +9,6 @@ export interface Questions extends mongoose.Document {
 }
 
 const QuestionSchema = new mongoose.Schema<Questions> ({
-    index: {
-        type: Number,
-        required: true,
-        unique: true,
-    },
     cp: {
         type: Number,
         required: true,

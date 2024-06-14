@@ -1,7 +1,6 @@
 import mongoose from "mongoose"
 
 export interface Users extends mongoose.Document {
-    index: number;
     name: string;
     password: string;
     upi: string;
@@ -9,10 +8,6 @@ export interface Users extends mongoose.Document {
 }
 
 const UserSchema = new mongoose.Schema<Users> ({
-    index: {
-        type: Number,
-        required: true,
-    },
     name: {
         type: String,
     },
