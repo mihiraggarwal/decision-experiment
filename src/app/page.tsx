@@ -1,6 +1,9 @@
 import Image from "next/image";
+import dbConnect from "./_config/db";
 
-export default function Home() {
+export default async function Home() {
+  await dbConnect()
+  
   return (
     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
       <h1 className="text-3xl">Consent Form</h1>
