@@ -13,9 +13,9 @@ export default function Home() {
 
         <p>By entering my UPI ID below and clicking Submit, I consent to lorem ipsum</p>
       </div>
-      <input type="text" placeholder="UPI ID" className="text-white p-2 bg-gray-800 rounded-md w-80"></input>
+      <input type="text" placeholder="UPI ID" className="text-black p-2 bg-gray-200 rounded-md w-80"></input>
       <button>
-        <div className="border border-white rounded-md py-2 px-5">Submit</div>
+        <div className="border border-black rounded-md py-2 px-5">Submit</div>
       </button>
     </main>
   );

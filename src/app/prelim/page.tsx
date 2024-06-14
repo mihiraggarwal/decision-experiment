@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import Input from "../_components/input"
 
-const choice = 1;
+const choice = 0;
 
 const instructions = () => {
     return (
@@ -16,7 +16,7 @@ const instructions = () => {
                 <Image 
                     src="/vercel.svg"
                     alt="Vercel logo"
-                    className="dark:invert"
+                    className=""
                     width={150}
                     height={24}
                 />
@@ -24,7 +24,7 @@ const instructions = () => {
                 <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
             </div>
             <button>
-                <div className="border border-white rounded-md py-2 px-5">Understood</div>
+                <div className="border border-black rounded-md py-2 px-5">Understood</div>
             </button>
         </main>
     )
@@ -43,7 +43,7 @@ const questionnaire = () => {
                 <Input placeholder="Name" />
             </div>
             <button>
-                <div className="border border-white rounded-md py-2 px-5">Submit</div>
+                <div className="border border-black rounded-md py-2 px-5">Submit</div>
             </button>
         </main>
     )
