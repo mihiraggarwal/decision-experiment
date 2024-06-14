@@ -1,5 +1,9 @@
 import Image from "next/image";
 
+import Input from "../_components/input"
+
+const choice = 1;
+
 const instructions = () => {
     return (
         <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
@@ -26,6 +30,26 @@ const instructions = () => {
     )
 }
 
+const questionnaire = () => {
+    return (
+        <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
+            <h1 className="text-3xl">Preliminary Questionnaire</h1>
+            <div className="flex flex-col gap-5 items-center">
+                <Input placeholder="Name" />
+                <Input placeholder="Name" />
+                <Input placeholder="Name" />
+                <Input placeholder="Name" />
+                <Input placeholder="Name" />
+                <Input placeholder="Name" />
+            </div>
+            <button>
+                <div className="border border-white rounded-md py-2 px-5">Submit</div>
+            </button>
+        </main>
+    )
+}
+
 export default function Prelim() {
-    return instructions()
+    if (choice == 0) return instructions()
+    else if (choice == 1) return questionnaire()
 }
