@@ -13,7 +13,10 @@ export default function Home() {
 
         <p>By entering my UPI ID below and clicking Submit, I consent to lorem ipsum</p>
       </div>
-      <input type="text" placeholder="UPI ID" className="text-black p-2 bg-gray-200 rounded-md w-80"></input>
+      <div className="flex flex-col gap-2">
+        <input type="text" placeholder="One time password" className="text-black p-2 bg-gray-200 rounded-md w-80"></input>
+        <input type="text" placeholder="UPI ID" className="text-black p-2 bg-gray-200 rounded-md w-80"></input>
+      </div>
       <button>
         <div className="border border-black rounded-md py-2 px-5">Submit</div>
       </button>
