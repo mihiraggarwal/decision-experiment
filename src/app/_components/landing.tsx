@@ -20,7 +20,9 @@ const authorize = async (event: FormEvent<HTMLFormElement>) => {
   
     if (res.ok) {
         toast.success("Authenticated")
-        navigate("/prelim")
+        setTimeout(() => {
+          navigate('/prelim');
+        }, 2000); 
     } else {
       const error = await res.json()
       toast.error(error.error)
