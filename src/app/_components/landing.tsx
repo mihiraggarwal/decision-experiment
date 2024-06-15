@@ -2,6 +2,7 @@
 
 import { FormEvent } from "react"
 import toast, { Toaster } from "react-hot-toast"
+import navigate from "../_actions/navigate"
 
 const authorize = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -19,6 +20,7 @@ const authorize = async (event: FormEvent<HTMLFormElement>) => {
   
     if (res.ok) {
         toast.success("Authenticated")
+        navigate("/prelim")
     } else {
       const error = await res.json()
       toast.error(error.error)
