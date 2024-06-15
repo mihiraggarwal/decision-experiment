@@ -4,29 +4,42 @@ import { FormEvent } from "react"
 import toast, { Toaster } from "react-hot-toast"
 import navigate from "../_actions/navigate"
 
+import { signIn } from "next-auth/react"
+
 const authorize = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    const formData = new FormData(event.currentTarget);
-  
-    const rawData = {
+  event.preventDefault()
+  const formData = new FormData(event.currentTarget);
+
+  const rawBody = {
+    upi: formData.get("upi"),
+    otp: formData.get("otp")
+  }
+
+  const verify = await fetch("/api/auth/verify", {
+    method: "POST",
+    body: JSON.stringify(rawBody)
+  })
+
+  if (!verify.ok) {
+    const error = await verify.json()
+    toast.error(error.error)
+  }
+  else {
+    const res = await signIn("credentials", {
+      redirect: false,
       otp: formData.get("otp"),
       upi: formData.get("upi")
-    }
-
-    const res = await fetch("/api/auth", {
-      method: "POST",
-      body: JSON.stringify(rawData)
-    });
+    })
   
-    if (res.ok) {
-        toast.success("Authenticated")
-        setTimeout(() => {
-          navigate('/prelim');
-        }, 2000); 
+    if (res!.ok) {
+      toast.success("Authenticated")
+      setTimeout(() => {
+        navigate('/prelim');
+      }, 2000); 
     } else {
-      const error = await res.json()
-      toast.error(error.error)
+      toast.error("Something went wrong")
     }
+  }
 }
 
 export default function Landing() {
