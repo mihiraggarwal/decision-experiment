@@ -1,10 +1,14 @@
+"use client";
 import Image from "next/image";
 
 import Input from "../_components/input"
+import { useState } from "react";
 
-const choice = 0;
+const proceed = (setChoice: Function) => {
+    setChoice((n: number) => n+1)
+}
 
-const instructions = () => {
+const Instructions = ({setChoice}: {setChoice: Function}) => {
     return (
         <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
             <h1 className="text-3xl">Experiment Instructions</h1>
@@ -23,14 +27,14 @@ const instructions = () => {
 
                 <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
             </div>
-            <button>
+            <button onClick={() => proceed(setChoice)}>
                 <div className="border border-black rounded-md py-2 px-5">Understood</div>
             </button>
         </main>
     )
 }
 
-const questionnaire = () => {
+const Questionnaire = ({setChoice}: {setChoice: Function}) => {
     return (
         <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
             <h1 className="text-3xl">Preliminary Questionnaire</h1>
@@ -42,7 +46,7 @@ const questionnaire = () => {
                 <Input placeholder="Name" />
                 <Input placeholder="Name" />
             </div>
-            <button>
+            <button onClick={() => proceed(setChoice)}>
                 <div className="border border-black rounded-md py-2 px-5">Submit</div>
             </button>
         </main>
@@ -50,6 +54,12 @@ const questionnaire = () => {
 }
 
 export default function Prelim() {
-    if (choice == 0) return instructions()
-    else if (choice == 1) return questionnaire()
+    const [choice, setChoice] = useState(1) 
+
+    switch (choice) {
+        case 1:
+            return <Instructions setChoice={setChoice} />
+        case 2:
+            return <Questionnaire setChoice={setChoice} />
+    }
 }
