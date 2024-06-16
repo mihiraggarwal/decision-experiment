@@ -4,11 +4,17 @@ import Image from "next/image";
 import Input from "../_components/input"
 import { useState } from "react";
 
+// import Protocols from "../_components/protocols";
+import { useSession } from "next-auth/react";
+
 const proceed = (setChoice: Function) => {
     setChoice((n: number) => n+1)
 }
 
 const Instructions = ({setChoice}: {setChoice: Function}) => {
+
+    const { data: session } = useSession()
+
     return (
         <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
             <h1 className="text-3xl">Experiment Instructions</h1>
@@ -61,5 +67,7 @@ export default function Prelim() {
             return <Instructions setChoice={setChoice} />
         case 2:
             return <Questionnaire setChoice={setChoice} />
+        // case 3:
+        //     return <Protocols />
     }
 }

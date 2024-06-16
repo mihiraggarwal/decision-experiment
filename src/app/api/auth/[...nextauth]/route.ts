@@ -19,16 +19,26 @@ const handler = NextAuth({
                     placeholder: "One time password"
                 }
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 const user = await User.findOne({
                     password: credentials!.otp,
                 });
                 try {
                     user.upi = credentials!.upi
                     await user.save()
-                    return user
+                    
+                    const body = {
+                        upi: credentials!.upi,
+                        otp: credentials!.otp
+                    }
+                    return {
+                        id: user._id,
+                        ...body,
+                        name: credentials!.otp
+                    }
                 }
                 catch (e) {
+                    console.log(e)
                     return null
                 }
             }
