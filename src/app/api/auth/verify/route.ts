@@ -1,3 +1,4 @@
+import dbConnect from "@/app/_config/db";
 import User from "@/app/_models/User";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -5,6 +6,8 @@ export const POST = async (req: NextRequest) => {
     console.log("function started")
     const body = await req.json()
     console.log("function running")
+    await dbConnect()
+    console.log("db also connected")
     try {
         const existing = await User.findOne({ upi: body.upi })
         console.log("existing", existing)
