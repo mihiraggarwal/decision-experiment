@@ -4,8 +4,9 @@ import Image from "next/image";
 import Input from "../_components/input"
 import { useState } from "react";
 
-// import Protocols from "../_components/protocols";
+import Protocols from "../_components/protocols";
 import { useSession } from "next-auth/react";
+// import { signOut } from "next-auth/react"
 
 const proceed = (setChoice: Function) => {
     setChoice((n: number) => n+1)
@@ -36,6 +37,9 @@ const Instructions = ({setChoice}: {setChoice: Function}) => {
             <button onClick={() => proceed(setChoice)}>
                 <div className="border border-black rounded-md py-2 px-5">Understood</div>
             </button>
+            {/* <form onSubmit={async () => await signOut()}>
+                <button type="submit">sign out</button>
+            </form> */}
         </main>
     )
 }
@@ -67,7 +71,7 @@ export default function Prelim() {
             return <Instructions setChoice={setChoice} />
         case 2:
             return <Questionnaire setChoice={setChoice} />
-        // case 3:
-        //     return <Protocols />
+        case 3:
+            return <Protocols />
     }
 }
