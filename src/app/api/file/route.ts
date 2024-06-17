@@ -17,7 +17,7 @@ const getPdf = async () => {
 }
 
 export async function GET() {
-  const buffer = await getPdf()
+  const buffer = await getPdf() as Blob
 
   const headers = new Headers();
   headers.append("Content-Disposition", 'attachment; filename="choice.pdf"');
