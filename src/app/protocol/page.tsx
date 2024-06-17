@@ -1,25 +1,6 @@
-"use client";
-import Image from "next/image";
+import Image from "next/image"
 
-import { signOut, useSession } from "next-auth/react"
-import navigate from "../_actions/navigate";
-
-const proceed = async (id: string) => {
-    const response = await fetch("/api/response", {
-        method: "POST", 
-        body: JSON.stringify({
-            id: id
-        })
-    })
-    if (response.ok) {
-        navigate("/protocol")
-    }
-}
-
-export default function Prelim() {
-
-    const {data: session} = useSession()
-
+export default function Protocols() {
     return (
         <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
             <h1 className="text-3xl">Experiment Instructions</h1>
@@ -36,12 +17,11 @@ export default function Prelim() {
                     height={24}
                 />
 
+                <iframe id="iframe"></iframe>
+                <a href="/api/file">Download file</a>
+
                 <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
             </div>
-            <button onClick={() => proceed(session!.user.id)}>
-                <div className="border border-black rounded-md py-2 px-5">Understood</div>
-            </button>
-            <button onClick={() => signOut()}>sign out</button>
         </main>
     )
 }
