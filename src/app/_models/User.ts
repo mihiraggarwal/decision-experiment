@@ -9,6 +9,7 @@ export interface Users extends mongoose.Document {
     current_slug: string;
     current_question_index: number;
     pdf_pass: string;
+    total_bets: number;
 }
 
 const UserSchema = new mongoose.Schema<Users> ({
@@ -27,7 +28,6 @@ const UserSchema = new mongoose.Schema<Users> ({
         type: {
             cp: Number,
             part: Number,
-            subpart: Number,
             bets_order: Array<Number>
         }
     },
@@ -35,7 +35,6 @@ const UserSchema = new mongoose.Schema<Users> ({
         type: [{
             cp: Number,
             part: Number,
-            subpart: Number,
             bets_order: Array<Number>
         }]
     },
@@ -48,6 +47,9 @@ const UserSchema = new mongoose.Schema<Users> ({
     pdf_pass: {
         type: String
     },
+    total_bets: {
+        type: Number
+    }
 });
 
 export default mongoose.models.User || mongoose.model<Users>("User", UserSchema);

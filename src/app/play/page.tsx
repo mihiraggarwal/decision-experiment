@@ -1,12 +1,8 @@
-import { useSession } from "next-auth/react"
-import Question from "../_models/Question"
 import User from "../_models/User"
-import Response from "../_models/Response"
-import navigate from "../_actions/navigate"
 import Input from "../_components/input"
 
-import CP1_Q1a from "../_components/questions/cp1/q1a"
-import CP1_Q1b from "../_components/questions/cp1/q1b"
+import CP1_Q1 from "../_components/questions/cp1/q1"
+import CP1_Q2 from "../_components/questions/cp1/q2"
 
 import { getServerSession } from "next-auth"
 import dbConnect from "../_config/db"
@@ -39,12 +35,12 @@ const QuestionComp = async ({otp}: {otp: string}) => {
     const question_num = await qnum(otp)
     if (question_num.cp == 1) {
         if (question_num.part == 1) {
-            if (question_num.subpart == 1) {
-                return <CP1_Q1a />
-            }
-            return <CP1_Q1b />
+            return <CP1_Q1 />
         }
-        return <CP1_Q1b />
+        else if (question_num.part == 2) {
+            return <CP1_Q2 />
+        }
+        return <CP1_Q2 />
     }
 }
 

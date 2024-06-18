@@ -1,23 +1,45 @@
 import PDFDocument from "pdfkit"
 import blobStream from "blob-stream"
+import dbConnect from "@/app/_config/db"
+import { getServerSession } from "next-auth"
+import User from "@/app/_models/User"
 
-const getPdf = async () => {
+const getPdf = async (bet: number, pass: string) => {
   return new Promise((resolve) => {
-    const doc = new PDFDocument({font: "public/assets/fonts/AirbnbCerealBook.ttf", userPassword: "lmao"})
+    const doc = new PDFDocument({font: "public/assets/fonts/AirbnbCerealBook.ttf", userPassword: pass})
     const stream = doc.pipe(blobStream())
 
-    doc.fontSize(25).text('Testing', 100, 80);
+    doc.fontSize(25).text(`Your chosen bet: Bet ${bet}`, 100, 80);
     doc.end()
 
     stream.on("finish", async () => {
-        const final = await stream.toBlob("application/pdf")
+        const final = stream.toBlob("application/pdf")
         return resolve(final)
     })
   })
 }
 
 export async function GET() {
-  const buffer = await getPdf() as Blob
+  const session = await getServerSession()
+  console.log(session)
+
+  await dbConnect()
+  const user = await User.findOne({ password: session?.user.name })
+  const bets = user.total_bets
+
+  const chosen_bet = Math.floor(Math.random() * bets) + 1
+
+  const randomString = (length: number, chars: string) => {
+    let result = '';
+    for (let i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+  }
+  
+  const pass = randomString(15, '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+  const buffer = await getPdf(chosen_bet, pass) as Blob
+
+  user.pdf_pass = pass
+  await user.save()
 
   const headers = new Headers();
   headers.append("Content-Disposition", 'attachment; filename="choice.pdf"');

@@ -3,7 +3,6 @@ import mongoose from "mongoose"
 export interface Questions extends mongoose.Document {
     cp: number;
     part: number;
-    subpart: number;
     question: string;
 }
 
@@ -15,9 +14,6 @@ const QuestionSchema = new mongoose.Schema<Questions> ({
     part: {
         type: Number,
         required: true,
-    },
-    subpart: {
-        type: Number,
     },
     question: {
         type: String,
