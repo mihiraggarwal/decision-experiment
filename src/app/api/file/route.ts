@@ -3,10 +3,11 @@ import blobStream from "blob-stream"
 import dbConnect from "@/app/_config/db"
 import { getServerSession } from "next-auth"
 import User from "@/app/_models/User"
+import path from "path"
 
 const getPdf = async (bet: number, pass: string) => {
   return new Promise((resolve) => {
-    const doc = new PDFDocument({font: "public/assets/fonts/AirbnbCerealBook.ttf", userPassword: pass})
+    const doc = new PDFDocument({font: path.join(process.cwd(), "public/assets/fonts/AirbnbCerealBook.ttf"), userPassword: pass})
     const stream = doc.pipe(blobStream())
 
     doc.fontSize(25).text(`Your chosen bet: Bet ${bet}`, 100, 80);
