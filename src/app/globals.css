@@ -31,3 +31,39 @@ body {
     text-wrap: balance;
   }
 }
+
+table {
+  text-align: center;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+
+  /* for separation - any borders on tr null */
+  border-collapse: separate;
+  border-spacing: 1rem 0;
+}
+
+th {
+  padding: 0.5em 2em;
+}
+
+tr {
+  border-bottom: 1px solid #000
+}
+
+tr:first-child {
+  border-bottom: 0;
+  border-top: 0;
+}
+
+tr:first-child > th {
+  border-bottom: 1px solid #000
+}
+
+tr:last-child {
+  border-bottom: 0;
+  border-top: 0;
+}
+
+/* th[colSpan] {
+  margin-left: 1vw;
+} */

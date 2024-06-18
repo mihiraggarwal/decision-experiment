@@ -11,9 +11,9 @@ const proceed = async (id: string) => {
             id: id
         })
     })
-    if (response.ok) {
-        navigate("/protocol")
-    }
+    navigate("/protocol")
+    // if (response.ok) {
+    // }
 }
 
 export default function Prelim() {

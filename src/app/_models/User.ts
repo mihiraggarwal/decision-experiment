@@ -1,16 +1,17 @@
 import mongoose from "mongoose"
 
 export interface Users extends mongoose.Document {
-    name: string;
     password: string;
     upi: string;
     amount: number;
+    chosen_question: object;
+    order: object[];
+    current_slug: string;
+    current_question_index: number;
+    pdf_pass: string;
 }
 
 const UserSchema = new mongoose.Schema<Users> ({
-    name: {
-        type: String,
-    },
     password: {
         type: String,
         required: true
@@ -21,7 +22,32 @@ const UserSchema = new mongoose.Schema<Users> ({
     amount: {
         type: Number,
         default: 0
-    }
+    },
+    chosen_question: {
+        type: {
+            cp: Number,
+            part: Number,
+            subpart: Number,
+            bets_order: Array<Number>
+        }
+    },
+    order: {
+        type: [{
+            cp: Number,
+            part: Number,
+            subpart: Number,
+            bets_order: Array<Number>
+        }]
+    },
+    current_slug: {
+        type: String
+    },
+    current_question_index: {
+        type: Number
+    },
+    pdf_pass: {
+        type: String
+    },
 });
 
 export default mongoose.models.User || mongoose.model<Users>("User", UserSchema);

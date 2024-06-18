@@ -5,7 +5,6 @@ export interface Questions extends mongoose.Document {
     part: number;
     subpart: number;
     question: string;
-    status: boolean;
 }
 
 const QuestionSchema = new mongoose.Schema<Questions> ({
