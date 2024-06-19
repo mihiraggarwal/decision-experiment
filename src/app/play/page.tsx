@@ -10,6 +10,12 @@ import dbConnect from "../_config/db"
 import Response from "../_models/Response"
 import toast, { Toaster } from "react-hot-toast"
 import navigate from "../_actions/navigate"
+import CP1_Q3 from "../_components/questions/cp1/q3";
+import CP1_Q4 from "../_components/questions/cp1/q4";
+import CP1_Q5 from "../_components/questions/cp1/q5";
+import CP1_Q6 from "../_components/questions/cp1/q6";
+import CP1_Q7 from "../_components/questions/cp1/q7";
+import CP1_Q8 from "../_components/questions/cp1/q8";
 
 const qnum = async (otp: string) => {    
     await dbConnect()
@@ -39,7 +45,7 @@ const submit = async (formData: FormData) => {
     let answers: { [key: string]: number } = {}
 
     for (let i = 0; i < Number(total!); i++) {
-        const key = `${i+1}`
+        const key = `${i}`
         answers[key] = Number(formData.get(`price${i+1}`))
     }
 
@@ -78,16 +84,30 @@ const submit = async (formData: FormData) => {
 
 const QuestionComp = async ({otp}: {otp: string}) => {
     const question_num = await qnum(otp)
-    if (question_num.cp == 1) {
-        if (question_num.part == 1) {
-            return <CP1_Q1 submit={submit} />
-        }
-        else if (question_num.part == 2) {
-            return <CP1_Q2 submit={submit} />
-        }
-        return <CP1_Q2 submit={submit} />
+
+    switch (question_num.cp) {
+        case 1:
+            switch (question_num.part) {
+                case 1:
+                    return <CP1_Q1 submit={submit} bets_order={question_num.bets_order} />;
+                case 2:
+                    return <CP1_Q2 submit={submit} bets_order={question_num.bets_order} />;
+                case 3:
+                    return <CP1_Q3 submit={submit} bets_order={question_num.bets_order} />;
+                case 4:
+                    return <CP1_Q4 submit={submit} bets_order={question_num.bets_order} />;
+                case 5:
+                    return <CP1_Q5 submit={submit} bets_order={question_num.bets_order} />;
+                case 6:
+                    return <CP1_Q6 submit={submit} bets_order={question_num.bets_order} />;
+                case 7:
+                    return <CP1_Q7 submit={submit} bets_order={question_num.bets_order} />;
+                case 8:
+                    return <CP1_Q8 submit={submit} bets_order={question_num.bets_order} />;
+            }
+        default:
+            return <CP1_Q3 submit={submit} bets_order={question_num.bets_order} />;
     }
-    return <CP1_Q2 submit={submit} />
 }
 
 export default async function Play() {

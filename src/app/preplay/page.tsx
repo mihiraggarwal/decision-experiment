@@ -17,6 +17,40 @@ const BETS: { [key: string]: number[] } = {
     "4": [1, 1, 2, 2],
 }
 
+const NUMS: { [key: string]: { [key: string]: number[] } } = {
+    "1": {
+        "1": [1],
+        "2": [2],
+        "3": [1, 2],
+        "4": [1, 2, 3],
+        "5": [1, 2, 4],
+        "6": [1, 2],
+        "7": [1, 2, 3],
+        "8": [1, 2, 4],
+    },
+    "2": {
+        "1": [1],
+        "2": [2],
+        "3": [1, 2],
+        "4": [1, 2, 3],
+        "5": [1, 2, 4],
+        "6": [1, 2],
+        "7": [1, 2, 3],
+        "8": [1, 2, 4],
+    },
+    "3": {
+        "1": [1],
+        "2": [2],
+        "3": [1, 2],
+    },
+    "4": {
+        "1": [1],
+        "2": [2],
+        "3": [1, 2],
+        "4": [1, 3],
+    },
+}
+
 const genRandom = async (otp: string) => {
     let final_order = [];
     let total_bets = 0;
@@ -61,9 +95,15 @@ const genRandom = async (otp: string) => {
     for (let i = 0; i < TOTAL_CP; i++) {
         const cp = randomElement[i];
         const part = getTreatment(cp);
+        const og_order = NUMS[cp][part];
+
+        const order_perms = genPermutations(og_order);
+        const the_order = order_perms[Math.floor(Math.random() * order_perms.length)];
+
         final_order.push({
             cp: cp,
-            part: part
+            part: part,
+            bets_order: the_order
         });
         total_bets += BETS[cp][part-1];
     }

@@ -1,41 +1,56 @@
 "use client";
 
-import Image from 'next/image'
 import Input from '../../input'
 import Prompt from '../../prompt'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react';
+import { JSX, useState } from 'react';
 import Dialog from '../../dialog';
 
-export default function CP1_Q2({submit}: {submit: ((formData: FormData) => void)}) {
+import { cp1_bet1, cp1_bet2, cp1_bet3, cp1_bet4 } from '../../../_assets/bets'
+import Img from '../../img';
+
+export default function CP1_Q2({submit, bets_order}: {submit: ((formData: FormData) => void), bets_order: number[]}) {
 
     const { data: session } = useSession()
     const session_id = session?.user.id
 
     const [dialog, setDialog] = useState(false)
 
+    const cp_bets: number[][] = []
+    bets_order.forEach(i => {
+        switch(i) {
+            case 1:
+                cp_bets.push(cp1_bet1)
+                break
+            case 2:
+                cp_bets.push(cp1_bet2)
+                break
+            case 3:
+                cp_bets.push(cp1_bet3)
+                break
+            case 4:
+                cp_bets.push(cp1_bet4)
+                break
+        }
+    })
+
+    const Bets = ({bet}: {bet: number[]}) => {
+        const entries: JSX.Element[] = []
+        bet.forEach(i => {
+            entries.push(<td>{i}</td>)
+        });
+        return <>{entries}</>
+    }
+
     return (
         <div className="flex flex-col gap-5 items-center">
             <p>There is an urn placed in front of you. The urn contains exactly 1 purple ball, 1 white ball, and 4 balls that may each be one of red, blue, yellow, and green. You do not know the exact number of balls that are red, blue, yellow, or green.</p>
 
             <div className="flex flex-col gap-5 md:flex-row">
-            <Image 
-                src="/Untitled1.png"
-                alt="Vercel logo"
-                className=""
-                width={150}
-                height={24}
-            />
-            <Image 
-                src="/vercel.svg"
-                alt="Vercel logo"
-                className=""
-                width={150}
-                height={24}
-            />
+            <Img url="/assets/urns/CP1_Urn.png" />
             </div>
 
-            <p>You are offered a ticket for a game that plays out as follows. First, you must draw a ball from the urn without looking. If the drawn ball is purple or white, you receive INR 500. Else, you receive nothing.</p>
+            <p>You are offered a ticket for a game that plays out as follows. First, you must draw a ball from the urn without looking. If the drawn ball is blue or green, you receive INR {cp_bets[0][4]}. Else, you receive nothing.</p>
 
             <table> 
                 <tbody>
@@ -56,12 +71,7 @@ export default function CP1_Q2({submit}: {submit: ((formData: FormData) => void)
                     </tr>
                     <tr>
                         <th>Rewards</th>
-                        <td>500</td>
-                        <td>500</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <Bets bet={cp_bets[0]} />
                     </tr>
                 </tbody>
             </table>
