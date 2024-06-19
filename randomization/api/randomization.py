@@ -1,11 +1,70 @@
 import numpy as np
-from typing import Union
+# from typing import Union
 from numpy.random import randint, default_rng, randn, choice
-from scipy.stats import poisson, norm
-from sklearn.preprocessing import normalize
 import random
 
-def choose_distribution(S: Union[list, np.ndarray]):
+def factorial(x):
+    """
+    Returns the factorial of x.
+
+    Parameters
+    ----------
+    x: Union[int, np.ndarray]
+        The number whose factorial is to be calculated.
+
+    Returns
+    -------
+    Union[int, np.ndarray]
+        The factorial of x.
+    """
+
+    x = np.asarray(x)
+
+    ranges = np.array([np.prod(np.arange(1, int(n+1))) for n in x])
+
+    return ranges
+
+def poisson_pmf(mu: float, x):
+    """
+    Returns the probability mass function of a Poisson distribution with mean mu at x.
+
+    Parameters
+    ----------
+    mu: float
+        The mean of the Poisson distribution.
+    x: float
+        The value at which the probability mass function is evaluated.
+
+    Returns
+    -------
+    float
+        The probability mass function at x.
+    """
+
+    return np.exp(-mu) * (mu**x) / factorial(x)
+
+def norm_pdf(mu: float, sigma: float, x):
+    """
+    Returns the probability density function of a normal distribution with mean mu and standard deviation sigma at x.
+
+    Parameters
+    ----------
+    mu: float
+        The mean of the normal distribution.
+    sigma: float
+        The standard deviation of the normal distribution.
+    x: float
+        The value at which the probability density function is evaluated.
+
+    Returns
+    -------
+    float
+        The probability density function at x.
+    """
+
+    return np.exp(-0.5 * ((x - mu) / sigma)**2) / (sigma * np.sqrt(2 * np.pi))
+
+def choose_distribution(S):
     """
     Returns a randomly generated distribution over the state space S.
 
@@ -26,16 +85,16 @@ def choose_distribution(S: Union[list, np.ndarray]):
 
     uniform = np.array([1/len(S) for _ in S])
 
-    S = np.asarray(S).reshape(1, len(S))
+    S = np.asarray(S)
 
-    poisson_dist = poisson(mu=1)
-    poisson_pmf = normalize(np.abs(poisson_dist.pmf(S) + randn()), norm='l1')
-    normal_dist = norm(loc=np.mean(S), scale=1)
-    normal_pmf = normalize(np.abs(normal_dist.pdf(S) + randn()), norm='l1')
+    poisson_probs = np.abs(poisson_pmf(1, S) + randn())
+    poisson_probs /= np.sum(poisson_probs)
+    normal_probs = np.abs(norm_pdf(np.mean(S), 1, S) + randn())
+    normal_probs /= np.sum(normal_probs)
 
-    dists = {'uniform': uniform, 'poisson': poisson_pmf, 'normal': normal_pmf}
+    dists = {'uniform': uniform, 'poisson': poisson_probs, 'normal': normal_probs}
 
-    return dists[gen.choice(list(dists.keys()))].flatten()
+    return dists[gen.choice(list(dists.keys()))]
 
 
 class ellsberg_two_color_urn:
@@ -68,8 +127,8 @@ class ellsberg_two_color_urn:
                 raise ValueError('Total number of balls must be even')
 
         if risk:
-            self.composition = np.asarray([n/2, n/2]).reshape(1, 2)
-            self.prob = normalize(self.composition, axis=1, norm='l1').flatten()
+            self.composition = np.asarray([n/2, n/2])
+            self.prob = self.composition / n
         else:
             N = np.cumsum(np.ones(n))
 
@@ -82,10 +141,10 @@ class ellsberg_two_color_urn:
             else:
                 red = n - choice(N, p=dist)
 
-            urn = np.asarray([red, n-red]).reshape(1, 2)
+            urn = np.asarray([red, n-red])
 
-            self.composition = urn.flatten()
-            self.prob = normalize(urn, axis=1, norm='l1').flatten()
+            self.composition = urn
+            self.prob = urn / n
     
     def draw(self, size: int = 1, replace: bool = True):
 
@@ -129,10 +188,10 @@ class ellsberg_three_color_urn:
         blue = n/3
         green = int(2*n/3) - red
 
-        urn = np.asarray([blue, red, green]).reshape(1, 3)
+        urn = np.asarray([blue, red, green])
 
-        self.composition = urn.flatten()
-        self.prob = normalize(urn, axis=1, norm='l1').flatten()
+        self.composition = urn
+        self.prob = urn / n
     
     def draw(self, size: int = 1, replace:bool = True):
 
@@ -192,10 +251,8 @@ class ellsberg_k_color_urn:
 
                     urn[pos] = balls
 
-            urn = urn.reshape(1, k)
-
-            self.composition = urn.flatten()
-            self.prob = normalize(urn, axis=1, norm='l1').flatten()
+            self.composition = urn
+            self.prob = urn / n
 
     def draw(self, size:int = 1, replace:bool = True):
 
@@ -231,10 +288,10 @@ class machina_50_51_modified:
 
         part_2 = ellsberg_two_color_urn(M, risk=False, suburn=True).composition
 
-        machina = np.concatenate((part_1, part_2), axis=None).reshape(1, 4)
+        machina = np.concatenate((part_1, part_2), axis=None)
 
-        self.composition = machina.flatten()
-        self.prob = normalize(machina, axis=1, norm='l1').flatten()
+        self.composition = machina
+        self.prob = machina / (m + M)
     
     def draw(self, size:int = 1, replace:bool = True):
 
@@ -271,10 +328,10 @@ class ellsberg_split_urn:
         risky_urn = ellsberg_k_color_urn(col_risk, num_risk, risk=True).composition
         amb_urn = ellsberg_k_color_urn(col_amb, num_amb, risk=False).composition
 
-        split_urn = np.concatenate((risky_urn, amb_urn), axis=None).reshape(1, col_risk+col_amb)
+        split_urn = np.concatenate((risky_urn, amb_urn), axis=None)
 
-        self.composition = split_urn.flatten()
-        self.prob = normalize(split_urn, axis=1, norm='l1').flatten()
+        self.composition = split_urn
+        self.prob = split_urn / (num_risk + num_amb)
 
     def draw(self, size:int = 1, replace:bool=True):
 
@@ -469,4 +526,4 @@ def CP1(cond:int, cond6:int = None, cond7:int = None, cond8:int = None):
     return (bet1, bet2, bet3, bet4)
 
 if __name__ == "__main__":
-    CP1(7, cond7=3) # Try different conditions and responses
+    CP1(4) # Try different conditions and responses
