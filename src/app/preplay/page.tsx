@@ -5,16 +5,16 @@ import Page from "./content";
 
 const TOTAL_CP = 4;
 
-const QUE_CP1 = 5;
-const QUE_CP2 = 5;
-const QUE_CP3 = 5;
-const QUE_CP4 = 5;
+const QUE_CP1 = 8;
+const QUE_CP2 = 8;
+const QUE_CP3 = 3;
+const QUE_CP4 = 4;
 
 const BETS: { [key: string]: number[] } = {
-    "1": [1, 1, 1, 1, 1],
-    "2": [1, 1, 1, 1, 1],
-    "3": [1, 1, 1, 1, 1],
-    "4": [1, 1, 1, 1, 1],
+    "1": [1, 1, 2, 3, 3, 1, 1, 1],
+    "2": [1, 1, 2, 3, 3, 1, 1, 1],
+    "3": [1, 1, 2],
+    "4": [1, 1, 2, 2],
 }
 
 const genRandom = async (otp: string) => {
