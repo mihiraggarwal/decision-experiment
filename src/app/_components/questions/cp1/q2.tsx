@@ -4,11 +4,15 @@ import Image from 'next/image'
 import Input from '../../input'
 import Prompt from '../../prompt'
 import { useSession } from 'next-auth/react'
+import { useState } from 'react';
+import Dialog from '../../dialog';
 
 export default function CP1_Q2({submit}: {submit: ((formData: FormData) => void)}) {
 
     const { data: session } = useSession()
     const session_id = session?.user.id
+
+    const [dialog, setDialog] = useState(false)
 
     return (
         <div className="flex flex-col gap-5 items-center">
@@ -75,6 +79,15 @@ export default function CP1_Q2({submit}: {submit: ((formData: FormData) => void)
                     <div className="border border-black rounded-md py-2 px-5">Submit</div>
                 </button>
             </form>
+
+            <div className="flex flex-row items-center gap-3">
+                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above value correctly</div>
+                <button className="px-2 border-2 border-black rounded-full" onClick={() => setDialog(x => !x)}>?</button>
+            </div>
+
+            {dialog && 
+                <Dialog />
+            }
         </div>
     )
 }
