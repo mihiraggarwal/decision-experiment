@@ -11,6 +11,8 @@ const ResponseSchema = new mongoose.Schema<Responses> ({
     },
     response: {
         type: [{
+            start_time: Date,
+            end_time: Date,
             question_type: String,
             question_index: Object,
             answer: Object

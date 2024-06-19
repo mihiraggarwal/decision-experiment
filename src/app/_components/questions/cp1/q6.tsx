@@ -15,6 +15,8 @@ export default function CP1_Q6({submit, bets_order}: {submit: ((formData: FormDa
     const { data: session } = useSession()
     const session_id = session?.user.id
 
+    const start_time = new Date().toString()
+
     const [dialog, setDialog] = useState(false)
     
     const cp_bets: number[][] = []
@@ -91,6 +93,7 @@ export default function CP1_Q6({submit, bets_order}: {submit: ((formData: FormDa
             <form className="flex flex-col gap-10 items-center mt-5" action={submit}>
                 <input type="hidden" name="num" value={1} />
                 <input type="hidden" name="type" value="mcq" />
+                <input type="hidden" name="start_time" value={start_time} />
                 <input type="hidden" name="id" value={session_id} />
                 <div className="flex flex-col gap-1 items-center">
                     <Radio value={1} label="Ticket A" />

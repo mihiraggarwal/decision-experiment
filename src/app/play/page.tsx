@@ -39,11 +39,13 @@ const qnum = async (otp: string) => {
 
 const submit = async (formData: FormData) => {
     "use server"
+
+    const end_time = new Date()
+
     const total = formData.get("num")
     const id = formData.get("id")
     const type = formData.get("type")
-
-    console.log(type)
+    const start_time = new Date(formData.get("start_time") as string)
 
     let answers: { [key: string]: number } = {}
 
@@ -71,6 +73,8 @@ const submit = async (formData: FormData) => {
     }
     else {
         response.response.push({
+            start_time: start_time,
+            end_time: end_time,
             question_type: type,
             question_index: ques_object,
             answer: answers
