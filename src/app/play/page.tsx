@@ -41,6 +41,9 @@ const submit = async (formData: FormData) => {
     "use server"
     const total = formData.get("num")
     const id = formData.get("id")
+    const type = formData.get("type")
+
+    console.log(type)
 
     let answers: { [key: string]: number } = {}
 
@@ -68,6 +71,7 @@ const submit = async (formData: FormData) => {
     }
     else {
         response.response.push({
+            question_type: type,
             question_index: ques_object,
             answer: answers
         })

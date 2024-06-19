@@ -11,6 +11,7 @@ const ResponseSchema = new mongoose.Schema<Responses> ({
     },
     response: {
         type: [{
+            question_type: String,
             question_index: Object,
             answer: Object
         }]
