@@ -11,8 +11,8 @@ const ResponseSchema = new mongoose.Schema<Responses> ({
     },
     response: {
         type: [{
-            question_index: Number,
-            answer: Number
+            question_index: Object,
+            answer: Object
         }]
     },
 });
