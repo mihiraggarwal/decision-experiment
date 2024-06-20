@@ -1,21 +1,18 @@
 "use server";
+import { getServerSession } from "next-auth"
+import toast, { Toaster } from "react-hot-toast"
 
 import User from "../_models/User"
-
-import CP1_Q1 from "../_components/questions/cp1/q1"
-import CP1_Q2 from "../_components/questions/cp1/q2"
-
-import { getServerSession } from "next-auth"
-import dbConnect from "../_config/db"
 import Response from "../_models/Response"
-import toast, { Toaster } from "react-hot-toast"
+
+import dbConnect from "../_config/db"
 import navigate from "../_actions/navigate"
-import CP1_Q3 from "../_components/questions/cp1/q3";
-import CP1_Q4 from "../_components/questions/cp1/q4";
-import CP1_Q5 from "../_components/questions/cp1/q5";
-import CP1_Q6 from "../_components/questions/cp1/q6";
-import CP1_Q7 from "../_components/questions/cp1/q7";
-import CP1_Q8 from "../_components/questions/cp1/q8";
+
+import CP2 from "../_components/questions/cp2";
+import CP1 from "../_components/questions/cp1";
+import CP3 from "../_components/questions/cp3";
+import CP4 from "../_components/questions/cp4";
+import CP4_Q4 from "../_components/questions/cp4_q4";
 
 const qnum = async (otp: string) => {    
     await dbConnect()
@@ -92,29 +89,32 @@ const submit = async (formData: FormData) => {
 
 const QuestionComp = async ({otp}: {otp: string}) => {
     const question_num = await qnum(otp)
+    const bets_order = question_num.bets_order
 
     switch (question_num.cp) {
         case 1:
-            switch (question_num.part) {
-                case 1:
-                    return <CP1_Q1 submit={submit} bets_order={question_num.bets_order} />;
-                case 2:
-                    return <CP1_Q2 submit={submit} bets_order={question_num.bets_order} />;
-                case 3:
-                    return <CP1_Q3 submit={submit} bets_order={question_num.bets_order} />;
-                case 4:
-                    return <CP1_Q4 submit={submit} bets_order={question_num.bets_order} />;
-                case 5:
-                    return <CP1_Q5 submit={submit} bets_order={question_num.bets_order} />;
-                case 6:
-                    return <CP1_Q6 submit={submit} bets_order={question_num.bets_order} />;
-                case 7:
-                    return <CP1_Q7 submit={submit} bets_order={question_num.bets_order} />;
-                case 8:
-                    return <CP1_Q8 submit={submit} bets_order={question_num.bets_order} />;
+            if (question_num.part <= 5) {
+                return <CP1 submit={submit} bets_order={bets_order} total={bets_order.length} radio={false} />
             }
-        default:
-            return <CP1_Q3 submit={submit} bets_order={question_num.bets_order} />;
+            else {
+                return <CP1 submit={submit} bets_order={bets_order} total={bets_order.length} radio={true} />
+            }
+        case 2:
+            if (question_num.part <= 5) {
+                return <CP2 submit={submit} bets_order={bets_order} total={bets_order.length} radio={false} />
+            }
+            else {
+                return <CP2 submit={submit} bets_order={bets_order} total={bets_order.length} radio={true} />
+            }
+        case 3:
+            return <CP3 submit={submit} bets_order={bets_order} total={bets_order.length} radio={false} />
+        case 4:
+            if (question_num.part <= 3) {
+                return <CP4 submit={submit} bets_order={bets_order} total={bets_order.length} radio={false} />
+            }
+            else {
+                return <CP4_Q4 submit={submit} bets_order={bets_order} total={bets_order.length} radio={true} />
+            }
     }
 }
 
