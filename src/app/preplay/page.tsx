@@ -4,6 +4,7 @@ import dbConnect from "../_config/db";
 import Page from "./content";
 
 const TOTAL_CP = 4;
+const TOTAL_CP_FACT = 24;
 
 const QUE_CP1 = 8;
 const QUE_CP2 = 8;
@@ -90,7 +91,7 @@ const genRandom = async (otp: string) => {
 
     const numbers = Array.from({length: TOTAL_CP}, (_, i) => i + 1);
     const permutations = genPermutations(numbers);
-    const randomElement = permutations[Math.floor(Math.random() * TOTAL_CP)];
+    const randomElement = permutations[Math.floor(Math.random() * TOTAL_CP_FACT)];
 
     for (let i = 0; i < TOTAL_CP; i++) {
         const cp = randomElement[i];

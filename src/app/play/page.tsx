@@ -83,6 +83,9 @@ const submit = async (formData: FormData) => {
         await user.save()
 
         // toast.success("Response submitted!")
+        if (qindex + 1 == user.order.length) {
+            await navigate("/iq")
+        }
         await navigate("/play")
     }
 }
@@ -113,7 +116,7 @@ const QuestionComp = async ({otp}: {otp: string}) => {
                 return <CP4 submit={submit} bets_order={bets_order} total={bets_order.length} radio={false} />
             }
             else {
-                return <CP4_Q4 submit={submit} bets_order={bets_order} total={bets_order.length} radio={true} />
+                return <CP4_Q4 submit={submit} bets_order={bets_order} total={bets_order.length} radio={false} />
             }
     }
 }
