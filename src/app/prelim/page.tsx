@@ -67,11 +67,9 @@ export default function Prelim() {
                         height={24}
                     />
     
-                    {/* <a href="/api/file">Download file</a> */}
-    
                     <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
                 </div>
-                <button onClick={() => navigate("/preplay")}>
+                <button onClick={async () => await navigate("/preplay")}>
                     <div className="border border-black rounded-md py-2 px-5">Understood</div>
                 </button>
             </main>

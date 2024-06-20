@@ -120,6 +120,7 @@ const genRandom = async (otp: string) => {
         await user.save();
     }
     else {
+        console.log(user)
         return -1;
     }
 

@@ -26,7 +26,7 @@ export default function Page ({total_bets}: {total_bets: number}) {
 
                 {!disableNext &&
                     <div className="flex flex-col items-center gap-5">
-                        <div>Click the button below to start the experiment. Make sure you have the above file downloaded first!</div>
+                        <div>Click the button below to start the experiment. <span className="text-red-600">Make sure you have the above file downloaded first!</span></div>
                         <button onClick={async () => await navigate("/play")}>
                             <div className="border border-black rounded-md py-2 px-5">Next</div>
                         </button>
