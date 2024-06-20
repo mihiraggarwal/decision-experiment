@@ -9,12 +9,12 @@ def factorial(x):
 
     Parameters
     ----------
-    x: Union[int, np.ndarray]
+    x: Union[int, list, np.ndarray]
         The number whose factorial is to be calculated.
 
     Returns
     -------
-    Union[int, np.ndarray]
+    np.ndarray
         The factorial of x.
     """
 
@@ -145,7 +145,7 @@ class ellsberg_two_color_urn:
 
             self.composition = urn
             self.prob = urn / n
-    
+
     def draw(self, size: int = 1, replace: bool = True):
 
         return choice(self.labels, size=size, replace=replace, p=self.prob)
@@ -192,7 +192,7 @@ class ellsberg_three_color_urn:
 
         self.composition = urn
         self.prob = urn / n
-    
+
     def draw(self, size: int = 1, replace:bool = True):
 
         return choice(['Blue', 'Red', 'Green'], size=size, replace=replace, p=self.prob)
@@ -292,11 +292,11 @@ class machina_50_51_modified:
 
         self.composition = machina
         self.prob = machina / (m + M)
-    
+
     def draw(self, size:int = 1, replace:bool = True):
 
         return choice([1, 2, 3, 4], size=size, replace=replace, p=self.prob)
-    
+
 class ellsberg_split_urn:
 
     def __init__(self, col_risk:int, col_amb:int, num_risk:int, num_amb:int):
@@ -339,33 +339,16 @@ class ellsberg_split_urn:
 
         return choice(S, size=size, replace=replace, p=self.prob)
 
-
-def CP1(cond:int, cond6:int = None, cond7:int = None, cond8:int = None):
+def CP1_bet1():
     """
-    Evaluates bets from choice problem 1 according to the condition specified.
-
-    Parameters
-    ----------
-    cond: int
-        The treatment condition ranging from 1 to 8.
-    cond6: int, optional
-        The response to the choice problem in condition 6.
-    cond7: int, optional
-        The response to the choice problem in condition 7.
-    cond8: int, optional
-        The response to the choice problem in condition 8.
+    Evaluates the first bet from choice problem 1.
 
     Returns
     -------
     int
-        The winnings from the tickets.
+        The winnings from the first bet.
     """
 
-    try:
-        assert cond <= 8
-    except:
-        raise ValueError('There are only 8 conditions')
-    
     print('Generating the urn.')
     urn = ellsberg_split_urn(2, 4, 2, 4)
     print('Drawing a ball from the generated urn.')
@@ -375,155 +358,364 @@ def CP1(cond:int, cond6:int = None, cond7:int = None, cond8:int = None):
 
     print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
 
-    bet1 = np.nan
-    bet2 = np.nan
-    bet3 = np.nan
-    bet4 = np.nan
+    if ball == 1 or ball == 2:
+        bet1 = 400
+    else:
+        bet1 = 0
 
-    if cond == 1:
-        if ball == 1 or ball == 2:
-            bet1 = 500
-        else:
-            bet1 = 0
-        
-        print(f'The winnings from this ticket would be {bet1}')
-    
-    elif cond == 2:
-        if ball == 4 or ball == 5:
-            bet2 = 500
-        else:
-            bet2 = 0
-        
-        print(f'The winnings from this ticket would be {bet2}')
+    print(f'The winnings from this ticket would be {bet1}')
 
-    elif cond == 3:
-        if ball == 1 or ball == 2:
-            bet1 = 500
-        else:
-            bet1 = 0
-        
-        if ball == 4 or ball == 5:
-            bet2 = 500
-        else:
-            bet2 = 0
-        
-        print(f'The winnings from the ticket A would be {bet1}') # replace bet 1 with the bet corresponding to ticket A
-        print(f'The winnings from the ticket B would be {bet2}') # replace bet 2 with the bet corresponding to ticket B
+    return bet1
 
-    elif cond == 4:
-        if ball == 4 or ball == 5:
-            bet2 = 500
-        else:
-            bet2 = 0
-        
-        if ball == 1 or ball == 2:
-            bet1 = 500
-        else:
-            bet1 = 0
-        
-        if ball == 5:
-            bet3 = 500
-        else:
-            bet3 = 0
-        
-        print(f'The winnings from the ticket A would be {bet1}') # replace bet 1 with the bet corresponding to ticket A
-        print(f'The winnings from the ticket B would be {bet2}') # replace bet 2 with the bet corresponding to ticket B
-        print(f'The winnings from the ticket C would be {bet3}') # replace bet 3 with the bet corresponding to ticket C
+def CP1_bet2():
+    """
+    Evaluates the second bet from choice problem 1.
 
-    elif cond == 5:
-        if ball == 1 or ball == 2:
-            bet1 = 500
-        else:
-            bet1 = 0
-        
-        if ball == 4 or ball == 5:
-            bet2 = 500
-        else:
-            bet2 = 0
-        
-        if ball == 6:
-            bet4 = 500
-        else:
-            bet4 = 0
-        
-        print(f'The winnings from the ticket A would be {bet1}') # replace bet 1 with the bet corresponding to ticket A
-        print(f'The winnings from the ticket B would be {bet2}') # replace bet 2 with the bet corresponding to ticket B
-        print(f'The winnings from the ticket C would be {bet4}') # replace bet 4 with the bet corresponding to ticket C
-    
-    elif cond == 6:
-        assert cond6 is not None
+    Returns
+    -------
+    int
+        The winnings from the second bet.
+    """
 
-        if cond6 == 1:
-            if ball == 1 or ball == 2:
-                bet1 = 500
-            else:
-                bet1 = 0
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 4, 2, 4)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
 
-            print(f'The winnings from your chosen ticket would be {bet1}')
+    colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']
 
-        elif cond6 == 2:
-            if ball == 4 or ball == 5:
-                bet2 = 500
-            else:
-                bet2 = 0
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
 
-            print(f'The winnings from your chosen ticket would be {bet2}')
-    
-    elif cond == 7:
-        assert cond7 is not None
+    if ball == 5 or ball == 6:
+        bet2 = 400
+    else:
+        bet2 = 0
 
-        if cond7 == 1:
-            if ball == 1 or ball == 2:
-                bet1 = 500
-            else:
-                bet1 = 0
-            
-            print(f'The winnings from your chosen ticket would be {bet1}')
+    print(f'The winnings from this ticket would be {bet2}')
 
-        elif cond7 == 2:
-            if ball == 4 or ball == 5:
-                bet2 = 500
-            else:
-                bet2 = 0
+    return bet2
 
-            print(f'The winnings from your chosen ticket would be {bet2}')
-        
-        elif cond7 == 3:
-            if ball == 5:
-                bet3 = 500
-            else:
-                bet3 = 0
-            
-            print(f'The winnings from your chosen ticket would be {bet3}')
-    
-    elif cond == 8:
-        assert cond8 is not None
 
-        if cond8 == 1:
-            if ball == 1 or ball == 2:
-                bet1 = 500
-            else:
-                bet1 = 0
+def CP1_bet3():
+    """
+    Evaluates the third bet from choice problem 1.
 
-            print(f'The winnings from your chosen ticket would be {bet1}')
+    Returns
+    -------
+    int
+        The winnings from the third bet.
+    """
 
-        elif cond8 == 2:
-            if ball == 4 or ball == 5:
-                bet2 = 500
-            else:
-                bet2 = 0
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 4, 2, 4)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
 
-            print(f'The winnings from your chosen ticket would be {bet2}')
-        
-        elif cond8 == 4:
-            if ball == 6:
-                bet4 = 500
-            else:
-                bet4 = 0
+    colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']
 
-            print(f'The winnings from your chosen ticket would be {bet4}')
-    
-    return (bet1, bet2, bet3, bet4)
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
 
-if __name__ == "__main__":
-    CP1(4) # Try different conditions and responses
+    if ball == 6:
+        bet3 = 400
+    else:
+        bet3 = 0
+
+    print(f'The winnings from this ticket would be {bet3}')
+
+    return bet3
+
+def CP1_bet4():
+    """
+    Evaluates the fourth bet from choice problem 1.
+
+    Returns
+    -------
+    int
+        The winnings from the fourth bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 4, 2, 4)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']
+
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
+
+    if ball == 4:
+        bet4 = 400
+    else:
+        bet4 = 0
+
+    print(f'The winnings from this ticket would be {bet4}')
+
+    return bet4
+
+
+def CP2_bet1():
+    """
+    Evaluates the first bet from choice problem 2.
+
+    Returns
+    -------
+    int
+        The winnings from the first bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 2, 2, 2)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Blue', 'Yellow', 'Pink', 'Orange']
+
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
+
+    if ball == 1:
+        bet1 = 500
+    elif ball == 3:
+        bet1 = 100
+    else:
+        bet1 = 0
+
+    print(f'The winnings from this ticket would be {bet1}')
+
+    return bet1
+
+def CP2_bet2():
+    """
+    Evaluates the second bet from choice problem 2.
+
+    Returns
+    -------
+    int
+        The winnings from the second bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 2, 2, 2)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Blue', 'Yellow', 'Pink', 'Orange']
+
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
+
+    if ball == 2:
+        bet2 = 100
+    elif ball == 4:
+        bet2 = 600
+    else:
+        bet2 = 0
+
+    print(f'The winnings from this ticket would be {bet2}')
+
+    return bet2
+
+def CP2_bet3():
+    """
+    Evaluates the third bet from choice problem 2.
+
+    Returns
+    -------
+    int
+        The winnings from the third bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 2, 2, 2)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Blue', 'Yellow', 'Pink', 'Orange']
+
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
+
+    if ball == 1:
+        bet3 = 500
+    else:
+        bet3 = 0
+
+    print(f'The winnings from this ticket would be {bet3}')
+
+    return bet3
+
+def CP2_bet4():
+    """
+    Evaluates the fourth bet from choice problem 2.
+
+    Returns
+    -------
+    int
+        The winnings from the fourth bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_split_urn(2, 2, 2, 2)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Blue', 'Yellow', 'Pink', 'Orange']
+
+    print(f'The ball drawn from the urn was {colors[int(ball-1)]}')
+
+    if ball == 2:
+        bet4 = 500
+    else:
+        bet4 = 0
+
+    print(f'The winnings from this ticket would be {bet4}')
+
+    return bet4
+
+def CP3_bet1(guess:str):
+    """
+    Evaluates the first bet from choice problem 3.
+
+    Returns
+    -------
+    int
+        The winnings from the first bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_k_color_urn(8, 8, risk=True)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Pink', 'Orange', 'Purple', 'Green', 'Red', 'Black', 'Yellow', 'Blue']
+
+    draw_color = colors[int(ball-1)]
+
+    print(f'The ball drawn from the urn was {draw_color}')
+
+    if guess == draw_color:
+        bet1 = 300
+    else:
+        bet1 = 0
+
+    print(f'The winnings from this ticket would be {bet1}')
+
+    return bet1
+
+def CP3_bet2(guess:str):
+    """
+    Evaluates the second bet from choice problem 3.
+
+    Returns
+    -------
+    int
+        The winnings from the second bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_k_color_urn(8, 8, risk=False)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Pink', 'Orange', 'Purple', 'Green', 'Red', 'Black', 'Yellow', 'Blue']
+
+    draw_color = colors[int(ball-1)]
+
+    print(f'The ball drawn from the urn was {draw_color}')
+
+    if guess == draw_color:
+        bet2 = 300
+    else:
+        bet2 = 0
+
+    print(f'The winnings from this ticket would be {bet2}')
+
+    return bet2
+
+def CP4_bet1():
+    """
+    Evaluates the first bet from choice problem 4.
+
+    Returns
+    -------
+    int
+        The winnings from the first bet.
+    """
+
+    print('Generating the urn.')
+    urn = ellsberg_three_color_urn(3)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Green', 'Red', 'Purple']
+
+    draw_color = colors[int(ball-1)]
+
+    print(f'The ball drawn from the urn was {draw_color}')
+
+    if ball == 1:
+        bet1 = 300
+    else:
+        bet1 = 0
+
+    print(f'The winnings from this ticket would be {bet1}')
+
+    return bet1
+
+def CP4_bet2():
+    """
+        Evaluates the second bet from choice problem 4.
+
+        Returns
+        -------
+        int
+            The winnings from the second bet.
+        """
+
+    print('Generating the urn.')
+    urn = ellsberg_three_color_urn(3)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Green', 'Red', 'Purple']
+
+    draw_color = colors[int(ball - 1)]
+
+    print(f'The ball drawn from the urn was {draw_color}')
+
+    if ball == 2:
+        bet2 = 300
+    else:
+        bet2 = 0
+
+    print(f'The winnings from this ticket would be {bet2}')
+
+    return bet2
+
+
+def CP4_bet3():
+    """
+        Evaluates the third bet from choice problem 4.
+
+        Returns
+        -------
+        int
+            The winnings from the third bet.
+        """
+
+    print('Generating the urn.')
+    urn = ellsberg_two_color_urn(2, risk=True)
+    print('Drawing a ball from the generated urn.')
+    ball = urn.draw()[0]
+
+    colors = ['Yellow', 'Cyan']
+
+    draw_color = colors[int(ball - 1)]
+
+    print(f'The ball drawn from the urn was {draw_color}')
+
+    if ball == 1:
+        bet3 = 300
+    else:
+        bet3 = 0
+
+    print(f'The winnings from this ticket would be {bet3}')
+
+    return bet3
