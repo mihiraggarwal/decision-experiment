@@ -58,9 +58,18 @@ const submit = async (formData: FormData) => {
     const password = session?.user.name
 
     console.log("session gotten")
-    await dbConnect()
+    try {
+        await dbConnect()
+        console.log("db connect try")
+    }
+    catch (e) {
+        console.log("db connect except")
+        console.log(e)
+    }
     const user = await User.findOne({ password: password })
+    console.log(password)
     console.log("db connected user gotten")
+    console.log(user)
 
     let qindex = user.current_question_index
     if (qindex == null) qindex = 0
@@ -69,6 +78,7 @@ const submit = async (formData: FormData) => {
     const ques_object = order[qindex]
     console.log("end of next 4 lines idk")
 
+    console.log(id)
     const response = await Response.findOne({ session_id: id })
     console.log("found response")
     if (response == null) {
