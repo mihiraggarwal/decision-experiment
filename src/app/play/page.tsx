@@ -37,14 +37,12 @@ const qnum = async (otp: string) => {
 const submit = async (formData: FormData) => {
     "use server"
 
-    console.log("submit called")
     const end_time = new Date()
 
     const total = formData.get("num")
     const id = formData.get("id")
     const type = formData.get("type")
     const start_time = new Date(formData.get("start_time") as string)
-    console.log("end of form gets")
 
     let answers: { [key: string]: number } = {}
 
@@ -52,42 +50,26 @@ const submit = async (formData: FormData) => {
         const key = `${i}`
         answers[key] = Number(formData.get(`price${i+1}`))
     }
-    console.log("end of first for")
     
     const session = await getServerSession()
     const password = session?.user.name
 
-    console.log("session gotten")
-    try {
-        await dbConnect()
-        console.log("db connect try")
-    }
-    catch (e) {
-        console.log("db connect except")
-        console.log(e)
-    }
+    await dbConnect()
     const user = await User.findOne({ password: password })
-    console.log("pass", password)
-    console.log("db connected user gotten")
-    console.log("user obj", user)
 
     let qindex = user.current_question_index
     if (qindex == null) qindex = 0
 
     const order = user.order
     const ques_object = order[qindex]
-    console.log("end of next 4 lines idk")
 
-    console.log("id", id)
     const response = await Response.findOne({ session_id: id })
-    console.log("found response")
     if (response == null) {
-        console.log("in null response")
+        console.log("null response")
         // toast.error("Something went wrong!")
         return "error"
     }
     else {
-        console.log("in else")
         response.response.push({
             start_time: start_time,
             end_time: end_time,
@@ -97,19 +79,15 @@ const submit = async (formData: FormData) => {
         })
 
         await response.save()
-        console.log("saved response")
 
         user.current_question_index = qindex + 1
         await user.save()
-        console.log("saved user")
 
         // toast.success("Response submitted!")
         if (qindex + 1 == user.order.length) {
             await navigate("/iq")
         }
-        console.log("submit ending")
         await navigate("/play")
-        console.log("somehow after navigate")
     }
 }
 

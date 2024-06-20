@@ -15,8 +15,6 @@ export default function CP1({submit, bets_order, total, radio}: {submit: ((formD
     const { data: session } = useSession()
     const session_id = session?.user.id
 
-    console.log("sesh", session_id)
-
     const start_time = new Date().toString()
 
     const [dialog, setDialog] = useState(false)
