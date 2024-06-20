@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import navigate from "../_actions/navigate"
 
 export default function Page ({total_bets}: {total_bets: number}) {
     const [disableDownload, setDisableDownload] = useState(true)
@@ -26,11 +27,11 @@ export default function Page ({total_bets}: {total_bets: number}) {
                 {!disableNext &&
                     <div className="flex flex-col items-center gap-5">
                         <div>Click the button below to start the experiment. Make sure you have the above file downloaded first!</div>
-                        <form action="/play" method="get">
-                            <button>
+                        {/* <form action="/play" method="get"> */}
+                            <button onClick={async () => await navigate("/play")}>
                                 <div className="border border-black rounded-md py-2 px-5">Next</div>
                             </button>
-                        </form>
+                        {/* </form> */}
                     </div>
                 }
 

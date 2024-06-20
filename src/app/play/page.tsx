@@ -67,9 +67,9 @@ const submit = async (formData: FormData) => {
         console.log(e)
     }
     const user = await User.findOne({ password: password })
-    console.log(password)
+    console.log("pass", password)
     console.log("db connected user gotten")
-    console.log(user)
+    console.log("user obj", user)
 
     let qindex = user.current_question_index
     if (qindex == null) qindex = 0
@@ -78,7 +78,7 @@ const submit = async (formData: FormData) => {
     const ques_object = order[qindex]
     console.log("end of next 4 lines idk")
 
-    console.log(id)
+    console.log("id", id)
     const response = await Response.findOne({ session_id: id })
     console.log("found response")
     if (response == null) {
