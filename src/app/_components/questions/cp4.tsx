@@ -101,7 +101,7 @@ export default function CP4({submit, bets_order, total, radio}: {submit: ((formD
             <p>There is an urn placed in front of you. The urn contains exactly 1 green ball and 2 balls that may each be either red or purple. You do not know the exact number of balls that are red or purple.</p>
 
             <div className="flex flex-col gap-5 md:flex-row">
-                <Img url="/assets/urns/CP1_Urn.png" />
+                <Img url="/assets/urns/CP4_Urn1.png" />
             </div>
 
             <Ticket />

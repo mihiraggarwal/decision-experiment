@@ -132,8 +132,15 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
         <div className="flex flex-col gap-5 items-center">
             <p>There are two urns placed in front of you. Urn 1 contains exactly 1 green ball and 2 balls that may each be either red or purple. You do not know the exact number of balls that are red or purple. Urn 2 contains exactly 1 yellow ball and 1 cyan ball.</p>
 
-            <div className="flex flex-col gap-5 md:flex-row">
-                <Img url="/assets/urns/CP1_Urn.png" />
+            <div className="flex flex-col gap-10 md:flex-row md:gap-20">
+                <div className="flex flex-col gap-5 items-center">
+                    <Img url={`/assets/urns/CP4_Urn${bets_order[0]}.png`} />
+                    <div>Urn A</div>
+                </div>
+                <div className="flex flex-col gap-5 items-center">
+                    <Img url={`/assets/urns/CP4_Urn${bets_order[1]}.png`} />
+                    <div>Urn B</div>
+                </div>
             </div>
 
             <Ticket />

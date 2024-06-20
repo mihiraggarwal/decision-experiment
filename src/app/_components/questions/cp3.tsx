@@ -183,12 +183,36 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
         }
     }
 
+    const Imgs = () => {
+        const final: JSX.Element[] = []
+        if (total == 1) {
+            Array.from({length: total}, (x, i) => {
+                final.push(
+                    <div className="flex flex-col gap-5 items-center">
+                        <Img url={`/assets/urns/CP3_Urn${bets_order[i]}.png`} />
+                    </div>
+                )
+            });
+        }
+        else {
+            Array.from({length: total}, (x, i) => {
+                final.push(
+                    <div className="flex flex-col gap-5 items-center">
+                        <Img url={`/assets/urns/CP3_Urn${bets_order[i]}.png`} />
+                        <div>Urn {dict[i+1]}</div>
+                    </div>
+                )
+            });
+        }
+        return final
+    }
+
     return (
         <div className="flex flex-col gap-5 items-center">
             <Initial />
 
-            <div className="flex flex-col gap-5 md:flex-row">
-                <Img url="/assets/urns/CP1_Urn.png" />
+            <div className="flex flex-col gap-10 md:flex-row md:gap-20">
+                <Imgs />
             </div>
 
             <Ticket />

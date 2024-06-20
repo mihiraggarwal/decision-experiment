@@ -5,7 +5,9 @@ export default function Img({url}: {url: string}) {
         src={url}
         alt="Image"
         className=""
-        width={300}
-        height={48}
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{height: "35vh", width: "auto"}}
     />)
 }
