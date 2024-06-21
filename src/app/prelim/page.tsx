@@ -10,7 +10,10 @@ export default function Prelim() {
     const {data: session} = useSession()
     const [position, setPosition] = useState(0)
 
+    const [loading, setLoading] = useState(false)
+
     const proceed = async (id: string) => {
+        setLoading(true)
         if (position == 0) {
             const response = await fetch("/api/response", {
                 method: "POST", 
@@ -19,8 +22,9 @@ export default function Prelim() {
                 })
             })
             setPosition(1)
+            setLoading(false)
         }
-        else navigate("/play")
+        else await navigate("/preplay")
     }
 
     if (position === 0) {
@@ -43,7 +47,7 @@ export default function Prelim() {
                     <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
                 </div>
                 <button onClick={() => proceed(session!.user.id)}>
-                    <div className="border border-black rounded-md py-2 px-5">Understood</div>
+                    <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Loading..." : "Understood"}</div>
                 </button>
                 <button onClick={() => signOut()}>sign out</button>
             </main>
@@ -69,8 +73,8 @@ export default function Prelim() {
     
                     <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
                 </div>
-                <button onClick={async () => await navigate("/preplay")}>
-                    <div className="border border-black rounded-md py-2 px-5">Understood</div>
+                <button onClick={() => proceed(session!.user.id)}>
+                    <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Loading..." : "Understood"}</div>
                 </button>
             </main>
         )
