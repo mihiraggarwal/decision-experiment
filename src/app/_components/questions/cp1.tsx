@@ -9,6 +9,7 @@ import Dialog from '../dialog';
 import { cp1_bet1, cp1_bet2, cp1_bet3, cp1_bet4 } from '../../_assets/bets'
 import Img from '../img';
 import Radio from '../radio';
+import SubmitBtn from '../submitBtn';
 
 export default function CP1({submit, bets_order, total, radio}: {submit: ((formData: FormData) => void), bets_order: number[], total: number, radio: boolean}) {
 
@@ -150,9 +151,7 @@ export default function CP1({submit, bets_order, total, radio}: {submit: ((formD
                 
                 <Answer />
 
-                <button type="submit" className="">
-                    <div className="border border-black rounded-md py-2 px-5">Submit</div>
-                </button>
+                <SubmitBtn />
             </form>
 
             <div className="flex flex-row items-center gap-3">
