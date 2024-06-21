@@ -1,48 +1,53 @@
 "use client"
 
-import { FormEvent } from "react"
+import { FormEvent, useState } from "react"
 import toast, { Toaster } from "react-hot-toast"
 import navigate from "../_actions/navigate"
 
 import { signIn } from "next-auth/react"
 
-const authorize = async (event: FormEvent<HTMLFormElement>) => {
-  event.preventDefault()
-  const formData = new FormData(event.currentTarget);
+export default function Landing() {
 
-  const rawBody = {
-    upi: formData.get("upi"),
-    otp: formData.get("otp")
-  }
+  const [loading, setLoading] = useState(false)
 
-  const verify = await fetch("/api/auth/verify", {
-    method: "POST",
-    body: JSON.stringify(rawBody)
-  })
+  const authorize = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setLoading(true)
 
-  if (!verify.ok) {
-    const error = await verify.json()
-    toast.error(error.error)
-  }
-  else {
-    const res = await signIn("credentials", {
-      redirect: false,
-      otp: formData.get("otp"),
-      upi: formData.get("upi")
+    const formData = new FormData(event.currentTarget);
+  
+    const rawBody = {
+      upi: formData.get("upi"),
+      otp: formData.get("otp")
+    }
+  
+    const verify = await fetch("/api/auth/verify", {
+      method: "POST",
+      body: JSON.stringify(rawBody)
     })
   
-    if (res!.ok) {
-      toast.success("Authenticated")
-      setTimeout(() => {
-        navigate('/prelim');
-      }, 2000); 
-    } else {
-      toast.error("Something went wrong")
+    if (!verify.ok) {
+      const error = await verify.json()
+      toast.error(error.error)
+      setLoading(false)
+    }
+    else {
+      const res = await signIn("credentials", {
+        redirect: false,
+        otp: formData.get("otp"),
+        upi: formData.get("upi")
+      })
+    
+      if (res!.ok) {
+        toast.success("Authenticated")
+        await navigate("/prelim")
+      } else {
+        toast.error("Something went wrong")
+        setLoading(false)
+      }
     }
   }
-}
 
-export default function Landing() {
   return (
     <>
       <Toaster position="top-right" />
@@ -63,7 +68,7 @@ export default function Landing() {
             <input type="text" name="upi" placeholder="UPI ID" className="text-black p-2 bg-gray-200 rounded-md w-80" required></input>
           </div>
           <button type="submit">
-            <div className="border border-black rounded-md py-2 px-5">Submit</div>
+            <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
           </button>
         </form>
       </main>
