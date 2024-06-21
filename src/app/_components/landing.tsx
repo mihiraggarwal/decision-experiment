@@ -67,7 +67,7 @@ export default function Landing() {
             <input type="text" name="otp" placeholder="One time password" className="text-black p-2 bg-gray-200 rounded-md w-80" required></input>
             <input type="text" name="upi" placeholder="UPI ID" className="text-black p-2 bg-gray-200 rounded-md w-80" required></input>
           </div>
-          <button type="submit">
+          <button type="submit" disabled={loading}>
             <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
           </button>
         </form>
