@@ -10,7 +10,7 @@ const getPdf = async (bet: number, pass: string) => {
     const doc = new PDFDocument({font: path.join(process.cwd(), "public/assets/fonts/AirbnbCerealBook.ttf"), userPassword: pass})
     const stream = doc.pipe(blobStream())
 
-    doc.fontSize(25).text(`The bet that will be used for payment: Bet ${bet}`, 100, 80);
+    doc.fontSize(25).text(`The decision to be used for payment is: ${bet}`, 100, 80);
     doc.end()
 
     stream.on("finish", async () => {
@@ -40,6 +40,7 @@ export async function GET() {
   const buffer = await getPdf(chosen_bet, pass) as Blob
 
   user.pdf_pass = pass
+  user.chosen_bet = chosen_bet
   await user.save()
 
   const headers = new Headers();
