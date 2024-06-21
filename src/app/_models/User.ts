@@ -10,6 +10,7 @@ export interface Users extends mongoose.Document {
     current_question_index: number;
     pdf_pass: string;
     total_bets: number;
+    price: number;
 }
 
 const UserSchema = new mongoose.Schema<Users> ({
@@ -44,6 +45,9 @@ const UserSchema = new mongoose.Schema<Users> ({
         type: String
     },
     total_bets: {
+        type: Number
+    },
+    price: {
         type: Number
     }
 });
