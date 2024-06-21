@@ -6,7 +6,7 @@ import dbConnect from "../_config/db";
 import Response from "../_models/Response";
 import navigate from "./navigate";
 
-export default async function submit_iq(formData: FormData) {
+export async function submit_iq(formData: FormData) {
 
     const id = formData.get("id")
 
@@ -23,11 +23,18 @@ export default async function submit_iq(formData: FormData) {
     const response = await Response.findOne({ session_id: id })
     if (response == null) {
         console.log("null response")
+        return
     }
     else {
-        response.iq = answers
-        
-        await response.save()
-        await navigate("/results")
+        if (response.iq == null || response.iq.length == 0) {
+            response.iq = answers
+
+            await response.save()
+            await navigate("/results")
+        }
+        else {
+            console.log("iq already submitted")
+            return
+        }
     }
 }

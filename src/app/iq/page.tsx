@@ -2,7 +2,8 @@
 
 import { useSession } from "next-auth/react"
 import Input from "../_components/input"
-import submit_iq from "../_actions/submit_iq"
+import { submit_iq } from "../_actions/submit"
+import SubmitBtn from "../_components/submitBtn"
 
 export default function IQ() {
 
@@ -29,9 +30,7 @@ export default function IQ() {
                     <Question num={3}/>
                     <Question num={4}/>
                 </div>
-                <button type="submit">
-                    <div className="border border-black rounded-md py-2 px-5">Submit</div>
-                </button>
+                <SubmitBtn />
             </form>
         </main>
     )
