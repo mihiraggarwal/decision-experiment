@@ -77,9 +77,6 @@ const genRandom = async (otp: string) => {
         if (qnum == 1) {
             q = Array.from({length: QUE_CP1}, (_, i) => i + 1)[Math.floor(Math.random() * QUE_CP1)];
         }
-        else if (qnum == 2) {
-            q = Array.from({length: QUE_CP2}, (_, i) => i + 1)[Math.floor(Math.random() * QUE_CP2)];
-        }
         else if (qnum == 3) {
             q = Array.from({length: QUE_CP3}, (_, i) => i + 1)[Math.floor(Math.random() * QUE_CP3)];
         }
@@ -93,9 +90,29 @@ const genRandom = async (otp: string) => {
     const permutations = genPermutations(numbers);
     const randomElement = permutations[Math.floor(Math.random() * TOTAL_CP_FACT)];
 
+    const choice_1 = getTreatment(1)
+    const order_1 = NUMS[1][choice_1];
+
+    let choice_2
+    if (order_1.length == 3) {
+        choice_2 = [1, 2, 3, 6][Math.floor(Math.random() * 4)];
+    }
+    else {
+        choice_2 = [4, 5, 7, 8][Math.floor(Math.random() * 4)];
+    }
+
+    const choice_3 = getTreatment(3)
+    const choice_4 = getTreatment(4)
+
     for (let i = 0; i < TOTAL_CP; i++) {
         const cp = randomElement[i];
-        const part = getTreatment(cp);
+
+        let part;
+        if (cp == 1) part = choice_1;
+        else if (cp == 2) part = choice_2;
+        else if (cp == 3) part = choice_3;
+        else part = choice_4;
+
         const og_order = NUMS[cp][part];
 
         const order_perms = genPermutations(og_order);
