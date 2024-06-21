@@ -140,7 +140,7 @@ def choose_distribution(S):
 
 class ellsberg_two_color_urn:
 
-    def __init__(self, n: int, risk:bool, suburn:bool = False, labels:list=['Red', 'Black']):
+    def __init__(self, n: int, risk:bool, suburn:bool = False):
         """
         Given a total number of balls, returns a two-color Ellsberg urn. If it is used as an intermediate calculation for the Machina urn, the number of balls may be odd. However, by itself, the number of balls must be even.
 
@@ -152,11 +152,8 @@ class ellsberg_two_color_urn:
             Whether the urn is risky or ambiguous.
         suburn: bool, optional
             Whether the function is being used to create a Machina urn.
-        labels: list, optional
-            The labels associated with the different colors.
         """
 
-        self.labels = labels
         self.n = n
         self.risk = risk
         self.suburn = suburn
@@ -189,7 +186,7 @@ class ellsberg_two_color_urn:
 
     def draw(self, size: int = 1, replace: bool = True):
 
-        return choice(self.labels, size=size, replace=replace, p=self.prob)
+        return choice([1, 2], size=size, replace=replace, p=self.prob)
 
 class ellsberg_three_color_urn:
 
@@ -236,7 +233,7 @@ class ellsberg_three_color_urn:
 
     def draw(self, size: int = 1, replace:bool = True):
 
-        return choice(['Blue', 'Red', 'Green'], size=size, replace=replace, p=self.prob)
+        return choice([1, 2, 3], size=size, replace=replace, p=self.prob)
 
 class ellsberg_k_color_urn:
 
@@ -794,7 +791,7 @@ class CP3_bet1:
                 print(f'The ball drawn from the urn was {draw_color}')
 
             if guess == draw_color:
-                bet1 = self.rewards[0]
+                bet1 = 500
             else:
                 bet1 = 0
 
@@ -844,7 +841,7 @@ class CP3_bet2:
             print(f'The ball drawn from the urn was {draw_color}')
 
         if guess == draw_color:
-            bet2 = self.rewards[0]
+            bet2 = 500
         else:
             bet2 = 0
 
@@ -995,7 +992,7 @@ class CP4_bet3:
         return draw_color, bet3
 
 
-def randomize_price(bet):
+def randomize_price(bet, uniform:bool=True):
     """
     Randomly determines the price of a bet.
 
@@ -1010,13 +1007,16 @@ def randomize_price(bet):
         The randomized price of the bet.
     """
 
-    max_prize = max(bet["rewards"])
-    mean_prize = float(np.mean(bet["rewards"]))
+    max_prize = max(bet.rewards)
+    mean_prize = float(np.mean(bet.rewards))
 
     N = [n for n in range(max_prize + 1)]
 
-    dist = exponential_pdf(mean_prize, N)
-    dist /= np.sum(dist)
+    if uniform:
+        dist = np.ones(len(N)) / len(N)
+    else:
+        dist = exponential_pdf(mean_prize, N)
+        dist /= np.sum(dist)
 
     price = choice(N, p=dist)
 
