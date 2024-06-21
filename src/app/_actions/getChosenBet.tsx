@@ -8,7 +8,7 @@ export default async function getChosenBet() {
     const session = await getServerSession();
     const user = await User.findOne({ password: session?.user.name })
 
-    const chosen_bet = user.chosen_bet || 2
+    const chosen_bet = user.chosen_bet
     const pdf_pass = user.pdf_pass
     const order = user.order
     const price = user.price

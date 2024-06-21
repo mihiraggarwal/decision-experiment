@@ -32,20 +32,25 @@ export default async function Results() {
 
     await dbConnect()
 
-    const { chosen_bet, pdf_pass, bet, rewards, price } = await getChosenBet()
+    const { chosen_bet, pdf_pass, bet, challenge, rewards, price } = await getChosenBet()
 
+    const mcq = Number(challenge.part!) >= 6
+    
     let num;
-    if (!price) {
-        num = await genRandom(rewards)
-        await savePrice(num)
-    }
+    if (mcq) num = -1
     else {
-        num = price
+        if (!price) {
+            num = await genRandom(rewards)
+            await savePrice(num)
+        }
+        else {
+            num = price
+        }
     }
 
     const proceed = async () => {
         "use server"
-        if (num > bet) {
+        if (num >= bet) {
             await navigate("/fin")
         }
         else {
@@ -54,6 +59,6 @@ export default async function Results() {
     }
 
     return (
-        <Main chosen_bet={chosen_bet} pdf_pass={pdf_pass} bet={bet} num={num} proceed={proceed} />
+        <Main chosen_bet={chosen_bet} pdf_pass={pdf_pass} bet={bet} num={num} proceed={proceed} mcq={mcq} />
     )
 }
