@@ -51,6 +51,8 @@ export default async function Results() {
     const proceed = async () => {
         "use server"
         if (num >= bet) {
+            const session = await getServerSession()
+            await User.findOneAndUpdate({ password: session?.user.name }, { fin: true })
             await navigate("/fin")
         }
         else {

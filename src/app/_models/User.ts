@@ -11,6 +11,7 @@ export interface Users extends mongoose.Document {
     pdf_pass: string;
     total_bets: number;
     price: number;
+    fin: boolean;
 }
 
 const UserSchema = new mongoose.Schema<Users> ({
@@ -23,7 +24,6 @@ const UserSchema = new mongoose.Schema<Users> ({
     },
     amount: {
         type: Number,
-        default: 0
     },
     chosen_bet: {
         type: Number
@@ -49,6 +49,9 @@ const UserSchema = new mongoose.Schema<Users> ({
     },
     price: {
         type: Number
+    },
+    fin: {
+        type: Boolean
     }
 });
 

@@ -1007,8 +1007,8 @@ def randomize_price(bet, uniform:bool=True):
         The randomized price of the bet.
     """
 
-    max_prize = max(bet.rewards)
-    mean_prize = float(np.mean(bet.rewards))
+    max_prize = max(bet["rewards"])
+    mean_prize = float(np.mean(bet["rewards"]))
 
     N = [n for n in range(max_prize + 1)]
 
