@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import { fin, saveToDB, verify } from "./play";
 import navigate from "../_actions/navigate";
 
-export default function Main({colours, rewards, balls, cp, bet, server_url}: {colours: String[], rewards: Number[], balls: number[][], cp: Number, bet: Number, server_url: String}) {
+export default function Main({colours, rewards, balls, cp, bet, server_url}: {colours: string[], rewards: Number[], balls: number[][], cp: Number, bet: Number, server_url: String}) {
 
     const [loading, setLoading] = useState(false)
     const [disabled, setDisabled] = useState(false)

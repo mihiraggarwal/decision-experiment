@@ -7,6 +7,7 @@ import navigate from "../_actions/navigate";
 
 import getChosenBet from "../_actions/getChosenBet";
 import { saveToDB } from "../bet/play";
+import details from "../_actions/getTableDetails";
 
 const RANDOMIZATION_SERVER_URL = process.env.RANDOMIZATION_SERVER_URL!
 
@@ -49,6 +50,8 @@ export default async function Results() {
         }
     }
 
+    const { colours, balls } = await details(challenge)
+
     // show iq questions amount won too, and add it
 
     const proceed = async () => {
@@ -65,6 +68,6 @@ export default async function Results() {
     }
 
     return (
-        <Main chosen_bet={chosen_bet} pdf_pass={pdf_pass} bet={bet} num={num} proceed={proceed} mcq={mcq} />
+        <Main chosen_bet={chosen_bet} pdf_pass={pdf_pass} bet={bet} num={num} proceed={proceed} mcq={mcq} colours={colours} balls={balls} rewards={rewards} />
     )
 }
