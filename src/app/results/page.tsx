@@ -6,6 +6,7 @@ import dbConnect from "../_config/db";
 import navigate from "../_actions/navigate";
 
 import getChosenBet from "../_actions/getChosenBet";
+import { saveToDB } from "../bet/play";
 
 const RANDOMIZATION_SERVER_URL = process.env.RANDOMIZATION_SERVER_URL!
 
@@ -48,10 +49,13 @@ export default async function Results() {
         }
     }
 
+    // show iq questions amount won too, and add it
+
     const proceed = async () => {
         "use server"
         if (num >= bet) {
             const session = await getServerSession()
+            await saveToDB(num + 100)
             await User.findOneAndUpdate({ password: session?.user.name }, { fin: true })
             await navigate("/fin")
         }
