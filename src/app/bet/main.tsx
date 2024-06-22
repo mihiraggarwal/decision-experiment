@@ -5,7 +5,7 @@ import { FormEvent, useState } from "react";
 import { fin, saveToDB, verify } from "./play";
 import navigate from "../_actions/navigate";
 
-export default function Main({colours, rewards, cp, bet, server_url}: {colours: String[], rewards: Number[], cp: Number, bet: Number, server_url: String}) {
+export default function Main({colours, rewards, balls, cp, bet, server_url}: {colours: String[], rewards: Number[], balls: number[][], cp: Number, bet: Number, server_url: String}) {
 
     const [loading, setLoading] = useState(false)
     const [disabled, setDisabled] = useState(false)
@@ -75,30 +75,32 @@ export default function Main({colours, rewards, cp, bet, server_url}: {colours: 
         await navigate("/fin")
     }
 
-    const Table = ({type}: {type: string}) => {
-        if (type === "colours") {
-            return (
-                <tr>
-                    <td></td>
-                    {colours.map((colour, index) => (
-                        <th key={index}>{colour}</th>
-                        
-                    ))}
-                </tr>
-            )
-        }
-        else if (type === "rewards") {
-            return (
-                <tr>
-                    <th>Rewards</th>
-                    {rewards.map((reward, index) => (
-                        <td key={index}>{`${reward}`}</td>
-                        
-                    ))}
-                </tr>
-            )
-        
-        }
+    const Table = () => {
+        return (
+            <table>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        {balls.map((ball, index) => (
+                            <th colSpan={ball[0]} key={index}>{`${ball[1]} ball${ball[1] > 1 ? "s" : ""}`}</th>
+                        ))}
+                    </tr>
+                    <tr>
+                        <td></td>
+                        {colours.map((colour, index) => (
+                            <th key={index}>{colour}</th>
+                            
+                        ))}
+                    </tr>
+                    <tr>
+                        <th>Rewards</th>
+                        {rewards.map((reward, index) => (
+                            <td key={index}>{`${reward}`}</td>
+                        ))}
+                    </tr>
+                </tbody>
+            </table>
+        )
     }
 
     return (
@@ -106,12 +108,7 @@ export default function Main({colours, rewards, cp, bet, server_url}: {colours: 
             <h1 className="text-3xl">Bet</h1>
             <div className="flex flex-col gap-5 items-center">
                 <p>Your chosen bet:</p>
-                <table>
-                    <tbody>
-                        <Table type="colours" />
-                        <Table type="rewards" />
-                    </tbody>
-                </table>
+                <Table />
 
                 <form onSubmit={play}>
                     <div className="flex flex-col gap-10">
