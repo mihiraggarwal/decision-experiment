@@ -22,7 +22,7 @@ export default async function Fin() {
                 <p>Amount won from the IQ questions: {iq_amount}</p>
                 <p>Amount won from selling/playing the bet: {bet_amount}</p>
                 <p>The total amount we owe you is: {total_amount}</p>
-                <p>We will reach out to you for the payments shortly.</p>
+                <p>we will pay you on the aforementioned UPI ID shortly.</p>
             </div>
         </div>
     )
