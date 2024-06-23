@@ -11,6 +11,9 @@ const TOTAL_QUESTIONS = 4
 export async function submit_iq(formData: FormData) {
 
     const id = formData.get("id")
+    const start_time = new Date(formData.get("start_time") as string)
+
+    const end_time = new Date()
 
     let answers: Number[] = []
     for (let i = 0; i < TOTAL_QUESTIONS; i++) {
@@ -29,7 +32,11 @@ export async function submit_iq(formData: FormData) {
     }
     else {
         if (response.iq == null || response.iq.length == 0) {
-            response.iq = answers
+            response.iq = {
+                start_time: start_time,
+                end_time: end_time,
+                response: answers
+            }
 
             await response.save()
             await navigate("/results")

@@ -61,7 +61,7 @@ export default async function Results() {
     const user = await User.findOne({ password: session?.user.name })
     
     const response = await Response.findOne({ session_id: user?._id })
-    const iq_response = response.iq
+    const iq_response = response.iq.response
 
     let iq_amount = 0
     for (let i = 0; i < iq_answers.length; i++) {

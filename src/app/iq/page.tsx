@@ -11,6 +11,8 @@ export default function IQ() {
     const { data: session } = useSession()
     const session_id = session?.user.id
 
+    const start_time = new Date().toString()
+
     const Question = ({num, text, placeholder}: {num: number, text: string, placeholder: string}) => {
         return (
             <div className="flex flex-col gap-2 items-center w-full">
@@ -24,6 +26,7 @@ export default function IQ() {
         <main className="flex min-h-screen flex-col gap-20 p-48 pt-16 items-center">
             <h1 className="text-3xl">IQ Questions</h1>
             <form className="flex flex-col gap-20 items-center" action={submit_iq}>
+                <input type="hidden" name="start_time" value={start_time} />
                 <div className="flex flex-col gap-10">
                     <input type="hidden" name="id" value={session_id} />
                     <div className="flex flex-col gap-2 items-center">
