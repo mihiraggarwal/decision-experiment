@@ -7,7 +7,7 @@ export async function saveToDB(amount: number) {
     const session = await getServerSession();    
     const password = session!.user.name;
 
-    await User.findOneAndUpdate({ password: password }, { amount: amount })
+    await User.findOneAndUpdate({ password: password }, { seenBet: true , $inc: { amount: amount } })
 }
 
 export async function fin(password: string) {
@@ -16,6 +16,6 @@ export async function fin(password: string) {
 
 export async function verify(password: string) {
     const user = await User.findOne({ password: password })
-    if (user.amount) return false
+    if (user.seenBet) return false
     return true
 }

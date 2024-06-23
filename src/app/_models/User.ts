@@ -12,6 +12,7 @@ export interface Users extends mongoose.Document {
     total_bets: number;
     price: number;
     fin: boolean;
+    seenBet: boolean;
 }
 
 const UserSchema = new mongoose.Schema<Users> ({
@@ -51,6 +52,9 @@ const UserSchema = new mongoose.Schema<Users> ({
         type: Number
     },
     fin: {
+        type: Boolean
+    },
+    seenBet: {
         type: Boolean
     }
 });

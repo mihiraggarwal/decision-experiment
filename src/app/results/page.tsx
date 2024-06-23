@@ -54,15 +54,18 @@ export default async function Results() {
 
     // show iq questions amount won too, and add it
 
+    const iq_amount = 0
+
     const proceed = async () => {
         "use server"
         if (num >= bet) {
             const session = await getServerSession()
-            await saveToDB(num + 100)
+            await saveToDB(num + 100 + iq_amount)
             await User.findOneAndUpdate({ password: session?.user.name }, { fin: true })
             await navigate("/fin")
         }
         else {
+            await saveToDB(100 + iq_amount)
             await navigate("/bet")
         }
     }

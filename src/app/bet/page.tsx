@@ -14,7 +14,7 @@ export default async function Bet() {
     const session = await getServerSession()
     const user = await User.findOne({ password: session!.user.name })
     console.log(user)
-    if (user.amount) await navigate("/fin")
+    if (user.seenBet == true) await navigate("/fin")
 
     const { challenge, rewards } = await getChosenBet()
     let c = 0;
