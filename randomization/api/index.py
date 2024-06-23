@@ -23,46 +23,37 @@ def bet():
     bet = data["bet"]
     guess = data["guess"]
 
-    import sys
-    print(sys.version_info)
-    assert sys.version_info >= (3, 10)
-
     output = []
-    match cp:
-        case 1:
-            match bet:
-                case 1:
-                    output = CP1_bet1().play()
-                case 2:
-                    output = CP1_bet2().play()
-                case 3:
-                    output = CP1_bet3().play()
-                case 4:
-                    output = CP1_bet4().play()
-        case 2:
-            match bet:
-                case 1:
-                    output = CP2_bet1().play()
-                case 2:
-                    output = CP2_bet2().play()
-                case 3:
-                    output = CP2_bet3().play()
-                case 4:
-                    output = CP2_bet4().play()
-        case 3:
-            match bet:
-                case 1:
-                    output = CP3_bet1().play(guess)
-                case 2:
-                    output = CP3_bet2().play(guess)
-        case 4:
-            match bet:
-                case 1:
-                    output = CP4_bet1().play()
-                case 2:
-                    output = CP4_bet2().play()
-                case 3:
-                    output = CP4_bet3().play()
+    if cp == 1:
+        if bet == 1:
+            output = CP1_bet1().play()
+        elif bet == 2:
+            output = CP1_bet2().play()
+        elif bet == 3:
+            output = CP1_bet3().play()
+        elif bet == 4:
+            output = CP1_bet4().play()
+    elif cp == 2:
+        if bet == 1:
+            output = CP2_bet1().play()
+        elif bet == 2:
+            output = CP2_bet2().play()
+        elif bet == 3:
+            output = CP2_bet3().play()
+        elif bet == 4:
+            output = CP2_bet4().play()
+    elif cp == 3:
+        if bet == 1:
+            output = CP3_bet1().play(guess)
+        elif bet == 2:
+            output = CP3_bet2().play(guess)
+    elif cp == 4:
+        if bet == 1:
+            output = CP4_bet1().play()
+        elif bet == 2:
+            output = CP4_bet2().play()
+        elif bet == 3:
+            output = CP4_bet3().play()
         
     return {
         "draw_colour": output[0],
