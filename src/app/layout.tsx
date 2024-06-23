@@ -4,6 +4,7 @@ import "./globals.css";
 
 import SessionProvider from "./_components/session"
 import { getServerSession } from "next-auth";
+import Scroll from "./_components/scroll";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ export default async function RootLayout({
   const session = await getServerSession();
   return (
     <html lang="en">
+      <Scroll />
       <body className={inter.className}>
         <SessionProvider session={session} refetchOnWindowFocus={false}>
           {children}

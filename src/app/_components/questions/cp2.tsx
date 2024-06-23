@@ -10,6 +10,7 @@ import { cp2_bet1, cp2_bet2, cp2_bet3, cp2_bet4 } from '../../_assets/bets'
 import Img from '../img';
 import Radio from '../radio';
 import SubmitBtn from '../submitBtn';
+import Scroll from '../scroll';
 
 export default function CP2({submit, bets_order, total, radio}: {submit: ((formData: FormData) => void), bets_order: number[], total: number, radio: boolean}) {
 
@@ -105,6 +106,7 @@ export default function CP2({submit, bets_order, total, radio}: {submit: ((formD
 
     return (
         <div className="flex flex-col gap-5 items-center">
+            <Scroll />
             <p>Shown below is the image of an urn. The urn contains exactly 1 blue ball, 1 yellow ball, and 2 balls that may be either pink or orange. You do not know the exact number of balls that are pink or orange.</p>
 
             <div className="flex flex-col gap-5 md:flex-row">

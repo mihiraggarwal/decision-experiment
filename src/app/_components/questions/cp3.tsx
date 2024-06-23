@@ -10,6 +10,7 @@ import { cp3_bet1, cp3_bet2 } from '../../_assets/bets'
 import Img from '../img';
 import Radio from '../radio';
 import SubmitBtn from '../submitBtn';
+import Scroll from '../scroll';
 
 export default function CP3({submit, bets_order, total, radio}: {submit: ((formData: FormData) => void), bets_order: number[], total: number, radio: boolean}) {
 
@@ -210,6 +211,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
 
     return (
         <div className="flex flex-col gap-5 items-center">
+            <Scroll />
             <Initial />
 
             <div className="flex flex-col gap-10 md:flex-row md:gap-20">

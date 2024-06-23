@@ -13,6 +13,7 @@ import CP1 from "../_components/questions/cp1";
 import CP3 from "../_components/questions/cp3";
 import CP4 from "../_components/questions/cp4";
 import CP4_Q4 from "../_components/questions/cp4_q4";
+import Scroll from "../_components/scroll";
 
 const qnum = async (otp: string) => {    
     await dbConnect()
@@ -128,6 +129,7 @@ export default async function Play() {
 
     return (
         <>
+            <Scroll />
             <Toaster position="top-right" />
             <div className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                 <h1 className="text-3xl">Question</h1>

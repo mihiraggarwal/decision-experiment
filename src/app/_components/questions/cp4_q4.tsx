@@ -10,6 +10,7 @@ import { cp4_bet1, cp4_bet2, cp4_bet3 } from '../../_assets/bets'
 import Img from '../img';
 import Radio from '../radio';
 import SubmitBtn from '../submitBtn';
+import Scroll from '../scroll';
 
 export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((formData: FormData) => void), bets_order: number[], total: number, radio: boolean}) {
 
@@ -131,6 +132,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
 
     return (
         <div className="flex flex-col gap-5 items-center">
+            <Scroll />
             <p>There are two urns placed in front of you. Urn 1 contains exactly 1 green ball and 2 balls that may each be either red or purple. You do not know the exact number of balls that are red or purple. Urn 2 contains exactly 1 yellow ball and 1 cyan ball.</p>
 
             <div className="flex flex-col gap-10 md:flex-row md:gap-20">
