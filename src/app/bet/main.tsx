@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { FormEvent, useState } from "react";
-import { fin, saveToDB, verify } from "./play";
+import { fin, makeSeenBet, saveToDB, verify } from "./play";
 import navigate from "../_actions/navigate";
 
 export default function Main({colours, rewards, balls, cp, bet, server_url}: {colours: string[], rewards: Number[], balls: number[][], cp: Number, bet: Number, server_url: String}) {
@@ -59,6 +59,7 @@ export default function Main({colours, rewards, balls, cp, bet, server_url}: {co
         const amt_won = body.bet
 
         await saveToDB(amt_won)
+        await makeSeenBet()
 
         setData(body)
         setFollow(true)
