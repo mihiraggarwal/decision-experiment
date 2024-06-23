@@ -56,9 +56,7 @@ export default function Main({colours, rewards, balls, cp, bet, server_url}: {co
         const body = await res.json()
         console.log(body)
 
-        const participation_prize = 100
-
-        const amt_won = body.bet + participation_prize
+        const amt_won = body.bet
 
         await saveToDB(amt_won)
 
