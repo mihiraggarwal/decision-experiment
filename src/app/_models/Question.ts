@@ -1,24 +1,25 @@
 import mongoose from "mongoose"
 
 export interface Questions extends mongoose.Document {
-    cp: number;
-    part: number;
-    question: string;
+    type: string;
+    index: number;
+    answer: string;
+    iq_answers: number[]
 }
 
 const QuestionSchema = new mongoose.Schema<Questions> ({
-    cp: {
-        type: Number,
-        required: true,
+    type: {
+        type: String
     },
-    part: {
-        type: Number,
-        required: true,
+    index: {
+        type: Number
     },
-    question: {
-        type: String,
-        required: true,
+    answer: {
+        type: String
     },
+    iq_answers: {
+        type: [Number]
+    }
 });
 
 export default mongoose.models.Question || mongoose.model<Questions>("Question", QuestionSchema);

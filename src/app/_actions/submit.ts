@@ -6,13 +6,15 @@ import dbConnect from "../_config/db";
 import Response from "../_models/Response";
 import navigate from "./navigate";
 
+const TOTAL_QUESTIONS = 4
+
 export async function submit_iq(formData: FormData) {
 
     const id = formData.get("id")
 
-    let answers = []
-    for (let i = 0; i < 4; i++) {
-        answers.push(formData.get(`q${i+1}`))
+    let answers: Number[] = []
+    for (let i = 0; i < TOTAL_QUESTIONS; i++) {
+        answers.push(Number(formData.get(`q${i+1}`)))
     }
     
     const session = await getServerSession()

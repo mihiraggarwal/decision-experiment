@@ -8,6 +8,8 @@ import navigate from "../_actions/navigate";
 import getChosenBet from "../_actions/getChosenBet";
 import { saveToDB } from "../bet/play";
 import details from "../_actions/getTableDetails";
+import Question from "../_models/Question";
+import Response from "../_models/Response";
 
 const RANDOMIZATION_SERVER_URL = process.env.RANDOMIZATION_SERVER_URL!
 
@@ -52,14 +54,28 @@ export default async function Results() {
 
     const { colours, balls } = await details(challenge)
 
-    // show iq questions amount won too, and add it
+    const answers = await Question.findOne({ type: "iq" })
+    const iq_answers = answers.iq_answers
 
-    const iq_amount = 0
+    const session = await getServerSession()
+    const user = await User.findOne({ password: session?.user.name })
+    
+    const response = await Response.findOne({ session_id: user?._id })
+    const iq_response = response.iq
+
+    let iq_amount = 0
+    for (let i = 0; i < iq_answers.length; i++) {
+        if (iq_answers[i] == iq_response[i]) {
+            iq_amount += 25
+        }
+    }
+
+    user.amount_iq = iq_amount
+    await user.save()
 
     const proceed = async () => {
         "use server"
         if (num >= bet) {
-            const session = await getServerSession()
             await saveToDB(num + 100 + iq_amount)
             await User.findOneAndUpdate({ password: session?.user.name }, { fin: true })
             await navigate("/fin")

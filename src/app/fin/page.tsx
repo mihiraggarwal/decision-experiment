@@ -7,7 +7,7 @@ export default async function Fin() {
 
     const user = await User.findOne( {password: session!.user.name} )
     const upi = user.upi
-    const amount = user.amount
+    const amount = user.total_amount
 
     // remove session_id from response row
 

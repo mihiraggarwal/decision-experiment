@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 export interface Responses extends mongoose.Document {
     session_id: string;
     response: object[];
-    iq: string[]
+    iq: number[]
 }
 
 const ResponseSchema = new mongoose.Schema<Responses> ({
@@ -20,7 +20,7 @@ const ResponseSchema = new mongoose.Schema<Responses> ({
         }]
     },
     iq: {
-        type: [String]
+        type: [Number]
     }
 });
 

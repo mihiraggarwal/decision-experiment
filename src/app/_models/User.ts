@@ -3,7 +3,8 @@ import mongoose from "mongoose"
 export interface Users extends mongoose.Document {
     password: string;
     upi: string;
-    amount: number;
+    total_amount: number;
+    amount_iq: number;
     chosen_bet: number;
     order: object[];
     current_slug: string;
@@ -23,8 +24,11 @@ const UserSchema = new mongoose.Schema<Users> ({
     upi: {
         type: String,
     },
-    amount: {
+    total_amount: {
         type: Number,
+    },
+    amount_iq: {
+        type: Number
     },
     chosen_bet: {
         type: Number
