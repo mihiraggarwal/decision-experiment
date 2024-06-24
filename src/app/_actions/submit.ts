@@ -6,18 +6,18 @@ import dbConnect from "../_config/db";
 import Response from "../_models/Response";
 import navigate from "./navigate";
 
-const TOTAL_QUESTIONS = 4
+const TOTAL_QUESTIONS = 3
 
-export async function submit_iq(formData: FormData) {
+export async function submit_iq(values: {[key: string]: string | number | undefined | FormDataEntryValue | null}) {
 
-    const id = formData.get("id")
-    const start_time = new Date(formData.get("start_time") as string)
+    const id = values["id"]
+    const start_time = new Date(values["start_time"] as string)
 
     const end_time = new Date()
 
     let answers: Number[] = []
     for (let i = 0; i < TOTAL_QUESTIONS; i++) {
-        answers.push(Number(formData.get(`q${i+1}`)))
+        answers.push(Number(values[`q${i+1}`]))
     }
     
     const session = await getServerSession()
