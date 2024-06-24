@@ -96,6 +96,7 @@ export default function Prelim() {
             {position === 1 && (
                 <>
                     <Scroll />
+                    <Toaster position="top-right" />
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Types of Urns</h1>
                         <div className="flex flex-col gap-10">
