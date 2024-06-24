@@ -17,7 +17,12 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
 
     let answers: Number[] = []
     for (let i = 0; i < TOTAL_QUESTIONS; i++) {
-        answers.push(Number(values[`q${i+1}`]))
+        if (values[`q${i+1}`] == null) {
+            answers.push(-1)
+        }
+        else {
+            answers.push(Number(values[`q${i+1}`]))
+        }
     }
     
     const session = await getServerSession()

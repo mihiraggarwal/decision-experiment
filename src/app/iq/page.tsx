@@ -3,7 +3,7 @@
 import { useSession } from "next-auth/react"
 import { submit_iq } from "../_actions/submit"
 import Scroll from "../_components/scroll"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useRef, useState } from "react"
 
 const TOTAL_QUESTIONS = 3
 
@@ -16,8 +16,13 @@ export default function IQ() {
     const [values, setValues] = useState<{ [key: string]: string | number | undefined }>({})
 
     const [loading, setLoading] = useState(false)
+    const [start, setStart] = useState(false)
 
-    const start_time = new Date().toString()
+    const start_time = useRef<string>("")
+    
+    useEffect(() => {
+        start_time.current = new Date().toString()
+    }, [start])
 
     const Input = ({placeholder, name, type}: {placeholder: string, name: string, type: string}) => {
         return <input type={type} placeholder={placeholder} name={name} className="text-black p-2 bg-gray-200 rounded-md w-80" required  value={values[name]} autoFocus onChange={(e) => setValues({...values, [name]: e.target.value})}></input>
@@ -29,6 +34,18 @@ export default function IQ() {
                 <label className="">
                     <input type="radio" name={name} value={value} className="mr-4" required onChange={(e) => setValues({...values, [name]: e.target.value})} checked={values[name] == value}></input>{label}
                 </label>
+            </div>
+        )
+    }
+
+    const IQ_0 = () => {
+        return (
+            <div className="flex flex-col gap-10 items-center">
+                <p className="text-left w-full">You will now be asked to answer eight further questions, for a potential additional reward of INR 150.</p>
+                <p className="text-left w-full">The payment protocol for these questions is as follows. Of the eight questions provided, three will be randomly chosen for payment. You will be paid INR 50 for each of these three questions that you answer correctly.</p>
+                <button type="button" onClick={() => {
+                    setStart(true)
+                }} className="border border-black rounded-md py-2 px-5">Next</button>
             </div>
         )
     }
@@ -94,27 +111,29 @@ export default function IQ() {
         <>
             <Scroll />
             <main className="flex min-h-screen flex-col gap-20 p-48 pt-16 items-center">
-                <h1 className="text-3xl">Question</h1>
-                <form className="flex flex-col gap-20 items-center" onSubmit={submit}>
-                    <input type="hidden" name="start_time" value={start_time} />
-                    <input type="hidden" name="id" value={session_id} />
-                    {index === 1 && <IQ_1 />}
-                    {index === 2 && <IQ_2 />}
-                    {index === 3 && <IQ_3 />}
-                    <div className="flex flex-row gap-2">
-                        <button type="button" onClick={() => {
-                            if (index > 1) setIndex(index - 1)
-                        }} className="border border-black rounded-md py-2 px-5">Previous</button>
-                        <button type="button" onClick={() => {
-                            if (index < TOTAL_QUESTIONS) setIndex(index + 1)
-                        }} className="border border-black rounded-md py-2 px-5">Next</button>
-                    </div>
-                    {index === TOTAL_QUESTIONS && (
-                        <button type="submit" disabled={loading}>
-                            <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
-                      </button>
-                    )}
-                </form>
+                <h1 className="text-3xl">Additional Questions</h1>
+                {start === false ? (<IQ_0 />) : (
+                    <form className="flex flex-col gap-20 items-center" onSubmit={submit}>
+                        <input type="hidden" name="start_time" value={start_time.current} />
+                        <input type="hidden" name="id" value={session_id} />
+                        {index === 1 && <IQ_1 />}
+                        {index === 2 && <IQ_2 />}
+                        {index === 3 && <IQ_3 />}
+                        <div className="flex flex-row gap-2">
+                            <button type="button" onClick={() => {
+                                if (index > 1) setIndex(index - 1)
+                            }} className="border border-black rounded-md py-2 px-5">Previous</button>
+                            <button type="button" onClick={() => {
+                                if (index < TOTAL_QUESTIONS) setIndex(index + 1)
+                            }} className="border border-black rounded-md py-2 px-5">Next</button>
+                        </div>
+                        {index === TOTAL_QUESTIONS && (
+                            <button type="submit" disabled={loading}>
+                                <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
+                        </button>
+                        )}
+                    </form>
+                )}
             </main>
         </>
     )
