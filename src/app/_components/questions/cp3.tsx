@@ -21,6 +21,8 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
 
     const [dialog, setDialog] = useState(false)
 
+    const statements = ["with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball", "with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue, and the exact number of balls of each colour not known"]
+
     const cp_bets: number[][] = []
     bets_order.forEach(i => {
         switch(i) {
@@ -141,13 +143,21 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
     const Ticket = () => {
         switch (total) {
             case 1:
-                return(<p>You are offered a ticket for a game that plays out as follows. First, you choose one of the eight colors. Then, you must draw a ball from the urn without looking. If the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
+                return(<p>You are offered a ticket for a game that plays out as follows. First, you choose one of the eight colors. Then, a ball is drawn from the urn at random. If the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
             case 2:
-                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, you choose one of the eight colors. Then, if you have ticket A, you must draw a ball from urn 1 without looking. If you have ticket B, you must draw a ball from urn 2 without looking. In both cases, if the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
+                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, you choose one of the eight colors. Then, if you were offered ticket A, a ball is drawn from urn 1 at random. If you were offered ticket B, a ball is drawn from urn 2. In both cases, if the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
         }
     }
 
     const Answer = () => {
+        if (total == 1) {
+            return (
+                <div className="flex flex-col gap-1 items-center">
+                    <div className="font-bold text-center">The lowest price at which I would sell this ticket is:</div>
+                    <Input type="number" placeholder="Price" name={`price1`} />
+                </div>
+            )
+        }
         const final: JSX.Element[] = []
         if (!radio) {
             Array.from({length: total}, (x, i) => {
@@ -175,13 +185,13 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
         switch (total) {
             case 1:
                 if (bets_order[0] == 1) {
-                    return (<p>There is an urn placed in front of you. The urn contains a total of eight balls, with exactly 1 ball colored purple (P), cyan (C), brown (Br), green (G), blue (B), red (R), maroon (M), and yellow (Y) each.</p>)
+                    return (<p>Shown below is the image of an urn. The urn contains a total of eight balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball.</p>)
                 }
                 else {
-                    return (<p>There is an urn placed in front of you. The urn contains a total of eight balls, each ball colored one of purple (P), cyan (C), brown (Br), green (G), blue (B), red (R), maroon (M), and yellow (Y). However, the exact number of balls of each colour is not known.</p>)
+                    return (<p>Shown below is the image of an urn. The urn contains a total of eight balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is not known.</p>)
                 }
             default:
-                return (<p>There are two urns placed in front of you. Urn 1 contains eight balls, with 1 ball colored purple (P), cyan (C), brown (Br), green (G), blue (B), red (R), maroon (M), and yellow (Y) each. Urn 2 also contains eight balls, each of which is of one of the above eight colors. However, the exact number of balls of each colour in urn 2 is not known.</p>)
+                return (<p>Shown below are the images of two urns. Urn 1 contains a total of eight balls, {statements[bets_order[0]-1]}. Urn 2 also contains eight balls, {statements[bets_order[1]-1]}.</p>)
         }
     }
 

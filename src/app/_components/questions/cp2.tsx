@@ -23,23 +23,29 @@ export default function CP2({submit, bets_order, total, radio}: {submit: ((formD
 
     const cp_bets: number[][] = []
     const statements: string[] = []
+    const singular: string[] = []
+
     bets_order.forEach(i => {
         switch(i) {
             case 1:
                 cp_bets.push(cp2_bet1)
-                statements.push(`${cp2_bet1[0]} if the drawn ball is blue, ${cp2_bet1[2]} if the drawn ball is pink,`)
+                singular.push(`If the drawn ball is blue, you receive INR ${cp2_bet1[0]}. If it is pink, you receive INR ${cp2_bet1[2]}`)
+                statements.push(`INR ${cp2_bet1[0]} if the drawn ball is blue, INR ${cp2_bet1[2]} if it is pink,`)
                 break
             case 2:
                 cp_bets.push(cp2_bet2)
-                statements.push(`${cp2_bet2[1]} if the drawn ball is yellow, ${cp2_bet2[3]} if the drawn ball is orange,`)
+                singular.push(`If the drawn ball is orange, you receive INR ${cp2_bet2[3]}. If it is yellow, you receive INR ${cp2_bet2[1]}`)
+                statements.push(`INR ${cp2_bet2[3]} if the drawn ball is orange, INR ${cp2_bet2[1]} if it is yellow,`)
                 break
             case 3:
                 cp_bets.push(cp2_bet3)
-                statements.push(`${cp2_bet3[0]} if the drawn ball is blue`)
+                singular.push(`If the drawn ball is blue, you receive INR ${cp2_bet3[0]}`)
+                statements.push(`INR ${cp2_bet3[0]} if the drawn ball is blue`)
                 break
             case 4:
                 cp_bets.push(cp2_bet4)
-                statements.push(`${cp2_bet4[1]} if the drawn ball is yellow`)
+                singular.push(`If the drawn ball is yellow, you receive INR ${cp2_bet4[1]}`)
+                statements.push(`INR ${cp2_bet4[1]} if the drawn ball is yellow`)
                 break
         }
     })
@@ -72,15 +78,23 @@ export default function CP2({submit, bets_order, total, radio}: {submit: ((formD
     const Ticket = () => {
         switch (total) {
             case 1:
-                return(<p>You are offered a ticket, for a game that plays out as follows. First, you must draw a ball from the urn without looking. You receive INR {statements[0]} and nothing otherwise.</p>)
+                return(<p>You are offered a ticket, for a game that plays out as follows. First, you must draw a ball from the urn without looking. {singular[0]}. Else, you receive nothing.</p>)
             case 2:
-                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, you must draw a ball from the urn without looking. If you have ticket A, you receive INR {statements[0]} and nothing otherwise. If you have ticket B, you receive INR {statements[1]} and nothing otherwise.</p>)
+                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, a ball is drawn from the urn at random. If you were offered ticket A, you receive {statements[0]} and nothing otherwise. If you have ticket B, you receive {statements[1]} and nothing otherwise.</p>)
             case 3:
-                return(<p>You are offered one of three tickets, ticket A, B and C, for a game that plays out as follows. First, you must draw a ball from the urn without looking. If you have ticket A, you receive INR {statements[0]} and nothing otherwise. If you have ticket B, you receive INR {statements[1]} and nothing otherwise. If you have ticket C, you receive INR {statements[2]} and nothing otherwise.</p>)
+                return(<p>You are offered one of three tickets, ticket A, B, and C, for a game that plays out as follows. First, a ball is drawn from the urn at random. If you were offered ticket A, you receive {statements[0]} and nothing otherwise. If you have ticket B, you receive {statements[1]} and nothing otherwise. If you have ticket C, you receive {statements[2]} and nothing otherwise.</p>)
         }
     }
 
     const Answer = () => {
+        if (total == 1) {
+            return (
+                <div className="flex flex-col gap-1 items-center">
+                    <div className="font-bold text-center">The lowest price at which I would sell this ticket is:</div>
+                    <Input type="number" placeholder="Price" name={`price1`} />
+                </div>
+            )
+        }
         const final: JSX.Element[] = []
         if (!radio) {
             Array.from({length: total}, (x, i) => {
@@ -107,7 +121,7 @@ export default function CP2({submit, bets_order, total, radio}: {submit: ((formD
     return (
         <div className="flex flex-col gap-5 items-center">
             <Scroll />
-            <p>Shown below is the image of an urn. The urn contains exactly 1 blue ball, 1 yellow ball, and 2 balls that may be either pink or orange. You do not know the exact number of balls that are pink or orange.</p>
+            <p>Shown below is the image of an urn. The urn contains exactly 1 blue ball, 1 yellow ball, and 2 other balls, each of which may be either pink or orange. You do not know the exact number of balls that are pink or orange.</p>
 
             <div className="flex flex-col gap-5 md:flex-row">
                 <Img url="/assets/urns/CP2_Urn.png" />

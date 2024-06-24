@@ -20,22 +20,24 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
     const start_time = new Date().toString()
 
     const [dialog, setDialog] = useState(false)
-
+    
+    const initials: string[] = ["1 green ball and 2 other balls, each of which may either be red or purple. You do not know the exact number of balls that are red or purple.", "1 yellow ball and 1 cyan ball."]
     const cp_bets: number[][] = []
     const statements: string[] = []
+    
     bets_order.forEach(i => {
         switch(i) {
             case 1:
                 cp_bets.push(cp4_bet1)
-                statements.push(`${cp4_bet1[0]} if the drawn ball is green`)
+                statements.push(`green, you receive INR ${cp4_bet1[0]}`)
                 break
             case 2:
                 cp_bets.push(cp4_bet2)
-                statements.push(`${cp4_bet2[1]} if the drawn ball is red`)
+                statements.push(`red, you receive INR ${cp4_bet2[1]}`)
                 break
             case 3:
                 cp_bets.push(cp4_bet3)
-                statements.push(`${cp4_bet3[0]} if the drawn ball is yellow`)
+                statements.push(`yellow, you receive INR ${cp4_bet3[0]}`)
                 break
         }
     })
@@ -49,7 +51,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
             bet.forEach(i => {
                 entries.push(<td>{i}</td>)
             });
-            if (bets_order[index] == 1) {
+            if (bets_order[index] == 2) {
                 final.push(
                     <table> 
                         <tbody>
@@ -102,11 +104,19 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
 
     const Ticket = () => {
         return(
-            <p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. If you have ticket A, you must draw a ball from urn 1 without looking. If you have ticket A, you draw a ball from urn 1 and receive INR {statements[0]} and nothing otherwise. If you have ticket B, you draw a ball from urn 2 and receive INR {statements[1]} and nothing otherwise.</p>
+            <p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. If you were offered ticket A, a ball is drawn from the urn 1 at random. If the drawn ball is {statements[0]} and nothing otherwise. If you were offered ticket B, a ball is drawn from urn 2 at random. If the drawn ball is {statements[1]} and nothing otherwise.</p>
         )
     }
 
     const Answer = () => {
+        if (total == 1) {
+            return (
+                <div className="flex flex-col gap-1 items-center">
+                    <div className="font-bold text-center">The lowest price at which I would sell this ticket is:</div>
+                    <Input type="number" placeholder="Price" name={`price1`} />
+                </div>
+            )
+        }
         const final: JSX.Element[] = []
         if (!radio) {
             Array.from({length: total}, (x, i) => {
@@ -133,7 +143,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
     return (
         <div className="flex flex-col gap-5 items-center">
             <Scroll />
-            <p>There are two urns placed in front of you. Urn 1 contains exactly 1 green ball and 2 balls that may each be either red or purple. You do not know the exact number of balls that are red or purple. Urn 2 contains exactly 1 yellow ball and 1 cyan ball.</p>
+            <p>Shown below are the images of two urns. Urn 1 contains exactly {initials[bets_order[0]-2]} Urn 2 contains exactly {initials[bets_order[1]-2]}</p>
 
             <div className="flex flex-col gap-10 md:flex-row md:gap-20">
                 <div className="flex flex-col gap-5 items-center">
