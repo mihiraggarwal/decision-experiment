@@ -21,7 +21,9 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
 
     const [dialog, setDialog] = useState(false)
 
-    const statements = ["with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball", "with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue, and the exact number of balls of each colour not known"]
+    const f = <span className="font-bold">not known.</span>
+    const statements = [<>, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball</>, <>. Each of these balls is either pink, orange, purple, green, red, black, yellow, or blue. However, the exact number of balls of these eight colors is <span className="font-bold">not known</span></>]
+
 
     const cp_bets: number[][] = []
     bets_order.forEach(i => {
@@ -185,13 +187,14 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
         switch (total) {
             case 1:
                 if (bets_order[0] == 1) {
-                    return (<p>Shown below is the image of an urn. The urn contains a total of eight balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball.</p>)
+                    return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball.</p>)
                 }
                 else {
-                    return (<p>Shown below is the image of an urn. The urn contains a total of eight balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is not known.</p>)
+                    return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is <span className="font-bold">not known</span>.</p>)
                 }
             default:
-                return (<p>Shown below are the images of two urns. Urn 1 contains a total of eight balls, {statements[bets_order[0]-1]}. Urn 2 also contains eight balls, {statements[bets_order[1]-1]}.</p>)
+                return (<p>Shown below are the images of two urns. Urn 1 contains a total of 8 balls{statements[bets_order[0]-1]}. Urn 2 also contains 8 balls{statements[bets_order[1]-1]}.</p>)
+                // return (<p>Shown below are the images of two urns. Urn 1 contains a total of eight balls, {statements[bets_order[0]-1]}. Urn 2 also contains eight balls, {statements[bets_order[1]-1]}.</p>)
         }
     }
 

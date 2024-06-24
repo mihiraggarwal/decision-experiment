@@ -21,7 +21,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
 
     const [dialog, setDialog] = useState(false)
     
-    const initials: string[] = ["1 green ball and 2 other balls, each of which may either be red or purple. You do not know the exact number of balls that are red or purple.", "1 yellow ball and 1 cyan ball."]
+    const initials = [<>3 balls. There is 1 green ball. Each of the other 2 balls could be red or purple. However, the exact number of balls of these two colors is <span className="font-bold">not known</span></>, <>2 balls, exactly 1 yellow ball and 1 cyan ball</>]
     const cp_bets: number[][] = []
     const statements: string[] = []
     
@@ -143,7 +143,8 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
     return (
         <div className="flex flex-col gap-5 items-center">
             <Scroll />
-            <p>Shown below are the images of two urns. Urn 1 contains exactly {initials[bets_order[0]-2]} Urn 2 contains exactly {initials[bets_order[1]-2]}</p>
+            {/* <p>Shown below are the images of two urns. Urn 1 contains exactly {initials[bets_order[0]-2]} Urn 2 contains exactly {initials[bets_order[1]-2]}</p> */}
+            <p>Shown below are the images of two urns. Urn 1 contains a total of {initials[bets_order[0]-2]}. Urn 2 contains a total of {initials[bets_order[1]-2]}.</p>
 
             <div className="flex flex-col gap-10 md:flex-row md:gap-20">
                 <div className="flex flex-col gap-5 items-center">

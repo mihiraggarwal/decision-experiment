@@ -121,7 +121,7 @@ export default function CP2({submit, bets_order, total, radio}: {submit: ((formD
     return (
         <div className="flex flex-col gap-5 items-center">
             <Scroll />
-            <p>Shown below is the image of an urn. The urn contains exactly 1 blue ball, 1 yellow ball, and 2 other balls, each of which may be either pink or orange. You do not know the exact number of balls that are pink or orange.</p>
+            <p>Shown below is the image of an urn. The urn contains a total of 4 balls. There is 1 blue ball and 1 yellow ball. Each of the other 2 balls could be pink or orange. However, the exact number of balls of these two colors is <span className="font-bold">not known</span>.</p>
 
             <div className="flex flex-col gap-5 md:flex-row">
                 <Img url="/assets/urns/CP2_Urn.png" />

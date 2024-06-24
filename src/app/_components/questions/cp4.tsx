@@ -109,7 +109,7 @@ export default function CP4({submit, bets_order, total, radio}: {submit: ((formD
     return (
         <div className="flex flex-col gap-5 items-center">
             <Scroll />
-            <p>Shown below is the image of an urn. The urn contains exactly 1 green ball and 2 other balls, each of which may either be red or purple. You do not know the exact number of balls that are red or purple.</p>
+            <p>Shown below is the image of an urn. The urn contains a total of 3 balls. There is 1 green ball. Each of the other 2 balls could be red or purple. However, the exact number of balls of these two colors is <span className="font-bold">not known</span>.</p>
 
             <div className="flex flex-col gap-5 md:flex-row">
                 <Img url="/assets/urns/CP4_Urn2.png" />
