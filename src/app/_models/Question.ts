@@ -3,7 +3,7 @@ import mongoose from "mongoose"
 export interface Questions extends mongoose.Document {
     type: string;
     index: number;
-    answer: string;
+    answer: number[];
     iq_answers: number[]
 }
 
@@ -15,7 +15,7 @@ const QuestionSchema = new mongoose.Schema<Questions> ({
         type: Number
     },
     answer: {
-        type: String
+        type: [Number]
     },
     iq_answers: {
         type: [Number]

@@ -76,3 +76,30 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
         }
     }
 }
+
+export async function submit_training_1(formData: FormData) {
+
+    await dbConnect()
+
+    const total_questions = 3;
+    const options = 4;
+
+    const response = []
+    for (let i = 1; i <= total_questions; i++) {
+        for (let j = 1; j <= options; j++) {
+            const k = formData.get(`q${i}_${j}`)
+            if (k != null) response.push(formData.get(`q${i}_${j}`))
+            else response.push(0)
+        }
+    }
+
+    const doc = await Question.findOne({ type: "training", index: 1 })
+    const answer = doc.answer
+
+    for (let i = 0; i < (total_questions * options); i++) {
+        if (response[i] != answer[i]) {
+            return false
+        }
+    }
+    return true
+}
