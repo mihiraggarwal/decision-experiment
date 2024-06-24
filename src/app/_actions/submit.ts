@@ -5,6 +5,8 @@ import dbConnect from "../_config/db";
 
 import Response from "../_models/Response";
 import navigate from "./navigate";
+import Question from "../_models/Question";
+import User from "../_models/User";
 
 const TOTAL_QUESTIONS = 3
 
@@ -44,6 +46,28 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
             }
 
             await response.save()
+
+            const iq = await Question.findOne({ type: "iq" })
+            const iq_answers = iq.iq_answers
+
+            const len = answers.length
+
+            const randomIndexes: number[] = [];
+            while (randomIndexes.length < 3) {
+                const randomIndex = Math.floor(Math.random() * len);
+                if (!randomIndexes.includes(randomIndex)) {
+                    randomIndexes.push(randomIndex);
+                }
+            }
+
+            let iq_amount = 0
+            for (let i = 0; i < 3; i++) {
+                if (answers[randomIndexes[i]] == iq_answers[randomIndexes[i]]) {
+                    iq_amount += 50
+                }
+            }
+
+            await User.findOneAndUpdate({ password: password }, { amount_iq: iq_amount, $inc: { total_amount: iq_amount + 100 } })
             await navigate("/results")
         }
         else {

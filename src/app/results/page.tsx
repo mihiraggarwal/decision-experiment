@@ -76,12 +76,10 @@ export default async function Results() {
     const proceed = async () => {
         "use server"
         if (num >= bet) {
-            await saveToDB(num + 100 + iq_amount)
             await User.findOneAndUpdate({ password: session?.user.name }, { fin: true })
             await navigate("/fin")
         }
         else {
-            await saveToDB(100 + iq_amount)
             await navigate("/bet")
         }
     }
