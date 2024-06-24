@@ -18,6 +18,8 @@ export default function Page ({total_bets}: {total_bets: number}) {
             <h1 className="text-3xl">Randomization</h1>
             <div className="flex flex-col gap-20 items-center">
 
+                <p>You will be asked to make a series of decisions, each of which will be to evaluate a bet by stating the lowest amount at which you would be willing to sell it, as mentioned in the instructions before. We will now randomly choose one of these decisions to be used to determine your payment at the end of the experiment. This choice will be provided to you in a password-protected PDF that you can download by clicking the button below. You will receive the password and be able to open the file only after you have made all your evaluations, so it is encouraged that you answer every question as if it is being used for payment.</p>
+
                 {!disableDownload &&
                     <a href="/api/file">
                         <button type="submit" className="border border-black rounded-md py-2 px-5" onClick={() => {setDisableNext(false)}}>Download file</button>
