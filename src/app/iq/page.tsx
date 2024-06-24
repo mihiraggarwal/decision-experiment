@@ -7,7 +7,7 @@ import { FormEvent, useEffect, useRef, useState } from "react"
 
 import Image from "next/image"
 
-const TOTAL_QUESTIONS = 4
+const TOTAL_QUESTIONS = 8
 
 export default function IQ() {
 
@@ -101,7 +101,7 @@ export default function IQ() {
                 width={0}
                 height={0}
                 sizes="100vw"
-                style={{height: "35vh", width: "auto"}}
+                style={{height: "45vh", width: "auto"}}
             />
         )
     }
@@ -125,22 +125,24 @@ export default function IQ() {
         )
     }
 
-    const IQ_4 = () => {
+    const IQ_Matrix = ({num}: {num: number}) => {
         return (
             <>
             <Scroll />
                 <div className="flex flex-col gap-20 items-center">
-                    <Question_Image url="/assets/urns/CP1_Urn.png" />
+                    <Question_Image url={`/assets/matrices/Q${num-3}.png`} />
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-row gap-5">
-                            <Option_Image url="/assets/urns/CP1_Urn.png" value={0} name="q4" />
-                            <Option_Image url="/assets/urns/CP1_Urn.png" value={1} name="q4" />
-                            <Option_Image url="/assets/urns/CP1_Urn.png" value={2} name="q4" />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_a.png`} value={0} name={`q${num}`} />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_b.png`} value={1} name={`q${num}`} />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_c.png`} value={2} name={`q${num}`} />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_d.png`} value={3} name={`q${num}`} />
                         </div>
                         <div className="flex flex-row gap-5">
-                            <Option_Image url="/assets/urns/CP1_Urn.png" value={3} name="q4" />
-                            <Option_Image url="/assets/urns/CP1_Urn.png" value={4} name="q4" />
-                            <Option_Image url="/assets/urns/CP1_Urn.png" value={5} name="q4" />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_e.png`} value={4} name={`q${num}`} />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_f.png`} value={5} name={`q${num}`} />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_g.png`} value={6} name={`q${num}`} />
+                            <Option_Image url={`/assets/matrices/Q${num-3}_h.png`} value={7} name={`q${num}`} />
                         </div>
                     </div>
                 </div>
@@ -177,7 +179,11 @@ export default function IQ() {
                         {index === 1 && <IQ_1 />}
                         {index === 2 && <IQ_2 />}
                         {index === 3 && <IQ_3 />}
-                        {index === 4 && <IQ_4 />}
+                        {index === 4 && <IQ_Matrix num={4} />}
+                        {index === 5 && <IQ_Matrix num={5} />}
+                        {index === 6 && <IQ_Matrix num={6} />}
+                        {index === 7 && <IQ_Matrix num={7} />}
+                        {index === 8 && <IQ_Matrix num={8} />}
                         <div className="flex flex-row justify-between w-full">
                             <button type="button" disabled={index==1} onClick={() => {
                                 if (index > 1) setIndex(index - 1)

@@ -8,7 +8,7 @@ import navigate from "./navigate";
 import Question from "../_models/Question";
 import User from "../_models/User";
 
-const TOTAL_QUESTIONS = 3
+const TOTAL_QUESTIONS = 8
 
 export async function submit_iq(values: {[key: string]: string | number | undefined | FormDataEntryValue | null}) {
 
