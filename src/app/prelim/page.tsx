@@ -24,17 +24,6 @@ export default function Prelim() {
         const formData = new FormData(event.currentTarget)
 
         if (position == 0) {
-            // const response = await fetch("/api/response", {
-            //     method: "POST", 
-            //     body: JSON.stringify({
-            //         id: formData.get("id")
-            //     })
-            // })
-            // if (response.ok) {
-            //     setPosition(1)
-            // } else {
-            //     toast.error("Something went wrong")
-            // }
             setPosition(1)
             setLoading(false)
         }
@@ -49,9 +38,19 @@ export default function Prelim() {
             }
             setLoading(false)
 
-            // await navigate("/preplay")
         }
         else if (position == 2) {
+            const response = await fetch("/api/response", {
+                method: "POST", 
+                body: JSON.stringify({
+                    id: formData.get("id")
+                })
+            })
+            if (response.ok) {
+                await navigate("/preplay")
+            } else {
+                toast.error("Something went wrong")
+            }
 
         }
     }
@@ -208,7 +207,12 @@ export default function Prelim() {
             )}
 
             {position === 2 && (
-                <></>
+                <form onSubmit={proceed}>
+                    <input type="hidden" name="id" value={session!.user.id} />
+                    <button type="submit" disabled={loading}>
+                        <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Loading..." : "Understood"}</div>
+                    </button>
+                </form>
             )}
             
         </>

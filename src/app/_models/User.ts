@@ -5,6 +5,7 @@ export interface Users extends mongoose.Document {
     upi: string;
     total_amount: number;
     amount_iq: number;
+    amount_bet: number;
     chosen_bet: number;
     order: object[];
     current_slug: string;
@@ -28,6 +29,9 @@ const UserSchema = new mongoose.Schema<Users> ({
         type: Number,
     },
     amount_iq: {
+        type: Number
+    },
+    amount_bet: {
         type: Number
     },
     chosen_bet: {

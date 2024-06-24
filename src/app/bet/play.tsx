@@ -7,7 +7,7 @@ export async function saveToDB(amount: number) {
     const session = await getServerSession();    
     const password = session!.user.name;
 
-    await User.findOneAndUpdate({ password: password }, { $inc: { total_amount: amount } })
+    await User.findOneAndUpdate({ password: password }, { amount_bet: amount, $inc: { total_amount: amount } })
 }
 
 export async function makeSeenBet() {

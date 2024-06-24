@@ -67,7 +67,7 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
                 }
             }
 
-            await User.findOneAndUpdate({ password: password }, { amount_iq: iq_amount, $inc: { total_amount: iq_amount + 100 } })
+            await User.findOneAndUpdate({ password: password }, { amount_iq: iq_amount, total_amount: iq_amount + 100 })
             await navigate("/results")
         }
         else {

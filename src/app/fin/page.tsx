@@ -9,7 +9,7 @@ export default async function Fin() {
     const upi = user.upi
     const iq_amount = user.amount_iq
     const total_amount = user.total_amount
-    const bet_amount = total_amount - iq_amount - 100
+    const bet_amount = user.amount_bet
 
     // remove session_id from response row
 
