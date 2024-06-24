@@ -20,7 +20,7 @@ export default async function Fin() {
     // remove session_id from response row
 
     return (
-        <div className="flex min-h-screen flex-col gap-10 p-96 pt-16 items-center">
+        <div className="flex min-h-screen flex-col gap-10 p-48 pt-16 items-center">
             <h1 className="text-3xl">Thank you!</h1>
             <div className="flex flex-col gap-3">
                 <p>Your UPI ID is: {upi}</p>

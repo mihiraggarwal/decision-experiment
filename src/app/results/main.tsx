@@ -73,7 +73,7 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
                     {all_rewards.map((balls, index) => (
                         <div className="flex flex-col gap-5" key={index}>
                             <Table num={index} key={index} />
-                            <p>Your valuation of this bet was: {all_responses[index]}</p>
+                            <p>Your selling price for this bet was: {all_responses[index]}</p>
                         </div>
                     ))}
                 </div>
