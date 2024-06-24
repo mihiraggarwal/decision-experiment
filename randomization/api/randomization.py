@@ -992,7 +992,7 @@ class CP4_bet3:
         return draw_color, bet3
 
 
-def randomize_price(bet, uniform:bool=True):
+def randomize_price(bet, uniform:bool=False):
     """
     Randomly determines the price of a bet.
 
