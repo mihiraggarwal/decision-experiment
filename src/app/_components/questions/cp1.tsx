@@ -90,7 +90,7 @@ export default function CP1({submit, bets_order, total, radio}: {submit: ((formD
         if (total == 1) {
             return (
                 <div className="flex flex-col gap-1 items-center">
-                    <div className="font-bold text-center">The lowest price at which I would sell this ticket is:</div>
+                    <div className="font-bold text-center">The lowest price at which you would sell this ticket is:</div>
                     <Input type="number" placeholder="Price" name={`price1`} />
                 </div>
             )
@@ -100,7 +100,7 @@ export default function CP1({submit, bets_order, total, radio}: {submit: ((formD
             Array.from({length: total}, (x, i) => {
                 final.push(
                     <div className="flex flex-col gap-1 items-center">
-                        <div className="font-bold text-center">The lowest price at which I would sell ticket {dict[i+1]} is:</div>
+                        <div className="font-bold text-center">The lowest price at which you would sell ticket {dict[i+1]} is:</div>
                         <Input type="number" placeholder="Price" name={`price${i+1}`} />
                     </div>
                 )
