@@ -80,9 +80,9 @@ export default function CP2({submit, bets_order, total, radio}: {submit: ((formD
             case 1:
                 return(<p>You are offered a ticket, for a game that plays out as follows. First, you must draw a ball from the urn without looking. {singular[0]}. Else, you receive nothing.</p>)
             case 2:
-                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, a ball is drawn from the urn at random. If you were offered ticket A, you receive {statements[0]} and nothing otherwise. If you have ticket B, you receive {statements[1]} and nothing otherwise.</p>)
+                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, a ball is drawn from the urn at random. If you were offered ticket A, you receive {statements[0]} and nothing otherwise. If you were offered ticket B, you receive {statements[1]} and nothing otherwise.</p>)
             case 3:
-                return(<p>You are offered one of three tickets, ticket A, B, and C, for a game that plays out as follows. First, a ball is drawn from the urn at random. If you were offered ticket A, you receive {statements[0]} and nothing otherwise. If you have ticket B, you receive {statements[1]} and nothing otherwise. If you have ticket C, you receive {statements[2]} and nothing otherwise.</p>)
+                return(<p>You are offered one of three tickets, ticket A, B, and C, for a game that plays out as follows. First, a ball is drawn from the urn at random. If you were offered ticket A, you receive {statements[0]} and nothing otherwise. If you were offered ticket B, you receive {statements[1]} and nothing otherwise. If you were offered ticket C, you receive {statements[2]} and nothing otherwise.</p>)
         }
     }
 
