@@ -178,17 +178,17 @@ export default function IQ() {
                         {index === 2 && <IQ_2 />}
                         {index === 3 && <IQ_3 />}
                         {index === 4 && <IQ_4 />}
-                        <div className="flex flex-row gap-2">
-                            <button type="button" onClick={() => {
+                        <div className="flex flex-row justify-between w-full">
+                            <button type="button" disabled={index==1} onClick={() => {
                                 if (index > 1) setIndex(index - 1)
-                            }} className="border border-black rounded-md py-2 px-5">Previous</button>
-                            <button type="button" onClick={() => {
+                            }} className={`border border-black rounded-md py-2 px-5 ${index == 1 ? "bg-gray-200" : "bg-white"}`}>Previous</button>
+                            <button type="button" disabled={index==TOTAL_QUESTIONS} onClick={() => {
                                 if (index < TOTAL_QUESTIONS) setIndex(index + 1)
-                            }} className="border border-black rounded-md py-2 px-5">Next</button>
+                            }} className={`border border-black rounded-md py-2 px-5 ${index == TOTAL_QUESTIONS ? "bg-gray-200" : "bg-white"}`}>Next</button>
                         </div>
                         {index === TOTAL_QUESTIONS && (
                             <button type="submit" disabled={loading}>
-                                <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
+                                <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-200" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
                         </button>
                         )}
                     </form>
