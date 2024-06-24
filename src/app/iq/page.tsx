@@ -5,7 +5,9 @@ import { submit_iq } from "../_actions/submit"
 import Scroll from "../_components/scroll"
 import { FormEvent, useEffect, useRef, useState } from "react"
 
-const TOTAL_QUESTIONS = 3
+import Image from "next/image"
+
+const TOTAL_QUESTIONS = 4
 
 export default function IQ() {
 
@@ -90,6 +92,62 @@ export default function IQ() {
         )
     }
 
+    const Question_Image = ({url}: {url: string}) => {
+        return (
+            <Image 
+                src={url}
+                alt="Image"
+                className=""
+                width={0}
+                height={0}
+                sizes="100vw"
+                style={{height: "35vh", width: "auto"}}
+            />
+        )
+    }
+
+    const Option_Image = ({url, name, value}: {url: string, name: string, value: number}) => {
+        return (
+            <div className="flex flex-row border border-black rounded-md py-2 px-4">
+                <label className="">
+                    <input type="radio" name={name} value={value} className="mr-4" required onChange={(e) => setValues({...values, [name]: e.target.value})} checked={values[name] == value}></input>
+                    <Image 
+                        src={url}
+                        alt="Image"
+                        className=""
+                        width={0}
+                        height={0}
+                        sizes="100vw"
+                        style={{height: "15vh", width: "auto"}}
+                    />
+                </label>
+            </div>
+        )
+    }
+
+    const IQ_4 = () => {
+        return (
+            <>
+            <Scroll />
+                <div className="flex flex-col gap-20 items-center">
+                    <Question_Image url="/assets/urns/CP1_Urn.png" />
+                    <div className="flex flex-col gap-5">
+                        <div className="flex flex-row gap-5">
+                            <Option_Image url="/assets/urns/CP1_Urn.png" value={0} name="q4" />
+                            <Option_Image url="/assets/urns/CP1_Urn.png" value={1} name="q4" />
+                            <Option_Image url="/assets/urns/CP1_Urn.png" value={2} name="q4" />
+                        </div>
+                        <div className="flex flex-row gap-5">
+                            <Option_Image url="/assets/urns/CP1_Urn.png" value={3} name="q4" />
+                            <Option_Image url="/assets/urns/CP1_Urn.png" value={4} name="q4" />
+                            <Option_Image url="/assets/urns/CP1_Urn.png" value={5} name="q4" />
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }
+
     const submit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         setLoading(true)
@@ -119,6 +177,7 @@ export default function IQ() {
                         {index === 1 && <IQ_1 />}
                         {index === 2 && <IQ_2 />}
                         {index === 3 && <IQ_3 />}
+                        {index === 4 && <IQ_4 />}
                         <div className="flex flex-row gap-2">
                             <button type="button" onClick={() => {
                                 if (index > 1) setIndex(index - 1)
