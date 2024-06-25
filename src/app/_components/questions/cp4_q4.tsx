@@ -21,7 +21,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
 
     const [dialog, setDialog] = useState(false)
     
-    const initials = [<>3 balls. There is 1 green ball. Each of the other 2 balls could be red or purple. However, the exact number of balls of these two colors is <span className="font-bold">not known</span></>, <>2 balls, exactly 1 yellow ball and 1 cyan ball</>]
+    const initials = [<>3 balls. There is 1 green ball. Each of the other 2 balls could be red or purple. However, the exact number of balls of these two colors is not known</>, <>2 balls, exactly 1 yellow ball and 1 cyan ball</>]
     const cp_bets: number[][] = []
     const statements: string[] = []
     
@@ -29,15 +29,15 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
         switch(i) {
             case 1:
                 cp_bets.push(cp4_bet1)
-                statements.push(`green, you receive INR ${cp4_bet1[0]}`)
+                statements.push(`green, the bet pays INR ${cp4_bet1[0]}. If the drawn ball is of any other color, it pays nothing`)
                 break
             case 2:
                 cp_bets.push(cp4_bet2)
-                statements.push(`red, you receive INR ${cp4_bet2[1]}`)
+                statements.push(`red, the bet pays INR ${cp4_bet2[1]}. If the drawn ball is of any other color, it pays nothing`)
                 break
             case 3:
                 cp_bets.push(cp4_bet3)
-                statements.push(`yellow, you receive INR ${cp4_bet3[0]}`)
+                statements.push(`yellow, the bet pays INR ${cp4_bet3[0]}. If not, it pays nothing`)
                 break
         }
     })
@@ -67,7 +67,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
                                 <th>Purple</th>
                             </tr>
                             <tr>
-                                <th>Ticket {dict[index+1]}</th>
+                                <th>Bet {dict[index+1]}</th>
                                 {entries}
                             </tr>
                         </tbody>
@@ -89,7 +89,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
                                 <th>Cyan</th>
                             </tr>
                             <tr>
-                                <th>Ticket {dict[index+1]}</th>
+                                <th>Bet {dict[index+1]}</th>
                                 {entries}
                             </tr>
                         </tbody>
@@ -103,8 +103,14 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
     }
 
     const Ticket = () => {
-        return(
-            <p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. If you were offered ticket A, a ball is drawn from the urn 1 at random. If the drawn ball is {statements[0]} and nothing otherwise. If you were offered ticket B, a ball is drawn from urn 2 at random. If the drawn ball is {statements[1]} and nothing otherwise.</p>
+        return(<>
+            <p className="w-full text-left">The following two bets are placed on a random draw of a ball from one of these two urns.</p>
+                
+            <ul className="list-disc list-inside w-full px-8">
+                <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. If the color of the drawn ball is {statements[0]}.</li>
+                <li><span className="font-bold">Bet B</span> is placed on a draw from urn 2. If the color of the drawn ball is {statements[1]}.</li>
+            </ul>
+            </>
         )
     }
 
@@ -112,7 +118,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
         if (total == 1) {
             return (
                 <div className="flex flex-col gap-1 items-center">
-                    <div className="font-bold text-center">The lowest price at which you would sell this ticket is:</div>
+                    <div className="font-bold text-center">The lowest price at which you would sell this bet is:</div>
                     <Input type="number" placeholder="Price" name={`price1`} />
                 </div>
             )
@@ -122,7 +128,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
             Array.from({length: total}, (x, i) => {
                 final.push(
                     <div className="flex flex-col gap-1 items-center">
-                        <div className="font-bold text-center">The lowest price at which you would sell ticket {dict[i+1]} is:</div>
+                        <div className="font-bold text-center">The lowest price at which you would sell bet {dict[i+1]} is:</div>
                         <Input type="number" placeholder="Price" name={`price${i+1}`} />
                     </div>
                 )
@@ -132,7 +138,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
             Array.from({length: total}, (x, i) => {
                 final.push(
                     <div className="flex flex-col gap-1 items-center">
-                        <Radio value={1} label={`Ticket ${dict[i+1]}`} />
+                        <Radio value={1} label={`Bet ${dict[i+1]}`} />
                     </div>
                 )
             });
@@ -148,11 +154,11 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
             <div className="flex flex-col gap-10 md:flex-row md:gap-20">
                 <div className="flex flex-col gap-5 items-center">
                     <Img url={`/assets/urns/CP4_Urn${bets_order[0]}.png`} />
-                    <div>Urn A</div>
+                    <div>Urn 1</div>
                 </div>
                 <div className="flex flex-col gap-5 items-center">
                     <Img url={`/assets/urns/CP4_Urn${bets_order[1]}.png`} />
-                    <div>Urn B</div>
+                    <div>Urn 2</div>
                 </div>
             </div>
 
@@ -181,7 +187,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
             </form>
 
             <div className="flex flex-row items-center gap-3">
-                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above truthfully.</div>
+                <div><span className="font-bold">*Note</span>: Recall that it is in your own interest to state this truthfully.</div>
                 <button className="px-2 border-2 border-black rounded-full" onClick={() => setDialog(x => !x)}>?</button>
             </div>
 

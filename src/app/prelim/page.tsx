@@ -163,7 +163,7 @@ export default function Prelim() {
 
                             <form onSubmit={proceed} className="flex flex-col gap-10 items-center">
 
-                                <h2 className="text-2xl w-full text-left">Training</h2>
+                                <h2 className="text-2xl w-full text-left">Practice Questions</h2>
 
                                 <p className="w-full text-left">We now present a few questions that should help you verify whether you are clear on the composition of urns you may encounter</p>
 
@@ -172,7 +172,7 @@ export default function Prelim() {
                                     <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                         <Img url="/assets/urns/CP1_Urn.png" />
                                     </div>
-                                    <p>In the given urn, which among the following is a possible value for the number of blue balls? Select all that apply:</p>
+                                    <p>In the given urn, which among the following is a possible value for the number of blue balls? <span className="font-bold">Select all that apply</span>:</p>
 
                                     <Checkbox value={1} label="3" name="q1_1" />
                                     <Checkbox value={1} label="4" name="q1_2" />
@@ -185,7 +185,7 @@ export default function Prelim() {
                                     <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                         <Img url="/assets/urns/CP2_Urn.png" />
                                     </div>
-                                    <p>In the given urn, which among the following is a possible value for the number of blue balls? Select all that apply:</p>
+                                    <p>In the given urn, which among the following is a possible value for the number of blue balls? <span className="font-bold">Select all that apply</span></p>
 
                                     <Checkbox value={1} label="2" name="q2_1" />
                                     <Checkbox value={1} label="1" name="q2_2" />
@@ -198,7 +198,7 @@ export default function Prelim() {
                                     <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                         <Img url="/assets/urns/CP3_Urn2.png" />
                                     </div>
-                                    <p>In the given urn, which among the following is a possible value for the number of red balls? Select all that apply:</p>
+                                    <p>In the given urn, which among the following is a possible value for the number of red balls? <span className="font-bold">Select all that apply</span>:</p>
 
                                     <Checkbox value={1} label="2" name="q3_1" />
                                     <Checkbox value={1} label="3" name="q3_2" />
@@ -254,7 +254,7 @@ export default function Prelim() {
                                             <th>Green</th>
                                         </tr>
                                         <tr>
-                                            <th>Ticket A</th>
+                                            <th>Bet A</th>
                                             <td>300</td>
                                             <td>300</td>
                                             <td>0</td>
@@ -262,7 +262,7 @@ export default function Prelim() {
                                             <td>0</td>
                                         </tr>
                                         <tr>
-                                            <th>Ticket B</th>
+                                            <th>Bet B</th>
                                             <td>0</td>
                                             <td>0</td>
                                             <td>300</td>
@@ -272,14 +272,16 @@ export default function Prelim() {
                                     </tbody>
                                 </table>
 
-                                <p className="w-full text-left"><span className="font-bold">Ticket A</span> represents a bet that wins you INR 300 if the randomly drawn ball is either Black or Red. However, you earn nothing if it is of any other color (Yellow, Red or Green).</p>
-                                <p className="w-full text-left"><span className="font-bold">Ticket B</span> represents a bet that wins you INR 300 if the randomly drawn ball is either Yellow or Blue. However, you earn nothing if it is of any other color (Black, Red or Green).</p>
+                                <ul className="list-disc list-inside px-8">
+                                    <li><span className="font-bold">Bet A</span> wins you INR 300 if the randomly drawn ball is either Black or Red. However, you earn nothing if it is of any other color (Yellow, Blue or Green).</li>
+                                    <li><span className="font-bold">Bet B</span> wins you INR 300 if the randomly drawn ball is either Yellow or Blue. However, you earn nothing if it is of any other color (Black, Red or Green).</li>
+                                </ul>
 
                             </div>
 
                             <form onSubmit={proceed} className="flex flex-col gap-10 items-center">
 
-                                <h2 className="text-2xl w-full text-left">Training</h2>
+                                <h2 className="text-2xl w-full text-left">Practice Questions</h2>
 
                                 <p className="w-full text-left">We now present a few questions that should help you verify whether you are clear on the structure of bets.</p>
 
@@ -308,7 +310,7 @@ export default function Prelim() {
                                                     <th>Green</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Ticket A</th>
+                                                    <th>Bet A</th>
                                                     <td>300</td>
                                                     <td>100</td>
                                                     <td>0</td>
@@ -316,7 +318,7 @@ export default function Prelim() {
                                                     <td>0</td>
                                                 </tr>
                                                 <tr>
-                                                    <th>Ticket B</th>
+                                                    <th>Bet B</th>
                                                     <td>0</td>
                                                     <td>200</td>
                                                     <td>200</td>
@@ -327,14 +329,14 @@ export default function Prelim() {
                                         </table>
                                     </div>
 
-                                    <p>Q1. If our algorithm were to randomly draw a Black ball from this urn, how much would the bet labeled “Ticket A” pay?</p>
+                                    <p>Q1. If our algorithm were to randomly draw a Black ball from this urn, how much would bet A pay?</p>
 
                                     <Radio value={0} label="INR 100" name="q1" />
                                     <Radio value={1} label="INR 300" name="q1" />
                                     <Radio value={2} label="INR 200" name="q1" />
                                     <Radio value={3} label="INR 0" name="q1" />
 
-                                    <p>Q2. If our algorithm were to randomly draw a Red ball from this urn, how much would the bet labeled “Ticket B” pay?</p>
+                                    <p>Q2. If our algorithm were to randomly draw a Red ball from this urn, how much would bet B pay?</p>
 
                                     <Radio value={0} label="INR 100" name="q2" />
                                     <Radio value={1} label="INR 300" name="q2" />
@@ -361,11 +363,11 @@ export default function Prelim() {
                         <div className="flex flex-col gap-10">
                             <p>In each of the decisions you face, you will be offered a bet and asked to assess its value to you. To do so, you will have to state the lowest price at which you are willing to sell that bet. Think of it as that price such that if offered an amount less than this, you would prefer to play the bet instead of selling it. The payment protocol that we have designed, which we describe below, is such that it is in your own interest to truthfully state this lowest selling price in order to maximize your earnings from the experiment. Here is how the payment protocol works for any given bet:</p>
 
-                            <ul className="list-disc list-inside">
+                            <ul className="list-disc list-inside px-8">
                                 <li>First, you state the lowest price at which you are willing to sell the bet.</li>
                                 <li>Our algorithm randomly generates a buying price between the lowest and highest amount that the bet offers. Random generation guarantees that, with positive probability, the buying price can be any number in this range.</li>
-                                <li>If the buying price generated by our algorithm is greater than or equal to the lowest selling price you stated, your ticket will be sold at the price generated by the algorithm, and you will earn that amount.</li>
-                                <li>If the buying price generated by our algorithm is less than the lowest selling price you stated, your ticket will not be sold. If so, you will play the bet and earn the amount that it yields. That is, a ball will be randomly drawn from the associated urn, and you will earn the amount that the bet offers based on its color.</li>
+                                <li>If the buying price generated by our algorithm is greater than or equal to the lowest selling price you stated, your bet will be sold at the price generated by the algorithm, and you will earn that amount.</li>
+                                <li>If the buying price generated by our algorithm is less than the lowest selling price you stated, your bet will not be sold. If so, you will play the bet and earn the amount that it yields. That is, a ball will be randomly drawn from the associated urn, and you will earn the amount that the bet offers based on its color.</li>
                             </ul>
 
                             <p>We now explain using an example why stating your lowest selling price truthfully is in your own interest.</p>
@@ -380,7 +382,7 @@ export default function Prelim() {
                                     <Img url="/assets/urns/training.png" /> 
                                 </div>
                 
-                                <p>You are offered a ticket to a game that plays out as follows. First, a ball is drawn from the urn at random. If the drawn ball is yellow or blue, you receive INR 500. Else, you receive nothing.</p>
+                                <p>The following bet is played on a random draw of a ball from this urn. If the drawn ball is yellow or blue, the bet pays INR 500. If the drawn ball is of any other color, it pays nothing.</p>
 
                                 <div className="flex flex-col w-full items-center">
                                     <table>
@@ -400,7 +402,7 @@ export default function Prelim() {
                                                 <th>Green</th>
                                             </tr>
                                             <tr>
-                                                <th>Ticket A</th>
+                                                <th>Bet A</th>
                                                 <td>0</td>
                                                 <td>0</td>
                                                 <td>500</td>
@@ -411,8 +413,8 @@ export default function Prelim() {
                                     </table>
                                 </div>
 
-                                <p>Suppose you could sell this ticket instead of playing out the bet. What is the lowest price at which you would be willing to sell this ticket?</p>
-                                <p className="w-full text-center font-bold">The lowest price at which you would sell this ticket is:</p>
+                                <p>Suppose you could sell this bet instead of playing it out. What is the lowest price at which you would be willing to sell it?</p>
+                                <p className="w-full text-center font-bold">The lowest price at which you would sell this bet is:</p>
                                 <div className="flex flex-col items-center">
                                     <Input type="number" placeholder="Price" name="sample" />
                                 </div>
@@ -424,7 +426,7 @@ export default function Prelim() {
                             <form onSubmit={proceed} className="flex flex-col gap-10 items-center">
 
                                 <input type="hidden" name="id" value={session!.user.id} />
-                                <h2 className="text-2xl w-full text-left">Training</h2>
+                                <h2 className="text-2xl w-full text-left">Practice Questions</h2>
 
                                 <p className="w-full text-left">We now present a few questions that should help you verify whether you are clear on this aspect of the payment protocol.</p>
 
@@ -454,7 +456,7 @@ export default function Prelim() {
                                                     <th>Green</th>
                                                 </tr>
                                                 <tr>
-                                                    <th>Ticket A</th>
+                                                    <th>Bet A</th>
                                                     <td>0</td>
                                                     <td>100</td>
                                                     <td>0</td>

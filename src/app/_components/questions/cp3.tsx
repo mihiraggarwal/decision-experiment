@@ -22,7 +22,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
     const [dialog, setDialog] = useState(false)
 
     const f = <span className="font-bold">not known.</span>
-    const statements = [<>, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball</>, <>. Each of these balls is either pink, orange, purple, green, red, black, yellow, or blue. However, the exact number of balls of these eight colors is <span className="font-bold">not known</span></>]
+    const statements = [<>, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball</>, <>. Each of these balls is either pink, orange, purple, green, red, black, yellow, or blue. However, the exact number of balls of these eight colors is not known</>]
 
 
     const cp_bets: number[][] = []
@@ -62,7 +62,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                                     <th>Other Colors</th>
                                 </tr>
                                 <tr>
-                                    <th>Reward</th>
+                                    <th>Bet</th>
                                     {entries}
                                 </tr>
                             </tbody>
@@ -83,7 +83,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                                     <th>Other Colors</th>
                                 </tr>
                                 <tr>
-                                    <th>Reward</th>
+                                    <th>Bet</th>
                                     {entries}
                                 </tr>
                             </tbody>
@@ -107,7 +107,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                                     <th>Other Colors</th>
                                 </tr>
                                 <tr>
-                                    <th>Ticket {dict[index+1]}</th>
+                                    <th>Bet {dict[index+1]}</th>
                                     {entries}
                                 </tr>
                             </tbody>
@@ -128,7 +128,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                                     <th>Other Colors</th>
                                 </tr>
                                 <tr>
-                                    <th>Ticket {dict[index+1]}</th>
+                                    <th>Bet {dict[index+1]}</th>
                                     {entries}
                                 </tr>
                             </tbody>
@@ -145,9 +145,16 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
     const Ticket = () => {
         switch (total) {
             case 1:
-                return(<p>You are offered a ticket for a game that plays out as follows. First, you choose one of the eight colors. Then, a ball is drawn from the urn at random. If the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
+                return(<p>The following bet is placed on a random draw of a ball from this urn. First, you choose one of the eight colors. If the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
             case 2:
-                return(<p>You are offered one of two tickets, ticket A and B, for a game that plays out as follows. First, you choose one of the eight colors. Then, if you were offered ticket A, a ball is drawn from urn 1 at random. If you were offered ticket B, a ball is drawn from urn 2. In both cases, if the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
+                return(<>
+                <p className="w-full text-left">The following two bets are placed on a random draw of a ball from one of these two urns. First, you choose one of the eight colors.</p>
+                    
+                <ul className="list-disc list-inside w-full px-8">
+                    <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}</li>
+                    <li><span className="font-bold">Bet B</span> is placed on a draw from urn 2. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}</li>
+                </ul>
+                </>)
         }
     }
 
@@ -155,7 +162,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
         if (total == 1) {
             return (
                 <div className="flex flex-col gap-1 items-center">
-                    <div className="font-bold text-center">The lowest price at which you would sell this ticket is:</div>
+                    <div className="font-bold text-center">The lowest price at which you would sell this bet is:</div>
                     <Input type="number" placeholder="Price" name={`price1`} />
                 </div>
             )
@@ -165,7 +172,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
             Array.from({length: total}, (x, i) => {
                 final.push(
                     <div className="flex flex-col gap-1 items-center">
-                        <div className="font-bold text-center">The lowest price at which you would sell ticket {dict[i+1]} is:</div>
+                        <div className="font-bold text-center">The lowest price at which you would sell bet {dict[i+1]} is:</div>
                         <Input type="number" placeholder="Price" name={`price${i+1}`} />
                     </div>
                 )
@@ -175,7 +182,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
             Array.from({length: total}, (x, i) => {
                 final.push(
                     <div className="flex flex-col gap-1 items-center">
-                        <Radio value={1} label={`Ticket ${dict[i+1]}`} />
+                        <Radio value={1} label={`Bet ${dict[i+1]}`} />
                     </div>
                 )
             });
@@ -190,7 +197,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                     return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball.</p>)
                 }
                 else {
-                    return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is <span className="font-bold">not known</span>.</p>)
+                    return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is not known.</p>)
                 }
             default:
                 return (<p>Shown below are the images of two urns. Urn 1 contains a total of 8 balls{statements[bets_order[0]-1]}. Urn 2 also contains 8 balls{statements[bets_order[1]-1]}.</p>)
@@ -213,7 +220,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                 final.push(
                     <div className="flex flex-col gap-5 items-center">
                         <Img url={`/assets/urns/CP3_Urn${bets_order[i]}.png`} />
-                        <div>Urn {dict[i+1]}</div>
+                        <div>Urn {i+1}</div>
                     </div>
                 )
             });
@@ -255,7 +262,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
             </form>
 
             <div className="flex flex-row items-center gap-3">
-                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above truthfully.</div>
+                <div><span className="font-bold">*Note</span>: Recall that it is in your own interest to state this truthfully.</div>
                 <button className="px-2 border-2 border-black rounded-full" onClick={() => setDialog(x => !x)}>?</button>
             </div>
 
