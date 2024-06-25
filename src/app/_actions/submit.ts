@@ -96,10 +96,91 @@ export async function submit_training_1(formData: FormData) {
     const doc = await Question.findOne({ type: "training", index: 1 })
     const answer = doc.answer
 
-    for (let i = 0; i < (total_questions * options); i++) {
-        if (response[i] != answer[i]) {
-            return false
+    const status = {
+        correct: true,
+        response: "Check: "
+    }
+
+    const wrong = []
+
+    for (let i = 0; i < total_questions; i++) {
+        let error = false
+        for (let j = 0; j < options; j++) {
+            if (response[(options*i)+j] != answer[(options*i)+j]) {
+                status.correct = false
+                if (!error) {
+                    error = true
+                    wrong.push("Q" + (i + 1).toString())
+                }
+            }
         }
     }
-    return true
+
+    if (!status.correct) {
+        status.response += wrong.join(", ")
+    }
+    return status
+}
+
+export const submit_training_2 = async (formData: FormData) => {
+
+    await dbConnect()
+
+    const q_responses = [formData.get("q1"), formData.get("q2")]
+
+    const doc = await Question.findOne({ type: "training", index: 2 })
+    const answer = doc.answer
+
+    const status = {
+        correct: true,
+        response: "Check: "
+    }
+
+    const wrong = []
+
+    for (let i = 0; i < 2; i++) {
+        if (q_responses[i] != answer[i]) {
+            status.correct = false
+            wrong.push("Q" + (i + 1).toString())
+        }
+    }
+
+    if (!status.correct) {
+        status.response += wrong.join(", ")
+    }
+    return status
+}
+
+export const submit_training_3 = async (formData: FormData) => {
+    await dbConnect()
+
+    const q_responses = [formData.get("q1"), formData.get("q2"), formData.get("q3"), formData.get("q4")]
+
+    const doc = await Question.findOne({ type: "training", index: 3 })
+    const answer = doc.answer
+
+    const status = {
+        correct: true,
+        response: "Check: "
+    }
+
+    const wrong = []
+
+    for (let i = 0; i < 4; i++) {
+        if (q_responses[i] != answer[i]) {
+            status.correct = false
+            wrong.push("Q" + (i + 1).toString())
+        }
+    }
+
+    if (!status.correct) {
+        status.response += wrong.join(", ")
+    }
+
+    if (status.correct) {
+        const session = await getServerSession()
+        await User.findOneAndUpdate({ password: session!.user.name }, { trained: true })
+    }
+
+    return status
 }

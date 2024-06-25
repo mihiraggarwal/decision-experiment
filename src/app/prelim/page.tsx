@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 
 import { signOut, useSession } from "next-auth/react"
 import navigate from "../_actions/navigate";
@@ -9,7 +8,9 @@ import Scroll from "../_components/scroll";
 import Img from "../_components/img";
 import Radio from "../_components/radio";
 import Checkbox from "../_components/checkbox";
-import { submit_training_1 } from "../_actions/submit";
+import { submit_training_1, submit_training_2, submit_training_3 } from "../_actions/submit";
+import Input from "../_components/input";
+import Note from "../_components/note";
 
 export default function Prelim() {
 
@@ -27,32 +28,50 @@ export default function Prelim() {
             setPosition(1)
             setLoading(false)
         }
+
         else if (position == 1) {
 
             const verified = await submit_training_1(formData)
-            if (verified) {
+            if (verified.correct) {
                 setPosition(2)
             }
             else {
-                toast.error("Wrong answers")
+                toast.error(verified.response)
             }
             setLoading(false)
-
         }
+
         else if (position == 2) {
-            const response = await fetch("/api/response", {
-                method: "POST", 
-                body: JSON.stringify({
-                    id: formData.get("id")
-                })
-            })
-            if (response.ok) {
-                await navigate("/preplay")
-            } else {
-                toast.error("Something went wrong")
+            const verified = await submit_training_2(formData)
+            if (verified.correct) {
+                setPosition(3)
             }
-
+            else {
+                toast.error(verified.response)
+            }
+            setLoading(false)
         }
+
+        else if (position == 3) {
+            const verified = await submit_training_3(formData)
+            if (verified.correct) {
+                const response = await fetch("/api/response", {
+                    method: "POST", 
+                    body: JSON.stringify({
+                        id: formData.get("id")
+                    })
+                })
+                if (response.ok) {
+                    await navigate("/preplay")
+                } else {
+                    toast.error("Something went wrong")
+                }
+            }
+            else {
+                toast.error(verified.response)
+            }
+        }
+        setLoading(false)
     }
 
     return (
@@ -66,24 +85,15 @@ export default function Prelim() {
                         <div className="flex flex-col gap-5">
                             <ul className="list-disc list-inside">
                                 <li>In this experiment, you will encounter a series of decision problems that feature uncertainty.</li>
-                                <li>There are no right or wrong answers to how you assess these problems. Please make these assessments in the way that you think gives you the best chance of maximizing your monetary rewards from the experiment.</li>
-                                <li>You will receive a participation fee of INR 100. Additionally, you may earn up to INR 750 depending on the outcomes of your assessments.</li>
+                                <li>There are no right or wrong answers to how you assess these problems. Please make these assessments the way you think will give you the best chance of maximizing your monetary rewards from the experiment.</li>
+                                <li>You will receive a guaranteed participation fee of INR 100. Additionally, you may earn up to INR 600 depending on the outcomes of your assessments and a further INR 150 from solving a few fun problems.</li>
                             </ul>
     
-                            <p>During the experiment, you will see urns containing coloured balls. Associated with each urn, there will be monetary bets that pay specific monetary amounts based on the colour of the ball that is randomly drawn from the urn by our algorithm. You will be asked to evaluate these bets by stating the minimum amount of money at which you are willing to sell any such bet. Once you have assessed these bets, and made all your decisions, your final payment in the experiment will be determined based on your decisions and the working of chance.</p>
+                            <p>During the experiment, you will see urns containing colored balls. Associated with each urn, there will be monetary bets that pay specific amounts based on the color of the ball that will be <span className="italic">randomly</span> drawn from the urn by our algorithm. You will be asked to evaluate these bets by stating the minimum price at which you would be willing to sell any such bet. Once you have assessed these bets, and made all your decisions, your final payment in the experiment will be determined based on these decisions and the working of chance.</p>
     
-                            {/* <Image 
-                                src="/vercel.svg"
-                                alt="Vercel logo"
-                                className=""
-                                width={150}
-                                height={24}
-                            /> */}
-    
-                            <p>We will now give more details about the structure of the decisions you will encounter so that you can make the best decisions possible based on your subjective assessments.</p>
+                            <p>We will now give more details about the structure of the decisions you will encounter so that you can make the best possible decisions according to your <span className="italic">subjective</span> assessment.</p>
                         </div>
                         <form onSubmit={proceed}>
-                            {/* <input type="hidden" name="id" value={session!.user.id} /> */}
                             <button type="submit" disabled={loading}>
                                 <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Loading..." : "Understood"}</div>
                             </button>
@@ -100,65 +110,65 @@ export default function Prelim() {
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Types of Urns</h1>
                         <div className="flex flex-col gap-10">
-                            <p>You may encounter 3 broad types of urns. We illustrate these with examples.</p>
+                            <p>You may encounter 3 broad types of urns on which bets are placed. We illustrate these with examples.</p>
 
                             <div className="flex flex-col gap-5">
                                 <h2 className="text-2xl">Type 1</h2>
                 
-                                <p>Shown below is the image of an urn. The urn contains a total of eight balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 yellow, and 1 blue ball.</p>
+                                <p>Shown below is the image of an urn. The urn contains a total of 8 balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball.</p>
                 
-                                <div className="flex flex-col gap-5 md:flex-row">
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                     <Img url="/assets/urns/CP3_Urn1.png" /> 
                                 </div>
                 
-                                <p>In this urn, there are 8 balls, one each of the specified colours. You therefore have complete knowledge about the composition of such an urn.</p>
+                                <p>In this urn, there are 8 balls, one each of the specified colors. You therefore have completed knowledge about the composition of such an urn.</p>
                             </div>
 
                             <div className="flex flex-col gap-5">
                                 <h2 className="text-2xl">Type 2</h2>
                 
-                                <p>Shown below is the image of an urn. The urn contains exactly 1 purple ball, 1 white ball, and 4 other balls, each of which may be red, yellow, blue, or green. You do not know the exact number of balls that are red, yellow, blue, or green.</p>
+                                <p>Shown below is the image of an urn. The urn contains a total of 6 balls. There is 1 purple ball and 1 white ball. Each of the other 4 balls could be red, yellow, blue, or green. However, the exact number of balls of these four colors is <span className="font-bold">not known</span>.</p>
 
-                                <div className="flex flex-col gap-5 md:flex-row">
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                     <Img url="/assets/urns/CP1_Urn.png" />
                                 </div>
                 
-                                <p>In this urn, you know the colour of some of the balls for sure, specifically that the urn contains 1 purple ball, and 1 white ball. However, you don’t know the exact colour of the other four balls.   You know that they could be either red, blue, yellow, or green, but you don’t know exactly which.  Therefore, you only have partial knowledge about the composition of this urn as the exact number of red, blue, yellow, and green balls in it is not known to you. Given this information, here are some possibilities for this urn:
-                                </p>
+                                <p>In this urn, you know the exact number of balls of some colors, specifically that the urn contains 1 purple and 1 white ball. However, you don&apos;t know the color composition of the remaining four balls. You know that each of those balls could be red, blue, yellow, or green, but have no further information. Thus, the exact number of red, blue, yellow, or green balls is not known to you. Given this information, here are some possibilities for this urn&apos;s composition:</p>
 
-                                <div className="flex flex-col gap-5 md:flex-row">
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                     <Img url="/assets/urns/Misc1.png" />
                                 </div>
 
-                                <p>As you should be able to verify, these are only some possibilities. Many other colour combinations are possible as well.</p>
+                                <p>Of course, this list is not exhaustive. There are many other color compositions that fit this description.</p>
                             </div>
 
                             <div className="flex flex-col gap-5">
                                 <h2 className="text-2xl">Type 3</h2>
                 
-                                <p>Shown below is the image of an urn. The urn contains a total of eight balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is not known.</p>
+                                <p>Shown below is the image of an urn. The urn contains a total of 8 balls. Each of these balls is either pink, orange, purple, green, red, black, yellow, or blue. However, the exact number of balls of these eight colors is <span className="font-bold">not known</span>.</p>
 
-                                <div className="flex flex-col gap-5 md:flex-row">
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                     <Img url="/assets/urns/CP3_Urn2.png" />
                                 </div>
                 
-                                <p>You have no knowledge about the composition of this urn as you do not know the exact colour of any of the eight balls contained in it.  All you know is that each of the balls could be of any of the eight colours.  Given this information, here are some of the possibilities for this urn:</p>
+                                <p>You have almost no knowledge about the composition of this urn. All you know is that each of the balls could be of any of the eight colors listed. Given this information, here are some possibilities for this urn&apos;s composition:</p>
 
-                                <div className="flex flex-col gap-5 md:flex-row">
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                     <Img url="/assets/urns/Misc2.png" />
                                 </div>
 
-                                <p>As you should be able to verify, these are only some possibilities. Many other colour combinations are possible as well.</p>
+                                <p>Again, this list is not exhaustive. There are many other color compositions that fit this description.</p>
                             </div>
 
                             <form onSubmit={proceed} className="flex flex-col gap-10 items-center">
 
                                 <h2 className="text-2xl w-full text-left">Training</h2>
 
+                                <p className="w-full text-left">We now present a few questions that should help you verify whether you are clear on the composition of urns you may encounter</p>
+
                                 <div className="flex flex-col gap-5 items-start">
-                                    <p>Q1:</p>
-                                    <p>Shown below is the image of an urn. The urn contains exactly 1 purple ball, 1 white ball, and 4 other balls, each of which may be red, yellow, blue, or green. You do not know the exact number of balls that are red, yellow, blue, or green.</p>
-                                    <div className="flex flex-col gap-5 md:flex-row">
+                                    <p>Q1. Shown below is the image of an urn. The urn contains a total of 6 balls. There is 1 purple ball and 1 white ball. Each of the other 4 balls could be red, yellow, blue, or green. However, the exact number of balls of these four colors is <span className="font-bold">not known</span>.</p>
+                                    <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                         <Img url="/assets/urns/CP1_Urn.png" />
                                     </div>
                                     <p>In the given urn, which among the following is a possible value for the number of blue balls? Select all that apply:</p>
@@ -170,9 +180,8 @@ export default function Prelim() {
                                 </div>
                                 
                                 <div className="flex flex-col gap-5 items-start">
-                                    <p>Q2:</p>
-                                    <p>Shown below is the image of an urn. The urn contains exactly 1 blue ball, 1 yellow ball, and 2 other balls, each of which may be either pink or orange. You do not know the exact number of balls that are pink or orange.</p>
-                                    <div className="flex flex-col gap-5 md:flex-row">
+                                    <p>Q2. Shown below is the image of an urn. The urn contains a total of 4 balls. There is 1 blue ball and 1 yellow ball. Each of the other 2 balls could be pink or orange. However, the exact number of balls of these two colors is <span className="font-bold">not known</span>.</p>
+                                    <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                         <Img url="/assets/urns/CP2_Urn.png" />
                                     </div>
                                     <p>In the given urn, which among the following is a possible value for the number of blue balls? Select all that apply:</p>
@@ -184,9 +193,8 @@ export default function Prelim() {
                                 </div>
                                 
                                 <div className="flex flex-col gap-5 items-start">
-                                    <p>Q3:</p>
-                                    <p>Shown below is the image of an urn. The urn contains a total of eight balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is not known.</p>
-                                    <div className="flex flex-col gap-5 md:flex-row">
+                                    <p>Q3. Shown below is the image of an urn. The urn contains a total of 8 balls. Each of these balls is either pink, orange, purple, green, red, black, yellow, or blue. However, the exact number of balls of these eight colors is <span className="font-bold">not known</span>.</p>
+                                    <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                         <Img url="/assets/urns/CP3_Urn2.png" />
                                     </div>
                                     <p>In the given urn, which among the following is a possible value for the number of red balls? Select all that apply:</p>
@@ -208,14 +216,300 @@ export default function Prelim() {
             )}
 
             {position === 2 && (
-                <form onSubmit={proceed}>
-                    <input type="hidden" name="id" value={session!.user.id} />
-                    <button type="submit" disabled={loading}>
-                        <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Loading..." : "Understood"}</div>
-                    </button>
-                </form>
+                <>
+                    <Scroll />
+                    <Toaster position="top-right" />
+                    <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
+                        <h1 className="text-3xl">Bets and Evaluations</h1>
+                        <div className="flex flex-col gap-10">
+                            <p>During the experiment, you will encounter bets that pay stated monetary amounts based on the color of a ball that is <span className="underline">randomly</span> drawn by our algorithm from the urn on which this bet is placed. By <span className="underline">randomly</span> drawn what is meant is that each ball in the urn has an equal chance of being picked. It is like when you roll a fair die. Each side of the die has an equal chance of coming up. Our algorithm is coded to do exactly that when randomly drawing a ball from an urn.</p>
+
+                            <p>We now show you an example of such a bet to familiarize you with them:</p>
+
+                            <div className="flex flex-col gap-5 items-center">
+                
+                                <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue or green. However, the exact number of balls of these three colors is <span className="font-bold">not known</span>.</p>
+                
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
+                                    <Img url="/assets/urns/training.png" /> 
+                                </div>
+                
+                                <p className="w-full text-left">The following two bets are placed on the urn.</p>
+
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <th>1 ball</th>
+                                            <th>1 ball</th>
+                                            <th colSpan={3}>3 balls</th>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <th>Black</th>
+                                            <th>Red</th>
+                                            <th>Yellow</th>
+                                            <th>Blue</th>
+                                            <th>Green</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Ticket A</th>
+                                            <td>300</td>
+                                            <td>300</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>0</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Ticket B</th>
+                                            <td>0</td>
+                                            <td>0</td>
+                                            <td>300</td>
+                                            <td>300</td>
+                                            <td>0</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p className="w-full text-left"><span className="font-bold">Ticket A</span> represents a bet that wins you INR 300 if the randomly drawn ball is either Black or Red. However, you earn nothing if it is of any other color (Yellow, Red or Green).</p>
+                                <p className="w-full text-left"><span className="font-bold">Ticket B</span> represents a bet that wins you INR 300 if the randomly drawn ball is either Yellow or Blue. However, you earn nothing if it is of any other color (Black, Red or Green).</p>
+
+                            </div>
+
+                            <form onSubmit={proceed} className="flex flex-col gap-10 items-center">
+
+                                <h2 className="text-2xl w-full text-left">Training</h2>
+
+                                <p className="w-full text-left">We now present a few questions that should help you verify whether you are clear on the structure of bets.</p>
+
+                                <div className="flex flex-col gap-5 items-start">
+                                    <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue or green. However, the exact number of balls of these three colors is <span className="font-bold">not known</span>.</p>
+                                    <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
+                                        <Img url="/assets/urns/training.png" />
+                                    </div>
+                                    <p>The following two bets are placed on this urn:</p>
+
+                                    <div className="flex flex-col w-full items-center">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <th>1 ball</th>
+                                                    <th>1 ball</th>
+                                                    <th colSpan={3}>3 balls</th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <th>Black</th>
+                                                    <th>Red</th>
+                                                    <th>Yellow</th>
+                                                    <th>Blue</th>
+                                                    <th>Green</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ticket A</th>
+                                                    <td>300</td>
+                                                    <td>100</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ticket B</th>
+                                                    <td>0</td>
+                                                    <td>200</td>
+                                                    <td>200</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <p>Q1. If our algorithm were to randomly draw a Black ball from this urn, how much would the bet labeled “Ticket A” pay?</p>
+
+                                    <Radio value={0} label="INR 100" name="q1" />
+                                    <Radio value={1} label="INR 300" name="q1" />
+                                    <Radio value={2} label="INR 200" name="q1" />
+                                    <Radio value={3} label="INR 0" name="q1" />
+
+                                    <p>Q2. If our algorithm were to randomly draw a Red ball from this urn, how much would the bet labeled “Ticket B” pay?</p>
+
+                                    <Radio value={0} label="INR 100" name="q2" />
+                                    <Radio value={1} label="INR 300" name="q2" />
+                                    <Radio value={2} label="INR 0" name="q2" />
+                                    <Radio value={3} label="INR 200" name="q2" />
+                                </div>
+                                
+                                <button disabled={loading} className="text-center">
+                                    <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
+                                </button>
+                            </form>
+
+                        </div>
+                    </main>
+                </>
             )}
-            
+
+            {position === 3 && (
+                <>
+                    <Scroll />
+                    <Toaster position="top-right" />
+                    <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
+                        <h1 className="text-3xl">Payment</h1>
+                        <div className="flex flex-col gap-10">
+                            <p>In each of the decisions you face, you will be offered a bet and asked to assess its value to you. To do so, you will have to state the lowest price at which you are willing to sell that bet. Think of it as that price such that if offered an amount less than this, you would prefer to play the bet instead of selling it. The payment protocol that we have designed, which we describe below, is such that it is in your own interest to truthfully state this lowest selling price in order to maximize your earnings from the experiment. Here is how the payment protocol works for any given bet:</p>
+
+                            <ul className="list-disc list-inside">
+                                <li>First, you state the lowest price at which you are willing to sell the bet.</li>
+                                <li>Our algorithm randomly generates a buying price between the lowest and highest amount that the bet offers. Random generation guarantees that, with positive probability, the buying price can be any number in this range.</li>
+                                <li>If the buying price generated by our algorithm is greater than or equal to the lowest selling price you stated, your ticket will be sold at the price generated by the algorithm, and you will earn that amount.</li>
+                                <li>If the buying price generated by our algorithm is less than the lowest selling price you stated, your ticket will not be sold. If so, you will play the bet and earn the amount that it yields. That is, a ball will be randomly drawn from the associated urn, and you will earn the amount that the bet offers based on its color.</li>
+                            </ul>
+
+                            <p>We now explain using an example why stating your lowest selling price truthfully is in your own interest.</p>
+                            
+                            <h2 className="text-2xl w-full text-left">Example</h2>
+
+                            <div className="flex flex-col gap-5">
+                
+                                <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue or green. However, the exact number of balls of these three colors is <span className="font-bold">not known</span>.</p>
+                
+                                <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
+                                    <Img url="/assets/urns/training.png" /> 
+                                </div>
+                
+                                <p>You are offered a ticket to a game that plays out as follows. First, a ball is drawn from the urn at random. If the drawn ball is yellow or blue, you receive INR 500. Else, you receive nothing.</p>
+
+                                <div className="flex flex-col w-full items-center">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <th>1 ball</th>
+                                                <th>1 ball</th>
+                                                <th colSpan={3}>3 balls</th>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <th>Black</th>
+                                                <th>Red</th>
+                                                <th>Yellow</th>
+                                                <th>Blue</th>
+                                                <th>Green</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Ticket A</th>
+                                                <td>0</td>
+                                                <td>0</td>
+                                                <td>500</td>
+                                                <td>500</td>
+                                                <td>0</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <p>Suppose you could sell this ticket instead of playing out the bet. What is the lowest price at which you would be willing to sell this ticket?</p>
+                                <p className="w-full text-center font-bold">The lowest price at which you would sell this ticket is:</p>
+                                <div className="flex flex-col items-center">
+                                    <Input type="number" placeholder="Price" name="sample" />
+                                </div>
+
+                            </div>
+
+                            <Note />
+
+                            <form onSubmit={proceed} className="flex flex-col gap-10 items-center">
+
+                                <input type="hidden" name="id" value={session!.user.id} />
+                                <h2 className="text-2xl w-full text-left">Training</h2>
+
+                                <p className="w-full text-left">We now present a few questions that should help you verify whether you are clear on this aspect of the payment protocol.</p>
+
+                                <div className="flex flex-col gap-5 items-start">
+                                    <p>Consider the following urn and bet</p>
+                                    <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue, or green. However, the exact number of balls of any of these three colors is <span className="font-bold">not known</span>.</p>
+                                    <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
+                                        <Img url="/assets/urns/training.png" />
+                                    </div>
+                                    <p>The following bet is placed on this urn:</p>
+
+                                    <div className="flex flex-col w-full items-center">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <th>1 ball</th>
+                                                    <th>1 ball</th>
+                                                    <th colSpan={3}>3 balls</th>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <th>Black</th>
+                                                    <th>Red</th>
+                                                    <th>Yellow</th>
+                                                    <th>Blue</th>
+                                                    <th>Green</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ticket A</th>
+                                                    <td>0</td>
+                                                    <td>100</td>
+                                                    <td>0</td>
+                                                    <td>600</td>
+                                                    <td>0</td>
+                                                </tr>
+                                                <tr>
+                                                    <th>Ticket B</th>
+                                                    <td>0</td>
+                                                    <td>200</td>
+                                                    <td>200</td>
+                                                    <td>0</td>
+                                                    <td>0</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <p>Q1. The buying price that can be randomly generated by our algorithm for this bet can be between:</p>
+
+                                    <Radio value={0} label="0 to 100" name="q1" />
+                                    <Radio value={1} label="0 to 50" name="q1" />
+                                    <Radio value={2} label="0 to 600" name="q1" />
+
+                                    <p>Q2. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 250. Their earnings would be:</p>
+
+                                    <Radio value={0} label="INR 150" name="q2" />
+                                    <Radio value={1} label="INR 250" name="q2" />
+                                    <Radio value={2} label="INR 100" name="q2" />
+                                    <Radio value={3} label="INR 600" name="q2" />
+                                    <Radio value={4} label="INR 0" name="q2" />
+
+                                    <p>Q3. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 100. Their earnings would be:</p>
+
+                                    <Radio value={0} label="INR 0" name="q3" />
+                                    <Radio value={1} label="INR 100" name="q3" />
+                                    <Radio value={2} label="INR 600" name="q3" />
+                                    <Radio value={3} label="Determined by the random draw from the urn" name="q3" />
+
+                                    <p>Q4. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 100. In that case the bet is unsold and, a ball is randomly drawn from the urn by our algorithm. Suppose the color of the drawn ball is Red. Their earnings would be:</p>
+
+                                    <Radio value={0} label="INR 0" name="q4" />
+                                    <Radio value={1} label="INR 100" name="q4" />
+                                    <Radio value={2} label="INR 600" name="q4" />
+                                    <Radio value={3} label="INR 150" name="q4" />
+                                </div>
+                                
+                                <button disabled={loading} className="text-center">
+                                    <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
+                                </button>
+                            </form>
+
+                        </div>
+                    </main>
+                </>
+            )}
         </>
     )
 }
