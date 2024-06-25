@@ -145,14 +145,14 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
     const Ticket = () => {
         switch (total) {
             case 1:
-                return(<p>The following bet is placed on a random draw of a ball from this urn. First, you choose one of the eight colors. If the color of the drawn ball is the same as the color you chose, you receive INR {cp3_bet1[0]}. If not, you receive nothing.</p>)
+                return(<p>The following bet is placed on a random draw of a ball from this urn. First, you choose one of the eight colors. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</p>)
             case 2:
                 return(<>
                 <p className="w-full text-left">The following two bets are placed on a random draw of a ball from one of these two urns. First, you choose one of the eight colors.</p>
                     
                 <ul className="list-disc list-inside w-full px-8">
-                    <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}</li>
-                    <li><span className="font-bold">Bet B</span> is placed on a draw from urn 2. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}</li>
+                    <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</li>
+                    <li><span className="font-bold">Bet B</span> is placed on a draw from urn 2. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</li>
                 </ul>
                 </>)
         }
