@@ -108,14 +108,16 @@ const genRandom = async (otp: string) => {
     const user = await User.findOne({
         password: otp
     })
+    console.log("user", user)
     
     if (user.order == null || user.order.length < TOTAL_CP) {
+        console.log("in if")
         user.order = final_order;
         user.total_bets = total_bets
         await user.save();
     }
     else {
-        console.log(user)
+        console.log("error", user)
         return -1;
     }
 
