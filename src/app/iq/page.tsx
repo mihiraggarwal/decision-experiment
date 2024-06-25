@@ -128,9 +128,12 @@ export default function IQ() {
     const IQ_Matrix = ({num}: {num: number}) => {
         return (
             <>
-            <Scroll />
+            {/* <Scroll /> */}
                 <div className="flex flex-col gap-20 items-center">
-                    <Question_Image url={`/assets/matrices/Q${num-3}.png`} />
+                    <div className="flex flex-col gap-5 items-center">
+                        <p>Complete the following image</p>
+                        <Question_Image url={`/assets/matrices/Q${num-3}.png`} />
+                    </div>
                     <div className="flex flex-col gap-5">
                         <div className="flex flex-row gap-5">
                             <Option_Image url={`/assets/matrices/Q${num-3}_a.png`} value={0} name={`q${num}`} />
@@ -179,11 +182,6 @@ export default function IQ() {
                         {index === 1 && <IQ_1 />}
                         {index === 2 && <IQ_2 />}
                         {index === 3 && <IQ_3 />}
-                        {index === 4 && <IQ_Matrix num={4} />}
-                        {index === 5 && <IQ_Matrix num={5} />}
-                        {index === 6 && <IQ_Matrix num={6} />}
-                        {index === 7 && <IQ_Matrix num={7} />}
-                        {index === 8 && <IQ_Matrix num={8} />}
                         <div className="flex flex-row justify-between w-full">
                             <button type="button" disabled={index==1} onClick={() => {
                                 if (index > 1) setIndex(index - 1)
@@ -192,6 +190,11 @@ export default function IQ() {
                                 if (index < TOTAL_QUESTIONS) setIndex(index + 1)
                             }} className={`border border-black rounded-md py-2 px-5 ${index == TOTAL_QUESTIONS ? "bg-gray-200" : "bg-white"}`}>Next</button>
                         </div>
+                        {index === 4 && <IQ_Matrix num={4} />}
+                        {index === 5 && <IQ_Matrix num={5} />}
+                        {index === 6 && <IQ_Matrix num={6} />}
+                        {index === 7 && <IQ_Matrix num={7} />}
+                        {index === 8 && <IQ_Matrix num={8} />}
                         {index === TOTAL_QUESTIONS && (
                             <button type="submit" disabled={loading}>
                                 <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-200" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>

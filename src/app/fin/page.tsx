@@ -25,8 +25,8 @@ export default async function Fin() {
             <div className="flex flex-col gap-3">
                 <p>Your UPI ID is: {upi}</p>
                 <p>Amount won by participating: 100</p>
-                <p>Amount won from the IQ questions: {iq_amount}</p>
                 <p>Amount won from selling/playing the bet: {bet_amount}</p>
+                <p>Amount won from the additional questions: {iq_amount}</p>
                 <p>The total amount you won: {total_amount}</p>
                 <p>You will receive this amount on the aforementioned UPI ID shortly. In case there is an error in the UPI ID displayed, note the displayed ID, and email us at <a className="text-blue-500 underline" href="mailto:decisions.experiments@ashoka.edu.in" target="_blank">decisions.experiments@ashoka.edu.in</a> with the wrongly displayed UPI ID, and your correct one. In case you have any other queries or concerns, please feel free to reach out to us on the same email address.</p>
             </div>

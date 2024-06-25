@@ -86,7 +86,8 @@ export default function Prelim() {
                             <ul className="list-disc list-inside">
                                 <li>In this experiment, you will encounter a series of decision problems that feature uncertainty.</li>
                                 <li>There are no right or wrong answers to how you assess these problems. Please make these assessments the way you think will give you the best chance of maximizing your monetary rewards from the experiment.</li>
-                                <li>You will receive a guaranteed participation fee of INR 100. Additionally, you may earn up to INR 600 depending on the outcomes of your assessments and a further INR 150 from solving a few fun problems.</li>
+                                <li>You will receive a guaranteed participation fee of INR 100. Additionally, you may earn up to INR 600 depending on the decisions you encounter, your assessments in them, and how uncertainty resolves.</li>
+                                <li>You can earn a further INR 150 from solving a few fun problems.</li>
                             </ul>
     
                             <p>During the experiment, you will see urns containing colored balls. Associated with each urn, there will be monetary bets that pay specific amounts based on the color of the ball that will be <span className="italic">randomly</span> drawn from the urn by our algorithm. You will be asked to evaluate these bets by stating the minimum price at which you would be willing to sell any such bet. Once you have assessed these bets, and made all your decisions, your final payment in the experiment will be determined based on these decisions and the working of chance.</p>
@@ -458,14 +459,6 @@ export default function Prelim() {
                                                     <td>100</td>
                                                     <td>0</td>
                                                     <td>600</td>
-                                                    <td>0</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Ticket B</th>
-                                                    <td>0</td>
-                                                    <td>200</td>
-                                                    <td>200</td>
-                                                    <td>0</td>
                                                     <td>0</td>
                                                 </tr>
                                             </tbody>
