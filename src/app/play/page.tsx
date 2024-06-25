@@ -86,7 +86,7 @@ const submit = async (formData: FormData) => {
 
         // toast.success("Response submitted!")
         if (qindex + 1 == user.order.length) {
-            await navigate("/iq")
+            await navigate("/addq")
         }
         await navigate("/play")
     }
