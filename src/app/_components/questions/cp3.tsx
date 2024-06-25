@@ -194,7 +194,6 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                 }
             default:
                 return (<p>Shown below are the images of two urns. Urn 1 contains a total of 8 balls{statements[bets_order[0]-1]}. Urn 2 also contains 8 balls{statements[bets_order[1]-1]}.</p>)
-                // return (<p>Shown below are the images of two urns. Urn 1 contains a total of eight balls, {statements[bets_order[0]-1]}. Urn 2 also contains eight balls, {statements[bets_order[1]-1]}.</p>)
         }
     }
 
@@ -256,7 +255,7 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
             </form>
 
             <div className="flex flex-row items-center gap-3">
-                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above correctly</div>
+                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above truthfully.</div>
                 <button className="px-2 border-2 border-black rounded-full" onClick={() => setDialog(x => !x)}>?</button>
             </div>
 

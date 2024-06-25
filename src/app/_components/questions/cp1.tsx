@@ -171,7 +171,7 @@ export default function CP1({submit, bets_order, total, radio}: {submit: ((formD
             </form>
 
             <div className="flex flex-row items-center gap-3">
-                <div><span className="font-bold">*Note</span>: It is in your own interest to specify the above value correctly.</div>
+                <div><span className="font-bold">*Note</span>: It is in your own interest to specify the above value truthfully.</div>
                 <button className="px-2 border-2 border-black rounded-full" onClick={() => setDialog(x => !x)}>?</button>
             </div>
 

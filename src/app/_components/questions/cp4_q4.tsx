@@ -143,7 +143,6 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
     return (
         <div className="flex flex-col gap-5 items-center">
             <Scroll />
-            {/* <p>Shown below are the images of two urns. Urn 1 contains exactly {initials[bets_order[0]-2]} Urn 2 contains exactly {initials[bets_order[1]-2]}</p> */}
             <p>Shown below are the images of two urns. Urn 1 contains a total of {initials[bets_order[0]-2]}. Urn 2 contains a total of {initials[bets_order[1]-2]}.</p>
 
             <div className="flex flex-col gap-10 md:flex-row md:gap-20">
@@ -182,7 +181,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
             </form>
 
             <div className="flex flex-row items-center gap-3">
-                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above correctly</div>
+                <div><span className="font-bold">*Note</span>: It is in your interest to specify the above truthfully.</div>
                 <button className="px-2 border-2 border-black rounded-full" onClick={() => setDialog(x => !x)}>?</button>
             </div>
 
