@@ -156,7 +156,10 @@ export default function Prelim() {
                                 <p>You have almost no knowledge about the composition of this urn. All you know is that each of the balls could be of any of the eight colors listed. Given this information, here are some possibilities for this urn&apos;s composition:</p>
 
                                 <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
-                                    <Img url="/assets/urns/Misc2.png" />
+                                    <Img url="/assets/urns/amb_urn1.png" />
+                                    <Img url="/assets/urns/amb_urn2.png" />
+                                    <Img url="/assets/urns/amb_urn3.png" />
+                                    <Img url="/assets/urns/amb_urn4.png" />
                                 </div>
 
                                 <p>Again, this list is not exhaustive. There are many other color compositions that fit this description.</p>
