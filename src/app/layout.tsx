@@ -29,6 +29,9 @@ export default async function RootLayout({
         <Analytics />
         <SpeedInsights />
         <SessionProvider session={session} refetchOnWindowFocus={false}>
+          <div className="flex flex-col px-24 items-center py-4 fixed w-full bg-white">
+            <p className="text-lg"><span className="text-red-600">Warning</span>: Please do not press back, refresh, or close the window.</p>
+          </div>
           {children}
         </SessionProvider>
       </body>
