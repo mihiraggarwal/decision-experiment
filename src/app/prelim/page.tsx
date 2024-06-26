@@ -80,11 +80,11 @@ export default function Prelim() {
             <Scroll />
             {position === 0 && (
                 <>
-                    <Toaster position="top-right" />
+                    <Toaster position="bottom-center" />
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Introduction</h1>
                         <div className="flex flex-col gap-5">
-                            <ul className="list-disc list-inside">
+                            <ul className="list-disc list-inside px-8">
                                 <li>In this experiment, you will encounter a series of decision problems that feature uncertainty.</li>
                                 <li>There are no right or wrong answers to how you assess these problems. Please make these assessments the way you think will give you the best chance of maximizing your monetary rewards from the experiment.</li>
                                 <li>You will receive a guaranteed participation fee of INR 100. Additionally, you may earn up to INR 600 depending on the decisions you encounter, your assessments in them, and how uncertainty resolves.</li>
@@ -108,7 +108,7 @@ export default function Prelim() {
             {position === 1 && (
                 <>
                     <Scroll />
-                    <Toaster position="top-right" />
+                    <Toaster position="bottom-center" />
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Types of Urns</h1>
                         <div className="flex flex-col gap-10">
@@ -135,10 +135,13 @@ export default function Prelim() {
                                     <Img url="/assets/urns/CP1_Urn.png" />
                                 </div>
                 
-                                <p>In this urn, you know the exact number of balls of some colors, specifically that the urn contains 1 purple and 1 white ball. However, you don&apos;t know the color composition of the remaining four balls. You know that each of those balls could be red, blue, yellow, or green, but have no further information. Thus, the exact number of red, blue, yellow, or green balls is not known to you. Given this information, here are some possibilities for this urn&apos;s composition:</p>
+                                <p>In this urn, you know the exact number of balls of some colors, specifically that the urn contains 1 purple and 1 white ball. However, you don&apos;t know the color composition of the remaining four balls. You know that each of those balls could be red, yellow, blue, or green, but have no further information. Thus, the exact number of balls of these four colors is not known to you. Given this information, here are some possibilities for this urn&apos;s composition:</p>
 
                                 <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
-                                    <Img url="/assets/urns/Misc1.png" />
+                                    <Img url="/assets/urns/mixed_urn1.png" />
+                                    <Img url="/assets/urns/mixed_urn2.png" />
+                                    <Img url="/assets/urns/mixed_urn3.png" />
+                                    <Img url="/assets/urns/mixed_urn4.png" />
                                 </div>
 
                                 <p>Of course, this list is not exhaustive. There are many other color compositions that fit this description.</p>
@@ -223,7 +226,7 @@ export default function Prelim() {
             {position === 2 && (
                 <>
                     <Scroll />
-                    <Toaster position="top-right" />
+                    <Toaster position="bottom-center" />
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Bets and Evaluations</h1>
                         <div className="flex flex-col gap-10">
@@ -277,8 +280,8 @@ export default function Prelim() {
                                 </table>
 
                                 <ul className="list-disc list-inside px-8">
-                                    <li><span className="font-bold">Bet A</span> wins you INR 300 if the randomly drawn ball is either Black or Red. However, you earn nothing if it is of any other color (Yellow, Blue or Green).</li>
-                                    <li><span className="font-bold">Bet B</span> wins you INR 300 if the randomly drawn ball is either Yellow or Blue. However, you earn nothing if it is of any other color (Black, Red or Green).</li>
+                                    <li><span className="font-bold">Bet A</span> wins you INR 300 if the randomly drawn ball is either Black or Red. However, you earn nothing if it is of any other color (Yellow, Blue, or Green).</li>
+                                    <li><span className="font-bold">Bet B</span> wins you INR 300 if the randomly drawn ball is either Yellow or Blue. However, you earn nothing if it is of any other color (Black, Red, or Green).</li>
                                 </ul>
 
                             </div>
@@ -333,14 +336,14 @@ export default function Prelim() {
                                         </table>
                                     </div>
 
-                                    <p>Q1. If our algorithm were to randomly draw a Black ball from this urn, how much would bet A pay?</p>
+                                    <p>Q1. If our algorithm were to randomly draw a <span className="font-bold">Black</span> ball from this urn, how much would bet A pay?</p>
 
                                     <Radio value={0} label="INR 100" name="q1" />
                                     <Radio value={1} label="INR 300" name="q1" />
                                     <Radio value={2} label="INR 200" name="q1" />
                                     <Radio value={3} label="INR 0" name="q1" />
 
-                                    <p>Q2. If our algorithm were to randomly draw a Red ball from this urn, how much would bet B pay?</p>
+                                    <p>Q2. If our algorithm were to randomly draw a <span className="font-bold">Yellow</span> ball from this urn, how much would bet B pay?</p>
 
                                     <Radio value={0} label="INR 100" name="q2" />
                                     <Radio value={1} label="INR 300" name="q2" />
@@ -361,7 +364,7 @@ export default function Prelim() {
             {position === 3 && (
                 <>
                     <Scroll />
-                    <Toaster position="top-right" />
+                    <Toaster position="bottom-center" />
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Payment</h1>
                         <div className="flex flex-col gap-10">
@@ -380,13 +383,13 @@ export default function Prelim() {
 
                             <div className="flex flex-col gap-5">
                 
-                                <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue or green. However, the exact number of balls of these three colors is <span className="font-bold">not known</span>.</p>
+                                <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue, or green. However, the exact number of balls of these three colors is <span className="font-bold">not known</span>.</p>
                 
                                 <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
                                     <Img url="/assets/urns/training.png" /> 
                                 </div>
                 
-                                <p>The following bet is played on a random draw of a ball from this urn. If the drawn ball is yellow or blue, the bet pays INR 500. If the drawn ball is of any other color, it pays nothing.</p>
+                                <p>The following bet is placed on a random draw of a ball from this urn. If the drawn ball is yellow or blue, the bet pays INR 500. If the drawn ball is of any other color, it pays nothing.</p>
 
                                 <div className="flex flex-col w-full items-center">
                                     <table>
@@ -418,10 +421,6 @@ export default function Prelim() {
                                 </div>
 
                                 <p>Suppose you could sell this bet instead of playing it out. What is the lowest price at which you would be willing to sell it?</p>
-                                <p className="w-full text-center font-bold">The lowest price at which you would sell this bet is:</p>
-                                <div className="flex flex-col items-center">
-                                    <Input type="number" placeholder="Price" name="sample" />
-                                </div>
 
                             </div>
 
@@ -436,9 +435,9 @@ export default function Prelim() {
 
                                 <div className="flex flex-col gap-5 items-start">
                                     <p>Consider the following urn and bet</p>
-                                    <p>Shown below is the image of an urn. The urn contains a total of 5 balls. There is 1 black ball and 1 red ball. Each of the other 3 balls could be yellow, blue, or green. However, the exact number of balls of any of these three colors is <span className="font-bold">not known</span>.</p>
+                                    <p>Shown below is the image of an urn. The urn contains a total of 7 balls. There is 1 red, 1 blue, and 1 green ball. Each of the other 4 balls could be yellow, pink, orange, or black. However, the exact number of balls of these four colors is <span className="font-bold">not known</span>.</p>
                                     <div className="flex flex-col gap-5 md:flex-row w-full justify-center">
-                                        <Img url="/assets/urns/training.png" />
+                                        <Img url="/assets/urns/payment_urn.png" />
                                     </div>
                                     <p>The following bet is placed on this urn:</p>
 
@@ -449,23 +448,28 @@ export default function Prelim() {
                                                     <td></td>
                                                     <th>1 ball</th>
                                                     <th>1 ball</th>
-                                                    <th colSpan={3}>3 balls</th>
+                                                    <th>1 ball</th>
+                                                    <th colSpan={4}>4 balls</th>
                                                 </tr>
                                                 <tr>
                                                     <td></td>
-                                                    <th>Black</th>
                                                     <th>Red</th>
-                                                    <th>Yellow</th>
                                                     <th>Blue</th>
                                                     <th>Green</th>
+                                                    <th>Yellow</th>
+                                                    <th>Pink</th>
+                                                    <th>Orange</th>
+                                                    <th>Black</th>
                                                 </tr>
                                                 <tr>
                                                     <th>Bet A</th>
-                                                    <td>0</td>
                                                     <td>100</td>
-                                                    <td>0</td>
-                                                    <td>600</td>
-                                                    <td>0</td>
+                                                    <td>200</td>
+                                                    <td>150</td>
+                                                    <td>50</td>
+                                                    <td>100</td>
+                                                    <td>400</td>
+                                                    <td>50</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -473,11 +477,12 @@ export default function Prelim() {
 
                                     <p>Q1. The buying price that can be randomly generated by our algorithm for this bet can be between:</p>
 
-                                    <Radio value={0} label="0 to 100" name="q1" />
-                                    <Radio value={1} label="0 to 50" name="q1" />
-                                    <Radio value={2} label="0 to 600" name="q1" />
+                                    <Radio value={0} label="50 to 300" name="q1" />
+                                    <Radio value={1} label="0 to 300" name="q1" />
+                                    <Radio value={2} label="50 to 400" name="q1" />
+                                    <Radio value={3} label="0 to 500" name="q1" />
 
-                                    <p>Q2. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 250. Their earnings would be:</p>
+                                    <p>Q2. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 250. What would be the earnings of this person from this decision?</p>
 
                                     <Radio value={0} label="INR 150" name="q2" />
                                     <Radio value={1} label="INR 250" name="q2" />
@@ -485,18 +490,18 @@ export default function Prelim() {
                                     <Radio value={3} label="INR 600" name="q2" />
                                     <Radio value={4} label="INR 0" name="q2" />
 
-                                    <p>Q3. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 100. Their earnings would be:</p>
+                                    <p>Q3. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 100. What would be the earnings of this person from this decision?</p>
 
                                     <Radio value={0} label="INR 0" name="q3" />
                                     <Radio value={1} label="INR 100" name="q3" />
                                     <Radio value={2} label="INR 600" name="q3" />
                                     <Radio value={3} label="Determined by the random draw from the urn" name="q3" />
 
-                                    <p>Q4. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 100. In that case the bet is unsold and, a ball is randomly drawn from the urn by our algorithm. Suppose the color of the drawn ball is Red. Their earnings would be:</p>
+                                    <p>Q4. Suppose someone states INR 150 as the lowest price at which they are willing to sell the above bet, and the random buying price generated by our algorithm is INR 80. In that case the bet is unsold and, a ball is randomly drawn from the urn by our algorithm. Suppose the color of the drawn ball is Red. What would be the earnings of this person from this decision?</p>
 
-                                    <Radio value={0} label="INR 0" name="q4" />
-                                    <Radio value={1} label="INR 100" name="q4" />
-                                    <Radio value={2} label="INR 600" name="q4" />
+                                    <Radio value={0} label="INR 100" name="q4" />
+                                    <Radio value={1} label="INR 50" name="q4" />
+                                    <Radio value={2} label="INR 200" name="q4" />
                                     <Radio value={3} label="INR 150" name="q4" />
                                 </div>
                                 

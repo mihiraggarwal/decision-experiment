@@ -148,11 +148,11 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                 return(<p>The following bet is placed on a random draw of a ball from this urn. First, you choose one of the eight colors. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</p>)
             case 2:
                 return(<>
-                <p className="w-full text-left">The following two bets are placed on a random draw of a ball from one of these two urns. First, you choose one of the eight colors.</p>
+                <p className="w-full text-left">The following two bets are placed on a random draw of a ball from urn 1 and urn 2, respectively.</p>
                     
                 <ul className="list-disc list-inside w-full px-8">
-                    <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</li>
-                    <li><span className="font-bold">Bet B</span> is placed on a draw from urn 2. If the color of the drawn ball is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</li>
+                    <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. First, you choose one of the eight colors. If the color of the drawn ball from urn 1 is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</li>
+                    <li><span className="font-bold">Bet B</span> is placed on a draw from urn 2. First, you choose one of the eight colors. If the color of the drawn ball from urn 2 is the same as the color you chose, it pays INR {cp3_bet1[0]}. If the drawn ball is of any other color, it pays nothing.</li>
                 </ul>
                 </>)
         }
@@ -197,10 +197,10 @@ export default function CP3({submit, bets_order, total, radio}: {submit: ((formD
                     return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with exactly 1 pink, 1 orange, 1 purple, 1 green, 1 red, 1 black, 1 yellow, and 1 blue ball.</p>)
                 }
                 else {
-                    return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls, with each ball colored one of pink, orange, purple, green, red, black, yellow, and blue. However, the exact number of balls of each colour is not known.</p>)
+                    return (<p>Shown below is the image of an urn. The urn contains a total of 8 balls. Each of these balls is either pink, orange, purple, green, red, black, yellow, or blue. However, the exact number of balls of these eight colors is not known.</p>)
                 }
             default:
-                return (<p>Shown below are the images of two urns. Urn 1 contains a total of 8 balls{statements[bets_order[0]-1]}. Urn 2 also contains 8 balls{statements[bets_order[1]-1]}.</p>)
+                return (<p>Shown below are the images of two urns. Urn 1 contains a total of 8 balls{statements[bets_order[0]-1]}. Urn 2 also contains a total of 8 balls{statements[bets_order[1]-1]}.</p>)
         }
     }
 

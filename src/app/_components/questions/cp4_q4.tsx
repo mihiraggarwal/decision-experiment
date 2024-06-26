@@ -21,7 +21,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
 
     const [dialog, setDialog] = useState(false)
     
-    const initials = [<>3 balls. There is 1 green ball. Each of the other 2 balls could be red or purple. However, the exact number of balls of these two colors is not known</>, <>2 balls, exactly 1 yellow ball and 1 cyan ball</>]
+    const initials = [<>3 balls. There is 1 green ball. Each of the other 2 balls could be red or purple. However, the exact number of balls of these two colors is not known</>, <>2 balls, with exactly 1 yellow ball and 1 cyan ball</>]
     const cp_bets: number[][] = []
     const statements: string[] = []
     
@@ -37,7 +37,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
                 break
             case 3:
                 cp_bets.push(cp4_bet3)
-                statements.push(`yellow, the bet pays INR ${cp4_bet3[0]}. If not, it pays nothing`)
+                statements.push(`yellow, the bet pays INR ${cp4_bet3[0]}. If the drawn ball is cyan, it pays nothing`)
                 break
         }
     })
@@ -104,7 +104,7 @@ export default function CP4_Q4({submit, bets_order, total, radio}: {submit: ((fo
 
     const Ticket = () => {
         return(<>
-            <p className="w-full text-left">The following two bets are placed on a random draw of a ball from one of these two urns.</p>
+            <p className="w-full text-left">The following two bets are placed on a random draw of a ball from urn 1 and urn 2, respectively.</p>
                 
             <ul className="list-disc list-inside w-full px-8">
                 <li><span className="font-bold">Bet A</span> is placed on a draw from urn 1. If the color of the drawn ball is {statements[0]}.</li>

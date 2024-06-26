@@ -389,7 +389,7 @@ class CP1_bet1:
         None
         """
 
-        self.rewards = [400, 400, 0, 0, 0, 0]
+        self.rewards = [500, 500, 0, 0, 0, 0]
         self.dist = np.ones(6) / 6
 
         self.colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']
@@ -435,7 +435,7 @@ class CP1_bet2:
             None
             """
 
-            self.rewards = [0, 0, 0, 0, 400, 400]
+            self.rewards = [0, 0, 0, 0, 500, 500]
             self.dist = np.ones(6) / 6
 
             self.colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']
@@ -481,7 +481,7 @@ class CP1_bet3:
         None
         """
 
-        self.rewards = [0, 0, 0, 0, 0, 400]
+        self.rewards = [0, 0, 0, 0, 0, 500]
         self.dist = np.ones(6) / 6
 
         self.colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']
@@ -528,7 +528,7 @@ class CP1_bet4:
         None
         """
 
-        self.rewards = [0, 0, 0, 400, 0, 0]
+        self.rewards = [0, 0, 0, 500, 0, 0]
         self.dist = np.ones(6) / 6
 
         self.colors = ['Purple', 'White', 'Red', 'Yellow', 'Blue', 'Green']

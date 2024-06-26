@@ -91,9 +91,9 @@ export default function CP1({submit, bets_order, total, radio}: {submit: ((formD
                 return(<>
                     <p className="w-full text-left">There are three bets placed on a random draw of a ball from this urn.</p>
                     <ul className="list-disc list-inside w-full px-8">
-                        <li>Bet A pays INR {statements[0]}. If the drawn ball is of any other color, it pays nothing.</li>
-                        <li>Bet B pays INR {statements[1]}. If the drawn ball is of any other color, it pays nothing.</li>
-                        <li>Bet C pays INR {statements[2]}. If the drawn ball is of any other color, it pays nothing.</li>
+                        <li><span className="font-bold">Bet A</span> pays INR {statements[0]}. If the drawn ball is of any other color, it pays nothing.</li>
+                        <li><span className="font-bold">Bet B</span> pays INR {statements[1]}. If the drawn ball is of any other color, it pays nothing.</li>
+                        <li><span className="font-bold">Bet C</span> pays INR {statements[2]}. If the drawn ball is of any other color, it pays nothing.</li>
                     </ul>
                     </>)
         }

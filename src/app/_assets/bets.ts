@@ -1,7 +1,7 @@
-export const cp1_bet1 = [400, 400, 0, 0, 0, 0]
-export const cp1_bet2 = [0, 0, 0, 0, 400, 400]
-export const cp1_bet3 = [0, 0, 0, 0, 0, 400]
-export const cp1_bet4 = [0, 0, 0, 400, 0, 0]
+export const cp1_bet1 = [500, 500, 0, 0, 0, 0]
+export const cp1_bet2 = [0, 0, 0, 0, 500, 500]
+export const cp1_bet3 = [0, 0, 0, 0, 0, 500]
+export const cp1_bet4 = [0, 0, 0, 500, 0, 0]
 
 export const cp2_bet1 = [500, 0, 100, 0]
 export const cp2_bet2 = [0, 100, 0, 600]

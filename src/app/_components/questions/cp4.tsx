@@ -30,12 +30,12 @@ export default function CP4({submit, bets_order, total, radio}: {submit: ((formD
             case 1:
                 cp_bets.push(cp4_bet1)
                 singular.push(`green, the bet pays INR ${cp4_bet1[0]}`)
-                statements.push(`INR ${cp4_bet1[0]} if the drawn ball is green`)
+                statements.push(`${cp4_bet1[0]} if the drawn ball is green`)
                 break
             case 2:
                 cp_bets.push(cp4_bet2)
                 singular.push(`red, the bet pays INR ${cp4_bet2[1]}`)
-                statements.push(`INR ${cp4_bet2[1]} if the drawn ball is red`)
+                statements.push(`${cp4_bet2[1]} if the drawn ball is red`)
                 break
         }
     })
