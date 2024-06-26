@@ -28,7 +28,7 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
                         ))}
                     </tr>
                     <tr>
-                        <th>Decision {num+1}</th>
+                        <th>Bet {num+1}</th>
                         {all_rewards[num].map((reward, index) => (
                             <td key={index}>{`${reward}`}</td>
                         ))}
@@ -79,8 +79,8 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
                 </div>
 
                 <div className="flex flex-col gap-3 items-start">
-                    <p>Decision {chosen_bet} is to be used for payment. You can verify this using the following password on your PDF: {pdf_pass}.</p> 
-                    <p>Your selling price for the corresponding bet was {bet}. A number will now be picked at random to determine whether your bet will be sold</p>
+                    <p>Bet {chosen_bet} was chosen to be used for payment before you encountered these decision problems. You can verify this using the following password on your PDF: {pdf_pass}.</p> 
+                    <p>Your selling price for the corresponding bet was {bet}. A buying price will now be generated at random to determine whether your bet will be sold</p>
 
                     <button onClick={() => genRandom(rewards)} className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-300" : "bg-white"}`} disabled={disable}>{loading ? "Loading..." : "Generate"}</button>
 

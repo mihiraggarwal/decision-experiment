@@ -18,7 +18,15 @@ export default function Page ({total_bets}: {total_bets: number}) {
             <h1 className="text-3xl">Randomization</h1>
             <div className="flex flex-col gap-20 items-center">
 
-                <p>You will be asked to make a series of decisions, each of which will be to evaluate a bet by stating the lowest amount at which you would be willing to sell it, as mentioned in the instructions before. One of these decisions will now be randomly chosen to determine your payments using the previously explained protocol at the end of the experiment. This choice will be provided to you in a password-protected PDF that you can download by clicking the button below. You will receive the password and be able to view this choice only <span className="font-bold">at the end</span> of the experiment, so it is encouraged that you answer every question as if it is being used for payment.</p>
+                <p>You will be asked to make a series of decisions, each of which will be to state the lowest price at which you would be willing to sell a bet.</p>
+
+                <ul className="list-disc list-inside">
+                    <li>One randomly chosen decision will be used to determine your payment as per the previously explained protocol</li>
+                    <li>This choice will be made now and provided to you in a password-protected PDF that you can download by clicking the button below</li>
+                    <li>Note that the password for the PDF is <span className = "font-bold">different</span> from the password you used to enter the experiment</li>
+                    <li>You will receive the password for the PDF at the <span className = "font-bold">end of the experiment</span>, and will not know which decision is used for payment until then.</li>
+                    <li>Therefore, it is advised that you make every decision as if it might be used for payment</li>
+                </ul>
 
                 {!disableDownload &&
                     <a href="/api/file">
