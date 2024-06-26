@@ -93,10 +93,13 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
                 <>
                     <div className="flex flex-col gap-14">
                         <div className="flex flex-col gap-3 items-start">
-                            <p>Bet {chosen_bet} was chosen to be used for payment before you encountered these decision problems. You can verify this using the following password on your PDF: {pdf_pass}.</p>
+                            <p>Bet {chosen_bet} was chosen to be used for payment before you encountered these decision problems.</p>
+                                
+                            <p>You can verify this using the following password on your PDF: <span className="font-bold">{pdf_pass}</span>.</p>
                             
                             <Table num={chosen_bet-1} />
-                            <p>Your selling price for the corresponding bet was {bet}. A buying price will now be generated at random to determine whether your bet will be sold</p>
+                            <p>Your selling price for the corresponding bet was {bet}.</p>
+                            <p>A buying price will now be generated at random to determine whether your bet will be sold</p>
                 
                             <button onClick={() => genRandom(rewards)} className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-300" : "bg-white"}`} disabled={disable}>{loading ? "Loading..." : "Generate"}</button>
 
@@ -106,7 +109,7 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
                                         <p>Since the question was an MCQ, your bet will be carried out.</p>
                                     ) : (
                                         <>
-                                            <p>The number generated is {num}</p>
+                                            <p>The buying price generated is {num}</p>
                                         </>
                                     )}
 
@@ -114,7 +117,7 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
                                         <p>Congratulations! Your bet was sold for INR {num}.</p>
                                     )}
                                     {!mcq && num < bet && (
-                                        <p>The generated number is lower than your selling price. You can now play the bet to determine your rewards.</p>
+                                        <p>The generated buying price is lower than your selling price. Your bet was not sold. You can now play the bet to determine your rewards.</p>
                                     )}
 
                                     <form action={proceed} className="flex flex-col items-center w-full">

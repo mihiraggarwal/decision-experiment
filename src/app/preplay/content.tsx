@@ -16,7 +16,7 @@ export default function Page ({total_bets}: {total_bets: number}) {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between gap-10 p-24 pt-16">
             <h1 className="text-3xl">Randomization</h1>
-            <div className="flex flex-col gap-20 items-center">
+            <div className="flex flex-col gap-8 items-center">
 
                 <p>You will be asked to make a series of decisions, each of which will be to state the lowest price at which you would be willing to sell a bet.</p>
 
@@ -25,7 +25,7 @@ export default function Page ({total_bets}: {total_bets: number}) {
                     <li>This choice will be made now and provided to you in a password-protected PDF that you can download by clicking the button below</li>
                     <li>Note that the password for the PDF is <span className = "font-bold">different</span> from the password you used to enter the experiment</li>
                     <li>You will receive the password for the PDF at the <span className = "font-bold">end of the experiment</span>, and will not know which decision is used for payment until then.</li>
-                    <li>Therefore, it is advised that you make every decision as if it might be used for payment</li>
+                    <li>Therefore, you should make every decision as if it might be used to determine your payment</li>
                 </ul>
 
                 {!disableDownload &&

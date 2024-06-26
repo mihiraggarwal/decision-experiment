@@ -92,7 +92,7 @@ export default function Main({colours, rewards, balls, cp, bet, server_url}: {co
                         ))}
                     </tr>
                     <tr>
-                        <th>Rewards</th>
+                        <th>Bet</th>
                         {rewards.map((reward, index) => (
                             <td key={index}>{`${reward}`}</td>
                         ))}

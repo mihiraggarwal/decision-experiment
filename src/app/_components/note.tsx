@@ -12,7 +12,7 @@ export default function Note() {
                     <Img url="/assets/training/overstate.png" /> 
                 </div>
 
-                <p>If the generated buying price lies between your true lowest selling price and your stated selling price (orange zone), the bet goes unsold. However, by your true valuation, you would prefer that the bet be sold at this price. Since the algorithm generates numbers in this range with positive probability, you are left worse off in such scenarios.</p>
+                <p>If the generated buying price lies between your true lowest selling price and your stated selling price (yellow zone), the bet goes unsold. However, by your true valuation, you would prefer that the bet be sold at this price. Since the algorithm generates numbers in this range with positive probability, you are left worse off in such scenarios.</p>
             
             </div>
 
@@ -25,7 +25,7 @@ export default function Note() {
                     <Img url="/assets/training/understate.png" /> 
                 </div>
 
-                <p>If the generated buying price lies between your stated selling price and your true lowest selling price (orange zone), the bet is sold. However, by your true valuation, you would prefer to play the bet than sell it at this price. Since the algorithm generates numbers in this range with positive probability, you are again left worse off in such scenarios.</p>
+                <p>If the generated buying price lies between your stated selling price and your true lowest selling price (yellow zone), the bet is sold. However, by your true valuation, you would prefer to play the bet than sell it at this price. Since the algorithm generates numbers in this range with positive probability, you are again left worse off in such scenarios.</p>
             
             </div>
 

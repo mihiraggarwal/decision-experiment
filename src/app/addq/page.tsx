@@ -57,7 +57,7 @@ export default function IQ() {
             <>
             <Scroll />
                 <div className="flex flex-col gap-5 items-center">
-                    <p className="text-left w-full">In a lake, there is a patch of lily pads. Every day, the patch doubles in size. If it takes 48 days for the patch to cover the entire lake, how long would it take for the patch to cover half of the lake?</p>
+                    <p className="text-left w-full">In a pond, there is a patch of algae. Every day, the patch doubles in size. If it takes 48 days for the patch to cover the entire pond, how long would it take for the patch to cover half of the pond?</p>
                     <Input type="number" placeholder="Number of days" name="q1" />
                 </div>
             </>
@@ -69,8 +69,8 @@ export default function IQ() {
             <>
             <Scroll />
                 <div className="flex flex-col gap-5 items-center">
-                    <p className="text-left w-full">A man buys a pig for $60, sells it for $70, buys it back for $80, and sells it finally for $90. How much has he made?</p>
-                    <Input type="number" placeholder="Number of dollars" name="q2" />
+                    <p className="text-left w-full">A man buys a notebook for INR 60, sells it for INR 70, buys it back for INR 80, and sells it finally for INR 90. How much has he made?</p>
+                    <Input type="number" placeholder="Number of rupees" name="q2" />
                 </div>
             </>
         )
@@ -81,7 +81,7 @@ export default function IQ() {
             <>
             <Scroll />
                 <div className="flex flex-col gap-5 items-center">
-                    <p className="text-left w-full">Simon decided to invest $8,000 in the stock market one day early in 2008. Six months after he invested, on July 17, the stocks he had purchased were down 50%. Fortunately for Simon, from July 17 to October 17, the stocks he had purchased went up 75%. At this point, Simon has:</p>
+                    <p className="text-left w-full">Mihir decided to invest INR 10,000 in the stock market late in 2021. Six months after he invested, on May 23, the stocks he had purchased were down 50%. Fortunately for Mihir, from May 23 to August 23, the stocks he had purchased went up 75%. At this point, Mihir has:</p>
                     <div className="flex flex-col gap-3">
                         <Radio value={0} name="q3" label="broken even in the stock market" />
                         <Radio value={1} name="q3" label="is ahead of where he began" />
@@ -131,7 +131,7 @@ export default function IQ() {
             {/* <Scroll /> */}
                 <div className="flex flex-col gap-20 items-center">
                     <div className="flex flex-col gap-5 items-center">
-                        <p>Complete the following image</p>
+                        <p><b>Complete the following image</b>:</p>
                         <Question_Image url={`/assets/matrices/Q${num-3}.png`} />
                     </div>
                     <div className="flex flex-col gap-5">

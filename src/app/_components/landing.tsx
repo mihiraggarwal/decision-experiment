@@ -50,17 +50,23 @@ export default function Landing() {
 
   return (
     <>
-      <Toaster position="top-right" />
+      <Toaster position="bottom-center" />
       <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
-        <h1 className="text-3xl">Consent Form</h1>
+        <h1 className="text-3xl">Welcome!</h1>
         <div className="flex flex-col gap-5">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet libero viverra, euismod erat eget, fermentum turpis. Nam egestas risus eros, in convallis mi sodales eget. Maecenas consectetur nisl dui, quis vestibulum erat laoreet eu. Integer vel nulla non diam sodales efficitur. Phasellus sit amet elementum felis. Aenean risus nulla, commodo non urna nec, commodo elementum risus. Vestibulum pellentesque semper mauris, vitae hendrerit enim hendrerit ac. Maecenas mattis mi eget efficitur maximus. Donec ullamcorper sodales nisi ut luctus.</p>
+          <p>This study is part of a research project to understand people&apos;s behavior when faced with uncertainty. Your participation in this research study is voluntary. You may choose not to participate. If you decide to participate, you may withdraw at any time.</p>
 
-          <p>Cras at condimentum mauris. Sed at egestas mi. In sit amet nibh tempor, efficitur magna eu, finibus quam. Nunc dapibus vulputate mauris a porta. Sed id quam dapibus, aliquet est sit amet, ullamcorper justo. Nulla pellentesque aliquam est. Aenean pharetra, magna euismod placerat aliquet, purus diam aliquam lectus, sed facilisis elit felis eget tortor.</p>
+          <p>The tasks that you will need to perform will be explained through instructions at the beginning of the study. After you perform these tasks, you will be asked to solve some additional problems. Your participation should not require more than 25 to 30 minutes. Should you take more than an hour to complete the study, you will be automatically logged out and will not be able to continue or restart it. If you will not be able to spend an uninterrupted 30 minutes, please abandon the study by closing this window.</p>
 
-          <p>Nulla non ex non sapien ultricies bibendum. Fusce non ipsum condimentum, posuere tellus a, blandit ante. Ut ut aliquam risus. Aenean porta metus eu elit tristique, non bibendum nulla sagittis. Proin vel sem at ante efficitur condimentum. Proin vestibulum sollicitudin tortor, a accumsan eros bibendum quis. Praesent mattis magna vitae rhoncus scelerisque. In hac habitasse platea dictumst.</p>
+          <p><span className="font-bold">Note</span>: Please make sure that your internet connection remains stable and uninterrupted for the next 30 minutes. Any disruptions will result in you being automatically logged out, rendering you unable to complete the study.</p>
 
-          <p>By entering my UPI ID below and clicking Submit, I consent to lorem ipsum</p>
+          <p>For your participation in this study, you will receive a fixed fee of INR 100 on completion. You can earn an additional INR 750 through the experimental tasks, the specifics of which will be explained in the instructions to follow. All payments will be made electronically within the next few days. To process payments, we need your UPI ID.</p>
+
+          <p className="underline text-center">CONSENT</p>
+
+          <p className="italic">I am at least 18 years of age. I understand that all the data collected from my responses will only be used for research. My identity will be kept anonymous. My UPI ID or any identifying information will not be linked to my responses in the tasks.</p>
+
+          <p>By entering your UPI ID and clicking on submit, you consent to the above.</p>
         </div>
         <form onSubmit={authorize} className="flex flex-col gap-10 items-center">
           <div className="flex flex-col gap-2">
