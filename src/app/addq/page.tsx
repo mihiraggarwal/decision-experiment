@@ -57,7 +57,7 @@ export default function IQ() {
             <>
             <Scroll />
                 <div className="flex flex-col gap-5 items-center">
-                    <p className="text-left w-full">In a pond, there is a patch of algae. Every day, the patch doubles in size. If it takes 48 days for the patch to cover the entire pond, how long would it take for the patch to cover half of the pond?</p>
+                    <p className="text-left w-full">In a pond, there is a patch of algae. Every day, the patch doubles in size. If it takes 38 days for the patch to cover the entire pond, how long would it take for the patch to cover half of the pond?</p>
                     <Input type="number" placeholder="Number of days" name="q1" />
                 </div>
             </>
@@ -69,7 +69,7 @@ export default function IQ() {
             <>
             <Scroll />
                 <div className="flex flex-col gap-5 items-center">
-                    <p className="text-left w-full">A man buys a notebook for INR 60, sells it for INR 70, buys it back for INR 80, and sells it finally for INR 90. How much has he made?</p>
+                    <p className="text-left w-full">A man buys a long lost piece of art for INR 150000, sells it for INR 160000, buys it back for INR 170000, and sells it finally for INR 180000. How much has he made?</p>
                     <Input type="number" placeholder="Number of rupees" name="q2" />
                 </div>
             </>

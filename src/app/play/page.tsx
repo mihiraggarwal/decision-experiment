@@ -130,7 +130,7 @@ export default async function Play() {
     return (
         <>
             <Scroll />
-            <Toaster position="top-right" />
+            <Toaster position="bottom-center" />
             <div className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                 <h1 className="text-3xl">Question</h1>
                 <QuestionComp otp={otp} />

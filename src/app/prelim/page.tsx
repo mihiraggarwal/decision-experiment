@@ -80,7 +80,7 @@ export default function Prelim() {
             <Scroll />
             {position === 0 && (
                 <>
-                    <Toaster position="top-right" />
+                    <Toaster position="bottom-center" />
                     <main className="flex min-h-screen flex-col items-center gap-10 p-24 pt-16">
                         <h1 className="text-3xl">Introduction</h1>
                         <div className="flex flex-col gap-5">
