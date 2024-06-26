@@ -9,6 +9,7 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
     const [further, setFurther] = useState(false)
     const [num, setNum] = useState(0)
     const [disable, setDisable] = useState(false)
+    const [position, setPosition] = useState(0)
 
     const Table = ({num}: {num: number}) => {
         return (
@@ -66,48 +67,65 @@ export default function Main({chosen_bet, pdf_pass, bet, proceed, mcq, rewards, 
     return (
         <main className="flex min-h-screen flex-col items-center gap-20 p-24 pt-16">
             <h1 className="text-3xl">Payments</h1>
-            <div className="flex flex-col gap-14">
-                <p>We will now determine your payment based on your responses to the choice problems earlier. Here is a list of all the bets that you evaluated during the experiment.</p>
+            {position == 0 && (
+                <div className="flex flex-col gap-14 items-center">
+                    <p>We will now determine your payment based on your responses to the choice problems earlier. Here is a list of all the bets that you evaluated during the experiment.</p>
 
-                <div className="flex flex-col gap-14 items-start">
-                    {all_rewards.map((balls, index) => (
-                        <div className="flex flex-col gap-5" key={index}>
-                            <Table num={index} key={index} />
-                            <p>Your selling price for this bet was: {all_responses[index]}</p>
-                        </div>
-                    ))}
+                    <div className="flex flex-col gap-14 items-start w-full">
+                        {all_rewards.map((balls, index) => (
+                            <div className="flex flex-col gap-5" key={index}>
+                                <Table num={index} key={index} />
+                                <p>Your selling price for this bet was: {all_responses[index]}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <button onClick={() => {
+                        setLoading(true)
+                        setDisable(true)
+                        setPosition(1)
+                        setDisable(false)
+                        setLoading(false)
+                    }} className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-300" : "bg-white"}`} disabled={disable}>{loading ? "Loading..." : "Proceed"}</button>
                 </div>
+            )}
 
-                <div className="flex flex-col gap-3 items-start">
-                    <p>Bet {chosen_bet} was chosen to be used for payment before you encountered these decision problems. You can verify this using the following password on your PDF: {pdf_pass}.</p> 
-                    <p>Your selling price for the corresponding bet was {bet}. A buying price will now be generated at random to determine whether your bet will be sold</p>
+            {position == 1 && (
+                <>
+                    <div className="flex flex-col gap-14">
+                        <div className="flex flex-col gap-3 items-start">
+                            <p>Bet {chosen_bet} was chosen to be used for payment before you encountered these decision problems. You can verify this using the following password on your PDF: {pdf_pass}.</p>
+                            
+                            <Table num={chosen_bet-1} />
+                            <p>Your selling price for the corresponding bet was {bet}. A buying price will now be generated at random to determine whether your bet will be sold</p>
+                
+                            <button onClick={() => genRandom(rewards)} className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-300" : "bg-white"}`} disabled={disable}>{loading ? "Loading..." : "Generate"}</button>
 
-                    <button onClick={() => genRandom(rewards)} className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-300" : "bg-white"}`} disabled={disable}>{loading ? "Loading..." : "Generate"}</button>
-
-                    {further && (
-                        <>
-                            {mcq ? (
-                                <p>Since the question was an MCQ, your bet will be carried out.</p>
-                            ) : (
+                            {further && (
                                 <>
-                                    <p>The number generated is {num}</p>
+                                    {mcq ? (
+                                        <p>Since the question was an MCQ, your bet will be carried out.</p>
+                                    ) : (
+                                        <>
+                                            <p>The number generated is {num}</p>
+                                        </>
+                                    )}
+
+                                    {!mcq && num >= bet && (
+                                        <p>Congratulations! Your bet was sold for INR {num}.</p>
+                                    )}
+                                    {!mcq && num < bet && (
+                                        <p>The generated number is lower than your selling price. You can now play the bet to determine your rewards.</p>
+                                    )}
+
+                                    <form action={proceed} className="flex flex-col items-center w-full">
+                                        <SubmitBtn text="Proceed" loadingText="Loading..." />
+                                    </form>
                                 </>
                             )}
-
-                            {!mcq && num >= bet && (
-                                <p>Congratulations! Your bet was sold for INR {num}.</p>
-                            )}
-                            {!mcq && num < bet && (
-                                <p>The generated number is lower than your selling price. You can now play the bet to determine your rewards.</p>
-                            )}
-                        </>
-                    )}
-                </div>
-
-            </div>
-            <form action={proceed}>
-                <SubmitBtn text="Proceed" loadingText="Loading..." />
-            </form>
+                        </div>
+                    </div>
+                </>
+            )}
         </main>
     )
 }
