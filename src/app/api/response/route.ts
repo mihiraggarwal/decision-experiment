@@ -15,7 +15,8 @@ export const POST = async (req: NextRequest) => {
         })
     }
     const response = new Response({
-        session_id: body.id
+        session_id: body.id,
+        train_price: body.train_price
     })
     console.log(response)
     await response.save()

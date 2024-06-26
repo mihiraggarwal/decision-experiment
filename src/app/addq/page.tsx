@@ -9,12 +9,12 @@ export default async function AddQ() {
 
     const user = await User.findOne({ password: password })
 
-    if (user.seenBet == true) {
+    if (user.seenIq == true) {
         await navigate("/results")
         return <></>
     }
 
-    user.seenBet = true
+    user.seenIq = true
     await user.save()
     
     return <IQ />
