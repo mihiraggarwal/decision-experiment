@@ -16,7 +16,8 @@
     "pdfobject": "^2.3.0",
     "react": "^18",
     "react-dom": "^18",
-    "react-hot-toast": "^2.4.1"
+    "react-hot-toast": "^2.4.1",
+    "react-timer-hook": "^3.0.7"
   },
   "devDependencies": {
     "@types/blob-stream": "^0.1.33",

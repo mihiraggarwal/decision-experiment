@@ -38,7 +38,7 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
         return
     }
     else {
-        if (response.iq == null || response.iq.length == 0) {
+        if (response.iq == null || response.iq.response.length == 0) {
             response.iq = {
                 start_time: start_time,
                 end_time: end_time,
@@ -98,7 +98,7 @@ export async function submit_training_1(formData: FormData) {
 
     const status = {
         correct: true,
-        response: "Check: "
+        response: ""
     }
 
     const wrong = []
@@ -110,14 +110,15 @@ export async function submit_training_1(formData: FormData) {
                 status.correct = false
                 if (!error) {
                     error = true
-                    wrong.push("Q" + (i + 1).toString())
+                    wrong.push((i + 1).toString())
                 }
             }
         }
     }
 
     if (!status.correct) {
-        status.response += wrong.join(", ")
+        const ques = wrong.join(", ")
+        status.response = `Your answers to ${ques.length > 1 ? "questions" : "question"} ${ques} are incorrect. To help with your understanding during the experimental tasks, please try again.`
     }
     return status
 }
@@ -133,7 +134,7 @@ export const submit_training_2 = async (formData: FormData) => {
 
     const status = {
         correct: true,
-        response: "Check: "
+        response: ""
     }
 
     const wrong = []
@@ -141,12 +142,13 @@ export const submit_training_2 = async (formData: FormData) => {
     for (let i = 0; i < 2; i++) {
         if (q_responses[i] != answer[i]) {
             status.correct = false
-            wrong.push("Q" + (i + 1).toString())
+            wrong.push((i + 1).toString())
         }
     }
 
     if (!status.correct) {
-        status.response += wrong.join(", ")
+        const ques = wrong.join(", ")
+        status.response = `Your answers to ${ques.length > 1 ? "questions" : "question"} ${ques} are incorrect. To help with your understanding during the experimental tasks, please try again.`
     }
     return status
 }
@@ -161,7 +163,7 @@ export const submit_training_3 = async (formData: FormData) => {
 
     const status = {
         correct: true,
-        response: "Check: "
+        response: ""
     }
 
     const wrong = []
@@ -169,12 +171,13 @@ export const submit_training_3 = async (formData: FormData) => {
     for (let i = 0; i < 4; i++) {
         if (q_responses[i] != answer[i]) {
             status.correct = false
-            wrong.push("Q" + (i + 1).toString())
+            wrong.push((i + 1).toString())
         }
     }
 
     if (!status.correct) {
-        status.response += wrong.join(", ")
+        const ques = wrong.join(", ")
+        status.response = `Your answers to ${ques.length > 1 ? "questions" : "question"} ${ques} are incorrect. To help with your understanding during the experimental tasks, please try again.`
     }
 
     if (status.correct) {

@@ -9,7 +9,6 @@ import Img from "../_components/img";
 import Radio from "../_components/radio";
 import Checkbox from "../_components/checkbox";
 import { submit_training_1, submit_training_2, submit_training_3 } from "../_actions/submit";
-import Input from "../_components/input";
 import Note from "../_components/note";
 
 export default function Prelim() {
@@ -18,6 +17,10 @@ export default function Prelim() {
     const [position, setPosition] = useState(0)
 
     const [loading, setLoading] = useState(false)
+
+    const [errorq1, setErrorq1] = useState("")
+    const [errorq2, setErrorq2] = useState("")
+    const [errorq3, setErrorq3] = useState("")
 
     const proceed = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -36,7 +39,7 @@ export default function Prelim() {
                 setPosition(2)
             }
             else {
-                toast.error(verified.response)
+                setErrorq1(verified.response)
             }
             setLoading(false)
         }
@@ -47,7 +50,7 @@ export default function Prelim() {
                 setPosition(3)
             }
             else {
-                toast.error(verified.response)
+                setErrorq2(verified.response)
             }
             setLoading(false)
         }
@@ -69,7 +72,7 @@ export default function Prelim() {
                 }
             }
             else {
-                toast.error(verified.response)
+                setErrorq3(verified.response)
             }
         }
         setLoading(false)
@@ -213,6 +216,8 @@ export default function Prelim() {
                                     <Checkbox value={1} label="0" name="q3_4" />
                                 </div>
 
+                                {errorq1 != "" && <p className="text-red-500">{errorq1}</p>}
+
                                 <button disabled={loading} className="text-center">
                                     <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
                                 </button>
@@ -351,6 +356,8 @@ export default function Prelim() {
                                     <Radio value={3} label="INR 200" name="q2" />
                                 </div>
                                 
+                                {errorq2 != "" && <p className="text-red-500">{errorq2}</p>}
+
                                 <button disabled={loading} className="text-center">
                                     <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>
                                 </button>
@@ -504,6 +511,8 @@ export default function Prelim() {
                                     <Radio value={2} label="INR 200" name="q4" />
                                     <Radio value={3} label="INR 150" name="q4" />
                                 </div>
+
+                                {errorq3 != "" && <p className="text-red-500">{errorq3}</p>}
                                 
                                 <button disabled={loading} className="text-center">
                                     <div className={`border border-black rounded-md py-2 px-5 ${loading ? "bg-gray-400" : "bg-white"}`}>{loading ? "Submitting..." : "Submit"}</div>

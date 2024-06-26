@@ -13,6 +13,7 @@ export interface Users extends mongoose.Document {
     pdf_pass: string;
     total_bets: number;
     price: number;
+    seenIq: boolean;
     trained: boolean;
     fin: boolean;
     seenBet: boolean;
@@ -59,6 +60,9 @@ const UserSchema = new mongoose.Schema<Users> ({
     },
     price: {
         type: Number
+    },
+    seenIq: {
+        type: Boolean
     },
     trained: {
         type: Boolean
