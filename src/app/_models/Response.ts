@@ -3,7 +3,8 @@ import mongoose from "mongoose"
 export interface Responses extends mongoose.Document {
     session_id: string;
     response: object[];
-    iq: object
+    iq: object;
+    fin: boolean
 }
 
 const ResponseSchema = new mongoose.Schema<Responses> ({
@@ -25,6 +26,9 @@ const ResponseSchema = new mongoose.Schema<Responses> ({
             end_time: Date,
             response: [Number]
         }
+    },
+    fin: {
+        type: Boolean
     }
 });
 

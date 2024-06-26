@@ -131,10 +131,14 @@ export default async function Results() {
 
         if (num >= bet) {
             const user = await User.findOne({ password: session?.user.name })
+            const id = user.id
+
             user.fin = true
             user.amount_bet = num
             user.total_amount = user.amount_iq + num + 100
             await user.save()
+
+            await Response.findOneAndUpdate({ session_id: id }, { fin: true })
             await navigate("/fin")
         }
         else {

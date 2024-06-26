@@ -2,6 +2,7 @@
 
 import { getServerSession } from "next-auth";
 import User from "../_models/User";
+import Response from "../_models/Response";
 
 export async function saveToDB(amount: number) {
     const session = await getServerSession();    
@@ -21,7 +22,12 @@ export async function makeSeenBet() {
 }
 
 export async function fin(password: string) {
-    await User.findOneAndUpdate({ password: password }, { fin: true })
+    const user = await User.findOne({ password: password })
+    const id = user.id
+    user.fin = true
+    await user.save()
+
+    await Response.findOneAndUpdate({ session_id: id }, { fin: true })
 }
 
 export async function verify(password: string) {

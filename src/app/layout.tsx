@@ -9,7 +9,7 @@ import Scroll from "./_components/scroll";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Comparative Ambiguity Experiment",
+  title: "Decisions Experiments",
   description: "",
 };
 
