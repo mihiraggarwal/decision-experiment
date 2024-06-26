@@ -106,7 +106,7 @@ export default function Main({colours, rewards, balls, cp, bet, server_url}: {co
         <main className="flex min-h-screen flex-col items-center gap-20 p-24 pt-16">
             <h1 className="text-3xl">Bet</h1>
             <div className="flex flex-col gap-5 items-center">
-                <p>Your chosen bet:</p>
+                <p>The bet used for payment:</p>
                 <Table />
 
                 <form onSubmit={play}>

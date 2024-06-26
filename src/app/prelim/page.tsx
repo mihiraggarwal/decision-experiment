@@ -55,6 +55,7 @@ export default function Prelim() {
         else if (position == 3) {
             const verified = await submit_training_3(formData)
             if (verified.correct) {
+                console.log(formData.get("id"))
                 const response = await fetch("/api/response", {
                     method: "POST", 
                     body: JSON.stringify({
