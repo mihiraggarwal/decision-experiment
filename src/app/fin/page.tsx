@@ -17,6 +17,8 @@ export default async function Fin() {
         bet_amount = user.amount_bet
     }
 
+    console.log(user, upi, iq_amount, total_amount, bet_amount)
+
     // remove session_id from response row
 
     return (

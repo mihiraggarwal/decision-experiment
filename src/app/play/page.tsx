@@ -79,6 +79,8 @@ const submit = async (formData: FormData) => {
             answer: answers
         })
 
+        console.log(response)
+
         await response.save()
 
         user.current_question_index = qindex + 1

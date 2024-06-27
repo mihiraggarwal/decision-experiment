@@ -120,6 +120,7 @@ export default async function Results() {
     }
 
     const { bet, challenge, rewards } = await getChosenBet()
+    console.log(session?.user.name, bet, challenge, rewards)
 
     const mcq = Number(challenge.part!) >= 6
 
@@ -128,6 +129,8 @@ export default async function Results() {
 
         const user = await User.findOne({ password: session?.user.name })
         const num = user.price
+
+        console.log(session?.user.name, num, bet)
 
         if (num >= bet) {
             const user = await User.findOne({ password: session?.user.name })

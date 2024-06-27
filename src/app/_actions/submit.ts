@@ -45,6 +45,7 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
                 response: answers
             }
 
+            console.log(response)
             await response.save()
 
             const iq = await Question.findOne({ type: "iq" })
@@ -66,6 +67,8 @@ export async function submit_iq(values: {[key: string]: string | number | undefi
                     iq_amount += 50
                 }
             }
+
+            console.log(password, iq_amount)
 
             await User.findOneAndUpdate({ password: password }, { amount_iq: iq_amount, total_amount: iq_amount + 100 })
             await navigate("/results")
