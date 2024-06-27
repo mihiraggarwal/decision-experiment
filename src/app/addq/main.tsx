@@ -66,7 +66,7 @@ export default function IQ() {
             <div className="flex flex-col gap-10 items-center">
                 <p className="text-left w-full">You will now be asked to answer eight further questions, for a potential additional reward of INR 150.</p>
                 <p className="text-left w-full">The payment protocol for these questions is as follows. Of the eight questions you are asked, three will be randomly chosen for payment. You will be paid INR 50 for each of these three questions that you answer correctly.</p>
-                <p className="text-left w-full">You will have 10 minutes to answer these questions. <span className="font-bold">Make sure to submit before the time ends, else your answers won&apos;t be taken into account.</span></p>
+                <p className="text-left w-full">You will have 10 minutes to answer these questions. <span className="font-bold">Make sure to submit your responses on the final screen before time runs out. Otherwise, your answers will be discarded.</span></p>
                 <button type="button" onClick={() => {
                     setStart(true)
                 }} className="border border-black rounded-md py-2 px-5">Next</button>

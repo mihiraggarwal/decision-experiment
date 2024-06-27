@@ -18,7 +18,9 @@ export default async function emptyIq() {
 
     try {
         const user = await User.findOne({ password: password });
-        const response = await Response.findOneAndUpdate({ session_id: user.id }, { iq: { start_time: start_time, end_time: end_time, response: answers } } );
+        user.amount_iq = 0
+        await user.save()
+        await Response.findOneAndUpdate({ session_id: user.id }, { iq: { start_time: start_time, end_time: end_time, response: answers } } );
         return true
     } catch (error) {
         console.log(error);

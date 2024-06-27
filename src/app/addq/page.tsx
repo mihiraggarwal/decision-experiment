@@ -15,6 +15,7 @@ export default async function AddQ() {
     }
 
     user.seenIq = true
+    user.amount_iq = 0
     await user.save()
     
     return <IQ />
