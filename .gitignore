@@ -37,3 +37,6 @@ next-env.d.ts
 
 # scripts
 /scripts
+
+# questions
+/src/app/_components/questions

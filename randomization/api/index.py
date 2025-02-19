@@ -8,7 +8,7 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return "comparative ambiguity"
+    return "decision experiment"
 
 @app.route("/price", methods=["POST"])
 def price():
